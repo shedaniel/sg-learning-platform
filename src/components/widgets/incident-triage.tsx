@@ -27,10 +27,10 @@ const SCENARIOS: readonly Scenario[] = [
     title: "第1問 不審な添付ファイル",
     text: "営業部員のPCで、取引先を装うメールの添付ファイルを開いた直後、EDRが外部の不審なドメインへの通信を検知した。情報漏えいはまだ確認されていない。",
     correctSeverity: "高",
-    correctActionId: "a",
+    correctActionId: "i",
     actions: [
-      { id: "a", label: "端末をネットワークから切り離し、メモリと関連ログを保全して被害範囲を確認する" },
-      { id: "i", label: "端末を初期化して予備機と交換し、同じ利用者にすぐ再配布する" },
+      { id: "a", label: "端末を初期化して予備機と交換し、同じ利用者にすぐ再配布する" },
+      { id: "i", label: "端末をネットワークから切り離し、メモリと関連ログを保全して被害範囲を確認する" },
       { id: "u", label: "全社のメール送受信を停止し、経営会議の判断を待つ" },
       { id: "e", label: "添付ファイルを削除し、本人へ口頭で注意して終了する" },
     ],
@@ -42,11 +42,11 @@ const SCENARIOS: readonly Scenario[] = [
     title: "第2問 退職者のアカウント",
     text: "退職した社員のアカウントが3か月間無効化されずに残っていた。アクセスログを確認したところ、退職後のログインは検出されていない。",
     correctSeverity: "中",
-    correctActionId: "a",
+    correctActionId: "u",
     actions: [
-      { id: "a", label: "アカウントを直ちに無効化し、アクセスログと残存権限を確認する" },
-      { id: "i", label: "退職者本人に電話して、退職後にログインしていないか確認する" },
-      { id: "u", label: "全システムのパスワードを一斉に変更する" },
+      { id: "a", label: "退職者本人に電話して、退職後にログインしていないか確認する" },
+      { id: "i", label: "全システムのパスワードを一斉に変更する" },
+      { id: "u", label: "アカウントを直ちに無効化し、アクセスログと残存権限を確認する" },
       { id: "e", label: "アカウントを削除し、関連するログも一緒に削除する" },
     ],
     explanation:
@@ -57,12 +57,12 @@ const SCENARIOS: readonly Scenario[] = [
     title: "第3問 顧客情報の露出疑い",
     text: "顧客向けWebサイトでSQLエラーが発生し、外部の研究者から「顧客情報が取得できる状態だ」と連絡があった。実際に第三者へ渡ったかは未確認である。",
     correctSeverity: "重大",
-    correctActionId: "a",
+    correctActionId: "e",
     actions: [
-      { id: "a", label: "該当機能を停止して証拠を保全し、法務・個人情報保護担当と報告要否を判断する" },
-      { id: "i", label: "WAFのブロック件数を確認し、増えていなければ様子を見る" },
-      { id: "u", label: "サーバを再起動してエラーログを消し、サービス復旧を優先する" },
-      { id: "e", label: "研究者に連絡し、公開しないよう口頭で依頼する" },
+      { id: "a", label: "WAFのブロック件数を確認し、増えていなければ様子を見る" },
+      { id: "i", label: "サーバを再起動してエラーログを消し、サービス復旧を優先する" },
+      { id: "u", label: "研究者に連絡し、公開しないよう口頭で依頼する" },
+      { id: "e", label: "該当機能を停止して証拠を保全し、法務・個人情報保護担当と報告要否を判断する" },
     ],
     explanation:
       "個人情報の漏えい疑いでは、被害の確定を待たずに封じ込めと証拠保全を行い、個人情報保護法上の報告・本人通知の要否を組織として判断する。ログの消去や再起動は証拠を損なう。研究者への口頭依頼は記録に残らず、対応の中心にはならない。",
@@ -134,9 +134,10 @@ export function IncidentTriage() {
                     value={answer.severity}
                     disabled={graded}
                     onChange={(event) => {
+                      const severity = event.target.value;
                       setAnswers((previous) => ({
                         ...previous,
-                        [scenario.id]: { severity: event.target.value, action: answer.action },
+                        [scenario.id]: { severity, action: previous[scenario.id]?.action ?? "" },
                       }));
                     }}
                   >
@@ -155,9 +156,10 @@ export function IncidentTriage() {
                     value={answer.action}
                     disabled={graded}
                     onChange={(event) => {
+                      const action = event.target.value;
                       setAnswers((previous) => ({
                         ...previous,
-                        [scenario.id]: { severity: answer.severity, action: event.target.value },
+                        [scenario.id]: { severity: previous[scenario.id]?.severity ?? "", action },
                       }));
                     }}
                   >
@@ -187,8 +189,14 @@ export function IncidentTriage() {
         })}
       </div>
 
+      <p className="sr-only" role="status">
+        {graded
+          ? `採点結果は8点中${score}点です。重大度${severityScore}点、初動${actionScore}点。`
+          : ""}
+      </p>
+
       {graded ? (
-        <div className="grid grid-cols-2 gap-2" aria-live="polite">
+        <div className="grid grid-cols-2 gap-2">
           <Metric label="合計" value={`${score} / 8 点`} sub="重大度4点 + 初動4点" tone={score >= 6 ? "success" : "warning"} />
           <Metric label="内訳" value={`${severityScore} + ${actionScore}`} sub={`重大度 ${severityScore}/4、初動 ${actionScore}/4`} />
           <div className="col-span-2">
@@ -204,8 +212,8 @@ export function IncidentTriage() {
       ) : null}
 
       <div className="flex items-center gap-2">
-        <button type="button" className="btn btn-primary" onClick={() => setGraded(true)}>
-          採点する
+        <button type="button" className="btn btn-primary" onClick={() => setGraded(true)} disabled={graded}>
+          {graded ? "採点済み" : "採点する"}
         </button>
         <span className="text-[0.68rem] text-muted">未回答は不正解として扱われる</span>
       </div>

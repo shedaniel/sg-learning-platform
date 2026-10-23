@@ -1,4 +1,4 @@
-import { Arrow, ArrowDefs, ArrowPath, DiagramSvg, Node, Panel, Txt } from "./shared";
+import { Arrow, ArrowDefs, DiagramSvg, Node, Panel, Txt } from "./shared";
 
 export function TlsHandshake() {
   return (
@@ -9,7 +9,7 @@ export function TlsHandshake() {
     >
       <ArrowDefs prefix="tls" />
       <Txt x={380} y={18} tone="muted">
-        TLS 1.3 のハンドシェイク（簡略）：相手を確認し、共通鍵を共有する
+        TLS ハンドシェイク（簡略）：相手を確認し、共通鍵を共有する
       </Txt>
 
       <Node x={40} y={32} w={160} h={44} title="クライアント" tone="c5" />

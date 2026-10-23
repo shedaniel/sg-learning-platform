@@ -84,7 +84,7 @@ export default async function StatisticsPage() {
   }, {});
 
   return (
-    <div className="animate-in">
+    <div className="">
       <PageHeader
         eyebrow="Statistics"
         title="数字で、学習を点検する。"

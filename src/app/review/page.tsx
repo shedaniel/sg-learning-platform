@@ -41,7 +41,7 @@ export default async function ReviewPage() {
     .filter(Boolean);
 
   return (
-    <div className="animate-in">
+    <div className="">
       <PageHeader
         eyebrow="Review"
         title="忘れる前に、もう一度。"
@@ -128,7 +128,7 @@ export default async function ReviewPage() {
                   return (
                     <li key={`t-${item.itemId}`}>
                       <Link href={`/glossary/${term.id}`} className="group flex items-start gap-3 px-4 py-3 hover:bg-surface-2">
-                        <span className="mt-0.5 grid size-5 place-items-center rounded-full bg-accent-soft text-[0.55rem] text-accent">語</span>
+                        <span className="mt-0.5 grid size-5 place-items-center rounded-full bg-bg-soft text-[0.55rem] text-accent">語</span>
                         <div className="min-w-0 flex-1">
                           <p className="text-xs font-medium group-hover:text-accent">{term.ja}（{term.en}）</p>
                           <p className="mt-0.5 line-clamp-1 text-[0.6rem] text-muted">{term.shortJa}</p>

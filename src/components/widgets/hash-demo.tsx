@@ -129,7 +129,10 @@ export function HashDemo() {
           className="field"
           value={text}
           maxLength={120}
-          onChange={(event) => setText(event.target.value)}
+          onChange={(event) => {
+            setText(event.target.value);
+            setState({ status: "computing" });
+          }}
           placeholder="例: 情報セキュリティ"
           autoComplete="off"
           spellCheck={false}
@@ -178,14 +181,14 @@ export function HashDemo() {
                   </div>
                 </div>
 
-                <div className="rounded-lg border border-accent/45 bg-accent-soft/40 px-3 py-2">
+                <div className="rounded-lg border border-accent/45 bg-bg-soft px-3 py-2">
                   <p className="text-xs font-semibold text-fg">
                     雪崩効果: 256 ビット中{" "}
                     <span className="mono text-accent">{state.compare.bitDiff}</span> ビットが変化
                     {percent !== null ? `（${percent}%）` : ""}
                   </p>
                   <p className="mt-0.5 text-[0.7rem] leading-5 text-muted">
-                    入力の1文字を変えただけで、出力はほぼ別物になる。理想的なハッシュでは約半数（128 ビット前後）が変化する。
+                    入力の1文字を変えただけで、出力はほぼ別物になる。理想的なハッシュでは約半数（128 ビット前後）が変化する。赤字は2つの出力で異なる16進文字を示す。
                   </p>
                 </div>
               </>

@@ -179,7 +179,7 @@ export const auditPhysicalQuestions: Question[] = [
   {
     id: "q-org-audit-006",
     part: "A",
-    topicIds: ["org-physical"],
+    topicIds: ["org-physical", "tech-physical"],
     lessonIds: ["org/audit-physical"],
     difficulty: "medium",
     type: "knowledge",
@@ -214,7 +214,7 @@ export const auditPhysicalQuestions: Question[] = [
   {
     id: "q-org-audit-007",
     part: "A",
-    topicIds: ["org-physical"],
+    topicIds: ["org-physical", "tech-physical"],
     lessonIds: ["org/audit-physical"],
     difficulty: "easy",
     type: "knowledge",
@@ -284,7 +284,7 @@ export const auditPhysicalQuestions: Question[] = [
   {
     id: "q-org-audit-009",
     part: "B",
-    topicIds: ["org-physical"],
+    topicIds: ["org-physical", "tech-physical"],
     lessonIds: ["org/audit-physical"],
     difficulty: "medium",
     type: "scenario",
@@ -319,7 +319,7 @@ export const auditPhysicalQuestions: Question[] = [
   {
     id: "q-org-audit-010",
     part: "B",
-    topicIds: ["org-physical"],
+    topicIds: ["org-physical", "tech-physical"],
     lessonIds: ["org/audit-physical"],
     difficulty: "hard",
     type: "scenario",

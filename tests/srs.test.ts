@@ -51,12 +51,11 @@ describe("database migrations", () => {
       "mock_attempts",
       "review_items",
       "bookmarks",
-      "study_plans",
     ]) {
       expect(tables).toContain(table);
     }
     const version = db.prepare("PRAGMA user_version").get() as { user_version: number };
-    expect(version.user_version).toBe(1);
+    expect(version.user_version).toBe(2);
   });
 
   it("enforces profile-backed uniqueness", () => {

@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { ArrowRight, BookMarked, ExternalLink, Languages } from "lucide-react";
-import { ALL_TERMS, LESSON_BY_ID, TERM_BY_ID, questionsForLesson } from "@/content";
+import { LESSON_BY_ID, TERM_BY_ID, questionsForLesson } from "@/content";
 import { getLearner } from "@/lib/session";
 import { getProgressSnapshot } from "@/lib/progress";
 import { isBookmarked } from "@/lib/db/store";
@@ -10,6 +11,20 @@ import { BookmarkButton } from "@/components/BookmarkButton";
 import { TermLearnedButton } from "@/components/TermLearnedButton";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ termId: string }>;
+}): Promise<Metadata> {
+  const { termId } = await params;
+  const term = TERM_BY_ID.get(termId);
+  if (!term) return {};
+  return {
+    title: `${term.ja}（${term.en}）`,
+    description: term.shortJa,
+  };
+}
 
 export default async function TermPage({ params }: { params: Promise<{ termId: string }> }) {
   const { termId } = await params;
@@ -24,7 +39,7 @@ export default async function TermPage({ params }: { params: Promise<{ termId: s
   const questions = lessons.flatMap((lesson) => (lesson ? questionsForLesson(lesson.id).slice(0, 3) : []));
 
   return (
-    <div className="animate-in">
+    <div className="">
       <Breadcrumbs items={[{ label: "用語集", href: "/glossary" }, { label: term.ja }]} />
       <div className="mx-auto max-w-3xl">
         <header className="border-b border-border pb-6">
@@ -39,7 +54,10 @@ export default async function TermPage({ params }: { params: Promise<{ termId: s
           <div className="mt-4 flex flex-wrap gap-2">
             <TermLearnedButton termId={term.id} initial={learned} />
             <BookmarkButton itemType="term" itemId={term.id} initial={bookmarked} />
-            <Link href={`/practice/run?topicId=${term.tags[0] ?? ""}&count=5`} className="btn btn-ghost text-xs">
+            <Link
+              href={`/practice/run?topicId=${lessons[0]?.topicIds[0] ?? ""}&count=5`}
+              className="btn btn-ghost text-xs"
+            >
               関連問題を解く
             </Link>
           </div>
@@ -68,7 +86,7 @@ export default async function TermPage({ params }: { params: Promise<{ termId: s
         </section>
 
         {term.examUsage ? (
-          <section className="mt-4 rounded-xl border border-accent/25 bg-accent-soft/40 p-5">
+          <section className="mt-4 rounded-xl border border-border border-l-2 border-l-accent bg-surface-2 p-5">
             <h2 className="text-xs font-semibold text-accent">試験での使われ方</h2>
             <p className="jp mt-2 text-sm leading-7">{term.examUsage}</p>
           </section>

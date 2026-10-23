@@ -172,6 +172,7 @@ export function scoreMock(
     }))
     .sort((a, b) => a.accuracy - b.accuracy || b.total - a.total);
 
+  const difficultyOrder: Record<string, number> = { easy: 0, medium: 1, hard: 2 };
   const byDifficulty = [...difficultyTotals.entries()]
     .map(([difficulty, entry]) => ({
       difficulty,
@@ -179,7 +180,7 @@ export function scoreMock(
       correct: entry.correct,
       accuracy: percent(entry.correct, entry.total),
     }))
-    .sort((a, b) => a.difficulty.localeCompare(b.difficulty));
+    .sort((a, b) => (difficultyOrder[a.difficulty] ?? 9) - (difficultyOrder[b.difficulty] ?? 9));
 
   const total = details.length;
   return {

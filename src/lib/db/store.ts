@@ -683,22 +683,6 @@ export function recordStudySession(input: {
     );
 }
 
-export function getStudySessions(profileId: string, limit = 200) {
-  return getDb()
-    .prepare(
-      "SELECT started_at, minutes, source FROM study_sessions WHERE profile_id = ? ORDER BY started_at DESC LIMIT ?",
-    )
-    .all(profileId, limit)
-    .map((row) => {
-      const item = row as Record<string, unknown>;
-      return {
-        startedAt: String(item.started_at),
-        minutes: Number(item.minutes),
-        source: String(item.source),
-      };
-    });
-}
-
 export function getStudyMinutesByDay(profileId: string, days = 14) {
   const start = new Date(Date.now() - days * 86_400_000).toISOString();
   return getDb()
@@ -714,29 +698,6 @@ export function getStudyMinutesByDay(profileId: string, days = 14) {
     });
 }
 
-export function saveStudyPlan(profileId: string, input: unknown, plan: unknown): void {
-  ensureProfile(profileId);
-  const now = nowIso();
-  getDb()
-    .prepare(
-      `INSERT INTO study_plans (profile_id, input_json, plan_json, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?)
-       ON CONFLICT(profile_id) DO UPDATE SET
-         input_json = excluded.input_json,
-         plan_json = excluded.plan_json,
-         updated_at = excluded.updated_at`,
-    )
-    .run(profileId, JSON.stringify(input), JSON.stringify(plan), now, now);
-}
-
-export function getStudyPlan(profileId: string): { input: unknown; plan: unknown } | null {
-  const row = getDb()
-    .prepare("SELECT input_json, plan_json FROM study_plans WHERE profile_id = ?")
-    .get(profileId) as { input_json: string; plan_json: string } | undefined;
-  if (!row) return null;
-  return { input: JSON.parse(row.input_json), plan: JSON.parse(row.plan_json) };
-}
-
 export function resetProgress(profileId: string): void {
   inTransaction(getDb(), () => {
     for (const table of [
@@ -748,7 +709,6 @@ export function resetProgress(profileId: string): void {
       "bookmarks",
       "review_items",
       "study_sessions",
-      "study_plans",
     ]) {
       getDb().prepare(`DELETE FROM ${table} WHERE profile_id = ?`).run(profileId);
     }

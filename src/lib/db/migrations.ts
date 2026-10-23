@@ -102,17 +102,15 @@ export const MIGRATIONS: Migration[] = [
         minutes INTEGER NOT NULL DEFAULT 0,
         source TEXT NOT NULL
       )`,
-      `CREATE TABLE IF NOT EXISTS study_plans (
-        profile_id TEXT PRIMARY KEY,
-        input_json TEXT NOT NULL,
-        plan_json TEXT NOT NULL,
-        created_at TEXT NOT NULL,
-        updated_at TEXT NOT NULL
-      )`,
       `CREATE TABLE IF NOT EXISTS content_meta (
         key TEXT PRIMARY KEY,
         value TEXT NOT NULL
       )`,
     ],
+  },
+  {
+    version: 2,
+    name: "retire_study_plans",
+    statements: [`DROP TABLE IF EXISTS study_plans`],
   },
 ];

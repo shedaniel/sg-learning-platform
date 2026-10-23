@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   BarChart3,
   BookOpen,
-  CalendarRange,
   ClipboardCheck,
   FileText,
   GraduationCap,
@@ -24,7 +23,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { Kbd } from "@/components/ui/primitives";
 
 const primaryNav = [
-  { href: "/", label: "ダッシュボード", icon: LayoutDashboard, exact: true },
+  { href: "/", label: "概要", icon: LayoutDashboard, exact: true },
   { href: "/learn", label: "学習", icon: BookOpen },
   { href: "/practice", label: "演習", icon: ClipboardCheck },
   { href: "/mock", label: "模擬試験", icon: Timer },
@@ -35,8 +34,7 @@ const secondaryNav = [
   { href: "/past-papers", label: "過去問", icon: FileText },
   { href: "/glossary", label: "用語集", icon: Library },
   { href: "/statistics", label: "統計", icon: BarChart3 },
-  { href: "/plan", label: "学習プラン", icon: CalendarRange },
-  { href: "/coverage", label: "シラバス Coverage", icon: Target },
+  { href: "/coverage", label: "シラバス対応", icon: Target },
 ];
 
 function NavLink({
@@ -62,11 +60,14 @@ function NavLink({
       className={cn(
         "group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
         active
-          ? "bg-accent-soft font-semibold text-accent"
+          ? "bg-bg-soft font-semibold text-fg"
           : "text-muted hover:bg-bg-soft hover:text-fg",
       )}
     >
-      <Icon className="size-4 shrink-0" strokeWidth={active ? 2.3 : 1.8} />
+      <Icon
+        className={cn("size-4 shrink-0", active && "text-accent")}
+        strokeWidth={active ? 2.3 : 1.8}
+      />
       <span>{label}</span>
     </Link>
   );
@@ -79,35 +80,37 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
         <span className="grid size-10 place-items-center rounded-xl bg-accent text-sm font-bold tracking-tight text-accent-fg shadow-sm">
           SG
         </span>
-        <span>
-          <span className="block text-sm font-semibold leading-5">SG 学習プラットフォーム</span>
-          <span className="block text-[0.68rem] uppercase tracking-[0.15em] text-muted">
+        <span className="min-w-0">
+          <span className="block whitespace-nowrap text-[0.8rem] font-semibold leading-5">
+            SG 学習プラットフォーム
+          </span>
+          <span className="block whitespace-nowrap text-[0.58rem] uppercase tracking-[0.11em] text-muted">
             Security Management
           </span>
         </span>
       </Link>
 
       <nav aria-label="メインナビゲーション" className="flex flex-col gap-1">
-        <p className="eyebrow px-3 pb-1">Study</p>
+        <p className="eyebrow px-3 pb-1">学習</p>
         {primaryNav.map((item) => (
           <NavLink key={item.href} {...item} onNavigate={onNavigate} />
         ))}
       </nav>
 
       <nav aria-label="その他のナビゲーション" className="flex flex-col gap-1">
-        <p className="eyebrow px-3 pb-1">Reference</p>
+        <p className="eyebrow px-3 pb-1">参照</p>
         {secondaryNav.map((item) => (
           <NavLink key={item.href} {...item} onNavigate={onNavigate} />
         ))}
       </nav>
 
       <div className="mt-auto rounded-xl border border-border bg-surface-2 p-3">
-        <div className="flex items-center gap-2 text-xs font-semibold">
+        <div className="flex items-center gap-2 text-[0.7rem] font-semibold">
           <GraduationCap className="size-4 text-accent" />
-          IPA 情報セキュリティマネジメント
+          IPA SG シラバス Ver.4.1
         </div>
-        <p className="mt-1.5 text-[0.7rem] leading-5 text-muted">
-          シラバス Ver.4.1 準拠。2027年度改定案は別途表示します。
+        <p className="mt-1.5 text-[0.65rem] leading-5 text-muted">
+          2027年度改定案は別途表示します。
         </p>
       </div>
     </div>
@@ -117,6 +120,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+  const searchRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setMobileOpen(false);
@@ -125,6 +129,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
       if (event.key === "Escape") setMobileOpen(false);
+      const target = event.target as HTMLElement | null;
+      const typing =
+        target instanceof HTMLInputElement ||
+        target instanceof HTMLTextAreaElement ||
+        target?.isContentEditable;
+      if (event.key === "/" && !typing) {
+        event.preventDefault();
+        searchRef.current?.focus();
+      }
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -139,7 +152,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         本文へスキップ
       </a>
 
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-[248px] border-r border-border bg-surface/70 backdrop-blur-xl lg:block">
+      <aside className="fixed inset-y-0 left-0 z-30 hidden w-[264px] border-r border-border bg-surface lg:block">
         <SidebarContent />
       </aside>
 
@@ -147,11 +160,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <div className="fixed inset-0 z-50 lg:hidden">
           <button
             type="button"
-            className="absolute inset-0 bg-black/35 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/40"
             aria-label="メニューを閉じる"
             onClick={() => setMobileOpen(false)}
           />
-          <div className="absolute inset-y-0 left-0 w-[286px] border-r border-border bg-surface shadow-2xl">
+          <div className="absolute inset-y-0 left-0 w-[286px] border-r border-border bg-surface">
             <button
               type="button"
               className="absolute right-3 top-3 rounded-full p-2 text-muted hover:bg-bg-soft"
@@ -165,8 +178,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       ) : null}
 
-      <div className="lg:pl-[248px]">
-        <header className="sticky top-0 z-20 border-b border-border bg-bg/80 backdrop-blur-xl">
+      <div className="lg:pl-[264px]">
+        <header className="sticky top-0 z-20 border-b border-border bg-bg">
           <div className="mx-auto flex h-14 max-w-6xl items-center gap-2 px-4 md:px-8">
             <button
               type="button"
@@ -177,9 +190,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <Menu className="size-5" />
             </button>
 
-            <form action="/search" className="relative flex-1 max-w-md">
+            <form action="/search" className="relative min-w-0 max-w-md flex-1">
               <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted" />
               <input
+                ref={searchRef}
                 type="search"
                 name="q"
                 placeholder="用語・レッスン・問題を検索…"

@@ -182,35 +182,6 @@ export interface SyllabusTopic {
   examPart: ExamPart | "both";
 }
 
-export interface StudyPlanInput {
-  examDate: string;
-  minutesPerDay: number;
-  daysPerWeek: number;
-  familiarity: "beginner" | "basic" | "confident";
-  japaneseConfidence: "low" | "medium" | "high";
-}
-
-export interface StudyPlanDay {
-  date: string;
-  kind: "lesson" | "quiz" | "review" | "mock" | "rest";
-  minutes: number;
-  title: string;
-  href?: string;
-  lessonIds?: string[];
-}
-
-export interface StudyPlan {
-  input: StudyPlanInput;
-  generatedAt: string;
-  days: StudyPlanDay[];
-  notes: string[];
-}
-
-export type InlineToken =
-  | { type: "text"; value: string }
-  | { type: "strong"; value: string }
-  | { type: "term"; termId: string; label: string };
-
 export interface OfficialPaper {
   year: number;
   reiwa: number;

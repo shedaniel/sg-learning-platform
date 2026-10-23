@@ -123,7 +123,7 @@ export const ipContractLesson: Lesson = {
             [
               "秘密管理の要否",
               "必要",
-              "不要（秘密として管理されているものを除く）",
+              "不要（秘密管理ではなく、電磁的管理が必要）",
             ],
           ],
         },
@@ -297,7 +297,7 @@ export const ipContractLesson: Lesson = {
       blocks: [
         {
           type: "p",
-          text: "{{term:law-de-jure-standard}}は、ISO、IEC、ITU、JISなどの公的な標準化機関が制定した標準である。{{term:law-de-facto-standard}}は、市場での普及によって事実上の標準になった仕様で、Windows、Ethernet、TCP/IPなどが例として挙げられる。業界団体やフォーラムが策定するフォーラム標準（IEEE 802.11、W3Cなど）も存在する。",
+          text: "{{term:law-de-jure-standard}}は、ISO、IEC、ITUなどの公的な標準化機関が制定した標準や、日本のJISなどである。{{term:law-de-facto-standard}}は、市場での普及によって事実上の標準になった仕様で、Windows、Ethernet、TCP/IPなどが例として挙げられる。業界団体やフォーラムが策定するフォーラム標準（IEEE 802.11、W3CのWeb標準など）も存在する。",
         },
         {
           type: "table",

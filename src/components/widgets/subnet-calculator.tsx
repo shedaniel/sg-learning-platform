@@ -69,7 +69,7 @@ function BitRow({ label, octet, networkBits }: { label: string; octet: number; n
             key={index}
             className={cn(
               "rounded-[2px] px-1 py-0.5 text-[0.66rem] leading-4",
-              index < networkBits ? "bg-accent-soft font-semibold text-accent" : "bg-surface-2 text-muted",
+              index < networkBits ? "bg-bg-soft font-semibold text-accent" : "bg-surface-2 text-muted",
             )}
           >
             {bit}
@@ -166,6 +166,12 @@ export function SubnetCalculator({ props }: { props?: WidgetProps }) {
         </Field>
       </div>
 
+      <p className="sr-only" role="status">
+        {result !== null && mask !== null
+          ? `ネットワークアドレスは ${intToIp(result.network)}、利用可能ホストは ${formatInt(result.usable)} 台です。`
+          : ""}
+      </p>
+
       {ip === null || mask === null || result === null ? (
         <Note tone="warn">アドレスとマスクを正しく入力すると、計算結果を表示する。</Note>
       ) : (
@@ -234,14 +240,14 @@ export function SubnetCalculator({ props }: { props?: WidgetProps }) {
               />
             </div>
             <p className="mt-2 text-[0.64rem] leading-5 text-muted">
-              <span className="mr-2 inline-block rounded-[2px] bg-accent-soft px-1 font-semibold text-accent">1</span>
+              <span className="mr-2 inline-block rounded-[2px] bg-bg-soft px-1 font-semibold text-accent">1</span>
               ネットワーク部（アクセント色）
               <span className="ml-3 mr-2 inline-block rounded-[2px] bg-surface px-1 text-muted">0</span>
               ホスト部
             </p>
           </div>
 
-          <p className="text-[0.68rem] leading-5 text-muted" aria-live="polite">
+          <p className="text-[0.68rem] leading-5 text-muted">
             {intToIp(ip.value)} を /{mask.prefix} で分割すると、ネットワークアドレスは {intToIp(result.network)}、利用可能ホストは{" "}
             {formatInt(result.usable)} 台である。
           </p>
@@ -260,7 +266,7 @@ export function SubnetCalculator({ props }: { props?: WidgetProps }) {
           </Note>
         ) : null}
         <Note>
-          サブネットマスクは、アドレスのうちネットワーク部とホスト部の境界を示す。マスクのビットは先頭から連続して 1 でなければならない（例: 255.255.255.0）。ネットワークアドレスとブロードキャストにはホストを割り当てない。
+          サブネットマスクは、アドレスのうちネットワーク部とホスト部の境界を示す。マスクのビットは先頭から連続して 1 でなければならない（例: 255.255.255.0）。一般的な /30 以下では、ネットワークアドレスとブロードキャストにはホストを割り当てない。
         </Note>
       </div>
     </WidgetBody>

@@ -613,11 +613,11 @@ export const questions: Question[] = [
   },
   {
     id: "q-ops-ir-009",
-    part: "B",
+    part: "A",
     topicIds: ["ops-insurance"],
     lessonIds: ["ops/incident-response"],
     difficulty: "medium",
-    type: "scenario",
+    type: "knowledge",
     stem: "サイバー保険に加入している。事故による損害額が1億2,000万円、免責金額が1,000万円、支払限度額が5,000万円であった場合、保険金と自己負担の組合せとして正しいものはどれか。",
     options: [
       { id: "a", text: "保険金5,000万円、自己負担7,000万円" },
@@ -643,7 +643,7 @@ export const questions: Question[] = [
       termIds: ["ops-cyber-insurance", "ops-deductible"],
     },
     source: { kind: "original", attribution: "本サイト独自問題" },
-    tags: ["科目B", "保険金", "計算"],
+    tags: ["保険金", "計算"],
   },
   {
     id: "q-ops-ir-010",
@@ -1004,5 +1004,43 @@ export const questions: Question[] = [
     },
     source: { kind: "original", attribution: "本サイト独自問題" },
     tags: ["科目B", "復旧訓練", "BCP"],
+  },
+  {
+    id: "q-ops-031",
+    part: "A",
+    topicIds: ["ops-insurance"],
+    lessonIds: ["ops/incident-response"],
+    difficulty: "medium",
+    type: "knowledge",
+    stem: "サイバー保険の補償範囲を検討する際の留意点として，最も適切なものはどれか。",
+    options: [
+      { id: "a", text: "保険に加入すれば，技術的対策や事故対応体制は不要になる。" },
+      {
+        id: "i",
+        text: "免責金額，支払限度額，対象となる費用，除外事項を契約前に確認する。",
+      },
+      { id: "u", text: "保険金が支払われる限り，原因調査や再発防止は省略できる。" },
+      { id: "e", text: "すべてのサイバー事故が同一の条件で補償される。" },
+    ],
+    correctOptionId: "i",
+    explanation: {
+      correct:
+        "サイバー保険は財務的影響を移転する手段であり，補償の範囲は契約ごとに異なる。免責金額，支払限度額，対象費用，除外事項を確認する必要がある。",
+      why: [
+        "保険は事故の発生確率や被害そのものを減らすわけではないため，技術的・組織的対策と組み合わせる。",
+        "原因調査や再発防止は保険金の支払いとは独立した義務であり，法令上の報告義務が生じる場合もある。",
+      ],
+      optionNotes: {
+        a: "保険はリスク移転であり，リスク低減ではない。技術的・組織的対策は引き続き必要である。",
+        i: "正解である。補償範囲と免責・限度額を契約前に確認する。",
+        u: "原因調査や再発防止は，保険の有無にかかわらずインシデント対応の一部である。",
+        e: "補償範囲は契約によって異なり，除外される事象もある。",
+      },
+      english:
+        "Cyber insurance transfers financial risk; it does not replace preventive controls. Review deductibles, limits, covered costs, and exclusions.",
+      termIds: ["ops-cyber-insurance"],
+    },
+    source: { kind: "original", attribution: "本サイト独自問題" },
+    tags: ["サイバー保険", "リスク移転", "補償範囲"],
   },
 ];

@@ -8,7 +8,7 @@ export const dynamic = "force-static";
 
 export default function AboutPage() {
   return (
-    <div className="animate-in">
+    <div className="">
       <PageHeader
         eyebrow="About"
         title="このサイトについて"
@@ -80,6 +80,7 @@ export default function AboutPage() {
             IPA が公開している SG の CBT 公開問題（2023〜2026年度、各15問）を収録しています。
             実際の試験は60問ですが、公開されているのは一部のみです。本サイトは15問を「完全な過去問」として提示しません。
             問題文・選択肢は原文に基づき、図表は等価な表・箇条書きとして再構成しています。解説は本サイト独自のものです。
+            2016〜2019年度の筆記試験は完全な問題冊子・解答例へのリンクをアーカイブしていますが、原本が画像PDFのためアプリ内出題はしていません。
           </p>
           <p className="mt-2 text-[0.7rem] leading-6 text-muted">
             IPA の公表資料は、法令の特別な定めがある場合を除き、許諾や使用料なく利用できます。出典・年度・問題番号・PDF URL を各問に表示しています。

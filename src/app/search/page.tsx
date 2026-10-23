@@ -30,7 +30,7 @@ export default async function SearchPage({
   const recentOfficial = OFFICIAL_QUESTIONS.filter((question) => question.source.year === 2026).slice(0, 4);
 
   return (
-    <div className="animate-in">
+    <div className="">
       <PageHeader
         eyebrow="Search"
         title={q ? `「${q}」の検索結果` : "横断検索"}

@@ -136,6 +136,11 @@ export function MockRunner({
   }, [save]);
 
   useEffect(() => {
+    const debounced = window.setTimeout(() => void save(), 700);
+    return () => window.clearTimeout(debounced);
+  }, [answers, flags, index, save]);
+
+  useEffect(() => {
     function beforeUnload(event: BeforeUnloadEvent) {
       if (!submittedRef.current) {
         event.preventDefault();
@@ -199,7 +204,7 @@ export function MockRunner({
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-bg">
-      <header className="sticky top-0 z-10 border-b border-border bg-bg/95 backdrop-blur">
+      <header className="sticky top-0 z-10 border-b border-border bg-bg">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-3 px-4 py-2.5">
           <Link href="/mock" className="btn btn-ghost h-8 px-2 text-xs" aria-label="模擬試験を中断">
             <ChevronLeft className="size-4" />
@@ -244,7 +249,7 @@ export function MockRunner({
           </div>
         </div>
         <div className="h-1 w-full bg-bg-soft">
-          <div className="h-full bg-accent transition-[width]" style={{ width: `${progress}%` }} />
+          <div className="h-full bg-accent" style={{ width: `${progress}%` }} />
         </div>
       </header>
 
@@ -283,7 +288,7 @@ export function MockRunner({
                   className={cn(
                     "flex w-full items-start gap-3 rounded-xl border px-3.5 py-3 text-left transition-colors",
                     isSelected
-                      ? "border-accent bg-accent-soft/60"
+                      ? "border-accent bg-bg-soft"
                       : "border-border bg-surface hover:border-accent/50 hover:bg-surface-2",
                   )}
                 >
@@ -356,7 +361,7 @@ export function MockRunner({
                       itemIndex === index
                         ? "border-accent bg-accent text-accent-fg"
                         : answered
-                          ? "border-accent/30 bg-accent-soft text-accent"
+                          ? "border-accent/30 bg-bg-soft text-accent"
                           : "border-border bg-surface text-muted hover:border-accent/50",
                     )}
                   >
@@ -374,7 +379,7 @@ export function MockRunner({
                 現在
               </span>
               <span className="flex items-center gap-1">
-                <span className="size-2 rounded-sm bg-accent-soft" />
+                <span className="size-2 rounded-sm bg-bg-soft" />
                 解答済み
               </span>
               <span className="flex items-center gap-1">
@@ -403,7 +408,7 @@ export function MockRunner({
         </aside>
       </main>
       {remaining === 0 && submitting ? (
-        <div className="fixed inset-0 z-50 grid place-items-center bg-bg/80 backdrop-blur">
+        <div className="fixed inset-0 z-50 grid place-items-center bg-bg">
           <div className="card flex items-center gap-3 px-5 py-4 text-sm">
             <Loader2 className="size-4 animate-spin text-accent" />
             時間終了。自動採点しています…

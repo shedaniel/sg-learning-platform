@@ -37,7 +37,7 @@ export default async function LearnPage() {
   const nextLesson = snapshot.nextLessons[0] ?? ALL_LESSONS[0];
 
   return (
-    <div className="animate-in">
+    <div className="">
       <PageHeader
         eyebrow="Curriculum"
         title="シラバスを、一本の道に。"
@@ -62,7 +62,7 @@ export default async function LearnPage() {
         <div className="grid gap-6 p-5 md:grid-cols-[1.1fr_0.9fr] md:p-7">
           <div>
             <div className="flex items-center gap-2">
-              <span className="grid size-8 place-items-center rounded-full bg-accent-soft text-accent">
+              <span className="grid size-8 place-items-center rounded-full bg-bg-soft text-accent">
                 <Compass className="size-4" />
               </span>
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">

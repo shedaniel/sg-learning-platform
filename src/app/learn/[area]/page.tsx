@@ -26,7 +26,7 @@ export default async function AreaPage({ params }: { params: Promise<{ area: str
   const questionCount = topics.reduce((total, topic) => total + questionsForTopic(topic.id).length, 0);
 
   return (
-    <div className="animate-in">
+    <div className="">
       <Breadcrumbs items={[{ label: "学習", href: "/learn" }, { label: area.title }]} />
       <PageHeader
         eyebrow={`Area ${String(area.order).padStart(2, "0")} · ${area.titleEn}`}
@@ -92,7 +92,7 @@ export default async function AreaPage({ params }: { params: Promise<{ area: str
                       status === "completed"
                         ? "border-success/40 bg-success/10 text-success"
                         : status === "started"
-                          ? "border-accent/40 bg-accent-soft text-accent"
+                          ? "border-accent/40 bg-bg-soft text-accent"
                           : "border-border text-muted",
                     )}
                   >
@@ -123,7 +123,7 @@ export default async function AreaPage({ params }: { params: Promise<{ area: str
                       ))}
                     </div>
                   </div>
-                  <ArrowRight className="mt-1 size-4 shrink-0 text-border-strong transition-transform group-hover:translate-x-0.5 group-hover:text-accent" />
+                  <ArrowRight className="mt-1 size-4 shrink-0 text-border-strong group-hover:text-accent" />
                 </Link>
               );
             })
@@ -163,9 +163,6 @@ export default async function AreaPage({ params }: { params: Promise<{ area: str
               読解 {area.lessons.reduce((total, lesson) => total + lesson.readingMinutes, 0)} 分 + 演習
               約 {area.lessons.length * 10} 分。1日1〜2レッスンが無理のないペースです。
             </p>
-            <Link href="/plan" className="mt-2 inline-flex text-[0.7rem] font-semibold text-accent hover:underline">
-              学習プランに組み込む →
-            </Link>
           </div>
         </aside>
       </div>

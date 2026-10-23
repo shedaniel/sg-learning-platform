@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import {
   AlertTriangle,
   ArrowLeft,
@@ -20,6 +21,20 @@ import { Badge, Breadcrumbs, ProgressBar } from "@/components/ui/primitives";
 import { cn } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ area: string; lesson: string }>;
+}): Promise<Metadata> {
+  const { area, lesson } = await params;
+  const item = LESSON_BY_ID.get(`${area}/${lesson}`);
+  if (!item) return {};
+  return {
+    title: `${item.title}（${item.titleEn}）`,
+    description: item.summary,
+  };
+}
 
 export default async function LessonPage({
   params,
@@ -42,7 +57,7 @@ export default async function LessonPage({
   const quizHref = `/practice/run?lessonId=${encodeURIComponent(lesson.id)}&count=10&mode=lesson`;
 
   return (
-    <div className="animate-in">
+    <div className="">
       <LessonVisit lessonId={lesson.id} />
       <Breadcrumbs
         items={[
@@ -90,7 +105,7 @@ export default async function LessonPage({
 
       <div className="grid gap-8 lg:grid-cols-[1fr_240px]">
         <article className="min-w-0">
-          <section className="mb-8 rounded-xl border border-accent/20 bg-accent-soft/35 p-4 md:p-5">
+          <section className="mb-8 rounded-xl border border-border border-l-2 border-l-accent bg-surface-2 p-4 md:p-5">
             <div className="flex items-center gap-2">
               <Target className="size-4 text-accent" />
               <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">

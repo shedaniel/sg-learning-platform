@@ -8,6 +8,8 @@ const PROBABILITY_LABELS = ["まれ", "低い", "中程度", "高い", "非常�
 const IMPACT_LABELS = ["軽微", "小", "中", "大", "重大"] as const;
 const LEVELS = [1, 2, 3, 4, 5] as const;
 
+// リスク評価レッスンの例（低1–7 / 中8–14 / 高15–25）に合わせ、
+// 高領域を「低減（15–19）」と「回避（20–25）」に分ける。
 const ZONES = [
   {
     id: "accept",
@@ -150,12 +152,12 @@ export function RiskMatrix({ props }: { props?: WidgetProps }) {
                         setImpact(impactLevel);
                       }}
                       className={cn(
-                        "flex aspect-square items-center justify-center rounded-[6px] border text-[0.64rem] font-semibold transition-colors",
+                        "flex aspect-square cursor-pointer items-center justify-center rounded-[6px] border text-[0.68rem] font-semibold transition-colors",
                         selected ? "border-2 border-accent ring-1 ring-accent/40" : "border-transparent hover:border-border-strong",
                       )}
                       style={{
                         background: `color-mix(in srgb, ${cellZone.color} ${selected ? 30 : 14}%, var(--surface))`,
-                        color: selected ? "var(--fg)" : "var(--muted)",
+                        color: "var(--fg)",
                       }}
                     >
                       {cellScore}
@@ -204,7 +206,7 @@ export function RiskMatrix({ props }: { props?: WidgetProps }) {
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-1.5" aria-label="スコア帯と推奨対応">
+      <div className="flex flex-wrap gap-1.5" role="group" aria-label="スコア帯と推奨対応">
         {ZONES.map((entry) => (
           <span
             key={entry.id}

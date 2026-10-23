@@ -21,11 +21,10 @@ import {
   getQuizHistory,
   getReviewCounts,
   getStudyMinutesByDay,
-  getStudySessions,
   type RawAttemptRow,
 } from "@/lib/db/store";
 import { estimatedReadiness } from "@/lib/exam";
-import { percent, todayKey } from "@/lib/utils";
+import { percent } from "@/lib/utils";
 
 export type MasteryLevel = "not-started" | "learning" | "developing" | "proficient" | "mastered";
 
@@ -84,9 +83,6 @@ export interface ProgressSnapshot {
   reviewCounts: { due: number; total: number };
   bookmarks: ReturnType<typeof getBookmarks>;
   studyDays: ReturnType<typeof getStudyMinutesByDay>;
-  minutesToday: number;
-  minutesThisWeek: number;
-  streakDays: number;
   lastMockAccuracy: number;
   readiness: { score: number; confidence: "low" | "medium" | "high"; note: string };
   nextLessons: Lesson[];
@@ -182,25 +178,6 @@ export function getQuestionProgress(attempts: RawAttemptRow[]): QuestionProgress
   });
 }
 
-function computeStreak(dateKeys: Set<string>): number {
-  let streak = 0;
-  const cursor = new Date();
-  for (let i = 0; i < 365; i += 1) {
-    const key = todayKey(cursor);
-    if (dateKeys.has(key)) {
-      streak += 1;
-    } else if (i > 0 || !dateKeys.has(todayKey(new Date(cursor.getTime() - 86_400_000)))) {
-      if (i === 0) {
-        cursor.setDate(cursor.getDate() - 1);
-        continue;
-      }
-      break;
-    }
-    cursor.setDate(cursor.getDate() - 1);
-  }
-  return streak;
-}
-
 export function getProgressSnapshot(profileId: string): ProgressSnapshot {
   const attempts = getAllAttempts(profileId);
   const completedLessonIds = getCompletedLessonIds(profileId);
@@ -264,15 +241,6 @@ export function getProgressSnapshot(profileId: string): ProgressSnapshot {
     .slice(0, 10);
 
   const studyDays = getStudyMinutesByDay(profileId, 14);
-  const sessions = getStudySessions(profileId, 500);
-  const dateKeys = new Set<string>();
-  for (const attempt of attempts) dateKeys.add(attempt.attemptedAt.slice(0, 10));
-  for (const session of sessions) dateKeys.add(session.startedAt.slice(0, 10));
-  const minutesToday = studyDays.find((day) => day.day === todayKey())?.minutes ?? 0;
-  const weekStart = new Date(Date.now() - 6 * 86_400_000).toISOString().slice(0, 10);
-  const minutesThisWeek = studyDays
-    .filter((day) => day.day >= weekStart)
-    .reduce((total, day) => total + day.minutes, 0);
 
   const coverageRows = topicCoverage();
   const uncoveredTopics = coverageRows.filter((row) => row.status === "missing").length;
@@ -301,9 +269,6 @@ export function getProgressSnapshot(profileId: string): ProgressSnapshot {
     reviewCounts: getReviewCounts(profileId),
     bookmarks: getBookmarks(profileId),
     studyDays,
-    minutesToday,
-    minutesThisWeek,
-    streakDays: computeStreak(dateKeys),
     lastMockAccuracy,
     readiness,
     nextLessons,

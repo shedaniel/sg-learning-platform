@@ -3,7 +3,7 @@ import type { Lesson } from "@/lib/content/types";
 export const auditPhysicalLesson: Lesson = {
   id: "org/audit-physical",
   areaId: "org",
-  topicIds: ["org-audit", "org-physical"],
+  topicIds: ["org-audit", "org-physical", "tech-physical"],
   title: "監査・内部統制と物理的セキュリティ",
   titleEn: "Audit, Internal Control, and Physical Security",
   summary:

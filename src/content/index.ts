@@ -15,8 +15,9 @@ import { area as law } from "@/content/areas/law";
 import { area as org } from "@/content/areas/org";
 import { area as it } from "@/content/areas/it";
 import { OFFICIAL_QUESTIONS, OFFICIAL_PAPERS } from "@/content/official";
+import { HISTORICAL_PAPERS } from "@/content/official/historical";
 
-export { OFFICIAL_QUESTIONS, OFFICIAL_PAPERS, topicsForArea };
+export { OFFICIAL_QUESTIONS, OFFICIAL_PAPERS, HISTORICAL_PAPERS, topicsForArea };
 
 export const AREAS: Area[] = [
   security,

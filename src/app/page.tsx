@@ -3,10 +3,8 @@ import {
   ArrowRight,
   BookOpen,
   Brain,
-  CalendarDays,
   CheckCircle2,
   Clock,
-  Flame,
   RotateCcw,
   Sparkles,
   Target,
@@ -20,7 +18,6 @@ import {
   getProgressSnapshot,
   MASTERY_LABEL,
 } from "@/lib/progress";
-import { getStudyPlan } from "@/lib/db/store";
 import { Badge, LinkButton, ProgressBar, Stat } from "@/components/ui/primitives";
 import { formatDateTime, formatDuration, percent, todayKey } from "@/lib/utils";
 
@@ -60,17 +57,14 @@ export default async function DashboardPage() {
   const snapshot = getProgressSnapshot(id);
   const areaProgress = getAreaProgress(snapshot);
   const nextLesson = snapshot.nextLessons[0];
-  const plan = getStudyPlan(id);
-  const planDays = plan?.plan as { days?: Array<{ date: string; kind: string; title: string; minutes: number }> } | null;
-  const todayPlan = planDays?.days?.find((day) => day.date === todayKey());
 
   return (
-    <div className="animate-in">
+    <div className="">
       <header className="mb-7 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="eyebrow">Dashboard · {todayKey()}</p>
-          <h1 className="display mt-1.5 text-3xl font-semibold md:text-[2.6rem]">
-            今日の30分が、合格を近づける。
+          <p className="eyebrow">概要 · {todayKey()}</p>
+          <h1 className="display mt-1.5 text-3xl md:text-[2.5rem]">
+            学習状況と、次の一歩。
           </h1>
           <p className="mt-2 max-w-2xl text-sm leading-7 text-muted">
             SG の学習状況を、レッスン・演習・復習・模擬試験から一箇所に集約しています。読んだだけでは習得にせず、複数回の解答で判定します。
@@ -88,7 +82,7 @@ export default async function DashboardPage() {
         </div>
       </header>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         <Stat
           label="Syllabus"
           value={`${snapshot.lessonPercent}%`}
@@ -106,24 +100,22 @@ export default async function DashboardPage() {
           tone={snapshot.reviewCounts.due > 0 ? "var(--warning)" : undefined}
         />
         <Stat
-          label="Study streak"
-          value={`${snapshot.streakDays}日`}
-          sub={`今日 ${snapshot.minutesToday}分 · 週 ${snapshot.minutesThisWeek}分`}
+          label="Attempted"
+          value={snapshot.uniqueQuestionsAttempted}
+          sub={`全${snapshot.questionCount}問 · ${snapshot.attemptCount}回解答`}
         />
       </div>
 
       <div className="mt-5 grid gap-5 lg:grid-cols-[1.25fr_0.75fr]">
-        <section className="card relative overflow-hidden p-5 md:p-7">
-          <div className="absolute right-0 top-0 size-40 rounded-full bg-accent/5 blur-2xl" />
-          <div className="relative">
+        <section className="card p-5 md:p-7">
+          <div>
             <div className="flex items-center gap-2">
-              <span className="grid size-8 place-items-center rounded-full bg-accent-soft text-accent">
+              <span className="grid size-8 place-items-center rounded-full bg-bg-soft text-accent">
                 <BookOpen className="size-4" />
               </span>
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">
-                Continue learning
+                Next lesson
               </p>
-              {todayPlan ? <Badge tone="accent" className="ml-auto">今日のプラン</Badge> : null}
             </div>
             {nextLesson ? (
               <>
@@ -153,13 +145,6 @@ export default async function DashboardPage() {
                 <p className="mt-2 text-sm text-muted">レッスンが読み込まれると、ここに次の一歩が表示されます。</p>
               </div>
             )}
-            {todayPlan ? (
-              <div className="mt-5 rounded-xl border border-border bg-surface-2 p-3">
-                <p className="text-[0.65rem] font-semibold text-muted">今日の予定</p>
-                <p className="mt-0.5 text-sm">{todayPlan.title}</p>
-                <p className="mono text-[0.65rem] text-muted">{todayPlan.minutes}分</p>
-              </div>
-            ) : null}
           </div>
         </section>
 
@@ -215,7 +200,7 @@ export default async function DashboardPage() {
           </div>
         </section>
 
-        <section className="card p-5">
+        <section className="card self-start p-5">
           <div className="flex items-center justify-between">
             <div>
               <p className="eyebrow">Weak points</p>
@@ -226,8 +211,15 @@ export default async function DashboardPage() {
             </Link>
           </div>
           {snapshot.weakTopics.length === 0 ? (
-            <div className="mt-4 rounded-lg border border-dashed border-border p-4 text-center text-xs leading-5 text-muted">
-              まだ十分な演習データがありません。5〜10問解くと、誤答の傾向がここに表示されます。
+            <div className="mt-3 rounded-lg border border-dashed border-border p-4 text-xs leading-5 text-muted">
+              <p>まだ十分な演習データがありません。5〜10問解くと、誤答の傾向がここに表示されます。</p>
+              <div className="mt-2 flex flex-wrap gap-1.5">
+                {snapshot.nextLessons.slice(0, 3).map((lesson) => (
+                  <Link key={lesson.id} href={`/learn/${lesson.id}`} className="chip hover:border-accent/50">
+                    {lesson.title}
+                  </Link>
+                ))}
+              </div>
             </div>
           ) : (
             <div className="mt-3 space-y-2">
@@ -259,11 +251,16 @@ export default async function DashboardPage() {
       </div>
 
       <div className="mt-5 grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
-        <section className="card p-5">
+        <section className="card self-start p-5">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-semibold">学習のリズム</h2>
-            <span className="text-[0.65rem] text-muted">直近14日</span>
+            <h2 className="text-sm font-semibold">学習ログ</h2>
+            <span className="text-[0.65rem] text-muted">直近14日（任意）</span>
           </div>
+          {snapshot.studyDays.length === 0 ? (
+            <p className="mt-4 rounded-lg border border-dashed border-border p-4 text-xs leading-5 text-muted">
+              学習時間は記録された分だけ表示されます。毎日の目標や連続日数はありません。
+            </p>
+          ) : (
           <div className="mt-4 flex h-28 items-end gap-1.5" role="img" aria-label="直近14日の学習時間">
             {Array.from({ length: 14 }, (_, index) => {
               const date = new Date(Date.now() - (13 - index) * 86_400_000).toISOString().slice(0, 10);
@@ -281,14 +278,14 @@ export default async function DashboardPage() {
               );
             })}
           </div>
+          )}
           <div className="mt-3 flex items-center gap-3 text-[0.65rem] text-muted">
-            <span className="flex items-center gap-1"><Flame className="size-3 text-warning" />連続 {snapshot.streakDays}日</span>
-            <span className="flex items-center gap-1"><Clock className="size-3" />今週 {snapshot.minutesThisWeek}分</span>
-            <span className="flex items-center gap-1"><TrendingUp className="size-3" />誤答 {snapshot.reviewQuestions.length}問</span>
+            <span className="flex items-center gap-1"><Clock className="size-3" />14日合計 {snapshot.studyDays.reduce((total, day) => total + day.minutes, 0)}分</span>
+            <span className="flex items-center gap-1"><TrendingUp className="size-3" />直近の誤答 {snapshot.reviewQuestions.length}問</span>
           </div>
         </section>
 
-        <section className="card overflow-hidden">
+        <section className="card self-start overflow-hidden">
           <div className="flex items-center justify-between border-b border-border bg-surface-2/60 px-4 py-2.5">
             <h2 className="text-sm font-semibold">最近の演習</h2>
             <Link href="/review" className="text-[0.65rem] text-accent hover:underline">すべて見る</Link>
@@ -351,16 +348,16 @@ export default async function DashboardPage() {
       ) : null}
 
       {snapshot.completedLessons === 0 && snapshot.attemptCount === 0 ? (
-        <section className="mt-6 rounded-xl border border-accent/25 bg-accent-soft/30 p-5">
+        <section className="mt-6 rounded-xl border border-border bg-surface-2 p-5">
           <div className="flex flex-wrap items-center gap-4">
-            <CalendarDays className="size-5 text-accent" />
+            <BookOpen className="size-5 text-accent" />
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-semibold">最初の一歩</p>
+              <p className="text-sm font-semibold">順序もペースも自由です</p>
               <p className="mt-0.5 text-xs leading-5 text-muted">
-                目標日から逆算した学習プランを作れます。まずは1レッスン+5問から。
+                気になる章から読み、必要だと感じたときに演習してください。連続日数や1日のノルマは設けていません。
               </p>
             </div>
-            <Link href="/plan" className="btn btn-primary text-xs">学習プランを作る</Link>
+            <Link href="/learn" className="btn text-xs">学習マップへ</Link>
           </div>
         </section>
       ) : null}

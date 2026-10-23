@@ -35,7 +35,7 @@ export function AccessControl() {
         最小権限：必要な権限だけ
       </Txt>
       <Txt x={46} y={318} anchor="start" tone="muted">
-        必要時のみ情報を共有
+        Need-to-Know：必要時のみ
       </Txt>
 
       <Panel x={540} y={250} w={190} h={80} title="権限の見直し" titleSize={13} />
@@ -327,10 +327,10 @@ export function DataProtection() {
       </Txt>
 
       <Txt x={380} y={296} tone="muted">
-        安全管理措置は全段階に適用する
+        各段階の実施状況を記録し、説明できるようにする
       </Txt>
       <Txt x={380} y={322} tone="muted">
-        委託先にも同じ水準を求め、記録を残す
+        委託先には契約で同等の保護を求める
       </Txt>
     </DiagramSvg>
   );

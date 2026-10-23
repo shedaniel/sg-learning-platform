@@ -44,7 +44,7 @@ export default function CoveragePage() {
   }));
 
   return (
-    <div className="animate-in">
+    <div className="">
       <PageHeader
         eyebrow="Syllabus coverage"
         title="抜けを、見える化する。"

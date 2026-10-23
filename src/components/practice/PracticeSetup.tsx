@@ -15,10 +15,12 @@ export function PracticeSetup({
   topics,
   defaultTopic,
   weakTopicIds = [],
+  totalCount,
 }: {
   topics: PracticeTopicOption[];
   defaultTopic?: string;
   weakTopicIds?: string[];
+  totalCount?: number;
 }) {
   const router = useRouter();
   const [topicId, setTopicId] = useState(defaultTopic ?? "all");
@@ -51,7 +53,7 @@ export function PracticeSetup({
             onChange={(event) => setTopicId(event.target.value)}
             className="field mt-1"
           >
-            <option value="all">全範囲（{topics.reduce((total, topic) => total + topic.questionCount, 0)}問）</option>
+            <option value="all">全範囲（{totalCount ?? topics.reduce((total, topic) => total + topic.questionCount, 0)}問）</option>
             {topics.map((topic) => (
               <option key={topic.id} value={topic.id}>
                 {topic.areaTitle} / {topic.title}（{topic.questionCount}問）

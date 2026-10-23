@@ -11,12 +11,12 @@ export const IT_QUESTIONS = [
     type: "knowledge",
     stem: "192.168.20.100/26 のホストが属するネットワークアドレスはどれか。",
     options: [
-      { id: "a", text: "192.168.20.0" },
-      { id: "i", text: "192.168.20.64" },
+      { id: "a", text: "192.168.20.64" },
+      { id: "i", text: "192.168.20.0" },
       { id: "u", text: "192.168.20.96" },
       { id: "e", text: "192.168.20.128" },
     ],
-    correctOptionId: "i",
+    correctOptionId: "a",
     explanation: {
       correct:
         "/26のブロックサイズは64なので、ネットワークは0、64、128、192に分かれます。100は64以上128未満であるため、ネットワークアドレスは192.168.20.64です。",
@@ -25,8 +25,8 @@ export const IT_QUESTIONS = [
         "100を64で割ると商が1、余りが36になるため、属するブロックの先頭は64です。",
       ],
       optionNotes: {
-        a: "192.168.20.0は最初のブロックのネットワークアドレスです。100はこのブロックに属しません。",
-        i: "正解です。64以上128未満のアドレスは192.168.20.64のネットワークに属します。",
+        a: "正解です。64以上128未満のアドレスは192.168.20.64のネットワークに属します。",
+        i: "192.168.20.0は最初のブロックのネットワークアドレスです。100はこのブロックに属しません。",
         u: "96は64の倍数ではありません。ブロックの先頭にはなり得ません。",
         e: "128は次のブロックの先頭です。100は128未満なので属しません。",
       },
@@ -82,11 +82,11 @@ export const IT_QUESTIONS = [
     stem: "TCPとUDPの説明として適切なものはどれか。",
     options: [
       { id: "a", text: "TCPは通信内容を暗号化し、UDPは圧縮を行う。" },
-      { id: "i", text: "TCPは再送制御などで信頼性を提供し、UDPはそれらを行わず遅延を抑える。" },
-      { id: "u", text: "UDPはコネクションを確立して順序制御を行う。" },
+      { id: "i", text: "UDPはコネクションを確立して順序制御を行う。" },
+      { id: "u", text: "TCPは再送制御などで信頼性を提供し、UDPはそれらを行わず遅延を抑える。" },
       { id: "e", text: "TCPはポート番号を使わず、UDPだけがポート番号を使う。" },
     ],
-    correctOptionId: "i",
+    correctOptionId: "u",
     explanation: {
       correct:
         "TCPはコネクションを確立し、順序制御・再送・フロー制御によって信頼性を提供します。UDPはこれらを行わないため、遅延を抑えたい通信に向きます。",
@@ -96,8 +96,8 @@ export const IT_QUESTIONS = [
       ],
       optionNotes: {
         a: "暗号化はTCPの機能ではなく、TLSなどの上位の仕組みが担います。",
-        i: "正解です。TCPは信頼性、UDPは低遅延が特徴です。",
-        u: "コネクションの確立と順序制御はTCPの機能です。UDPは行いません。",
+        i: "コネクションの確立と順序制御はTCPの機能です。UDPは行いません。",
+        u: "正解です。TCPは信頼性、UDPは低遅延が特徴です。",
         e: "TCPもUDPもポート番号を使ってサービスを識別します。",
       },
       english:
@@ -151,11 +151,11 @@ export const IT_QUESTIONS = [
     stem: "DNSのリソースレコードの説明として適切なものはどれか。",
     options: [
       { id: "a", text: "AレコードはIPv6アドレスを表す。" },
-      { id: "i", text: "MXレコードはそのドメインのメールサーバを表す。" },
+      { id: "i", text: "CNAMEレコードはIPv4アドレスを表す。" },
       { id: "u", text: "PTRレコードはドメイン名の別名を表す。" },
-      { id: "e", text: "CNAMEレコードはIPv4アドレスを表す。" },
+      { id: "e", text: "MXレコードはそのドメインのメールサーバを表す。" },
     ],
-    correctOptionId: "i",
+    correctOptionId: "e",
     explanation: {
       correct:
         "MXレコードはメールの配送先となるメールサーバを指定します。AはIPv4、AAAAはIPv6、CNAMEは別名、PTRは逆引きです。",
@@ -165,9 +165,9 @@ export const IT_QUESTIONS = [
       ],
       optionNotes: {
         a: "AレコードはIPv4アドレスを表します。IPv6はAAAAです。",
-        i: "正解です。MXはメールサーバを指定するレコードです。",
+        i: "CNAMEは別名を表します。IPv4アドレスはAレコードです。",
         u: "PTRはIPアドレスからホスト名を引く逆引き用のレコードです。",
-        e: "CNAMEは別名を表します。IPv4アドレスはAレコードです。",
+        e: "正解です。MXはメールサーバを指定するレコードです。",
       },
       english:
         "MX records designate mail servers; A and AAAA hold IPv4 and IPv6 addresses, CNAME holds an alias, and PTR supports reverse lookup.",
@@ -221,11 +221,11 @@ export const IT_QUESTIONS = [
     stem: "共有ロックと専有ロックに関する記述として適切なものはどれか。",
     options: [
       { id: "a", text: "共有ロックを取得している行でも、他のトランザクションは更新できる。" },
-      { id: "i", text: "専有ロックを取得している行は、他のトランザクションは読み取りもできない。" },
-      { id: "u", text: "共有ロック同士は競合するため、同時に取得できない。" },
+      { id: "i", text: "共有ロック同士は競合するため、同時に取得できない。" },
+      { id: "u", text: "専有ロックを取得している行は、他のトランザクションは読み取りもできない。" },
       { id: "e", text: "デッドロックはデータを破壊する障害であり、自動復旧できない。" },
     ],
-    correctOptionId: "i",
+    correctOptionId: "u",
     explanation: {
       correct:
         "専有ロックは排他的なロックであり、他のトランザクションは読み取りも更新もできません。共有ロックは読み取りを許可し、更新を禁止します。",
@@ -235,8 +235,8 @@ export const IT_QUESTIONS = [
       ],
       optionNotes: {
         a: "共有ロック中の行を更新するには専有ロックが必要であり、そのままでは更新できません。",
-        i: "正解です。専有ロックは読み取りもブロックします。",
-        u: "共有ロック同士は競合せず、同時に取得できます。",
+        i: "共有ロック同士は競合せず、同時に取得できます。",
+        u: "正解です。専有ロックは読み取りもブロックします。",
         e: "デッドロックは待ち状態であり、DBMSが一方を取り消して解消します。データ破壊ではありません。",
       },
       english:
@@ -256,11 +256,11 @@ export const IT_QUESTIONS = [
     stem: "差分バックアップと増分バックアップの説明として適切なものはどれか。",
     options: [
       { id: "a", text: "差分は前回のバックアップ以降の変更、増分は前回のフルバックアップ以降の変更を取得する。" },
-      { id: "i", text: "差分は前回のフルバックアップ以降の変更、増分は前回のバックアップ以降の変更を取得する。" },
+      { id: "i", text: "増分の方が、復旧に必要な媒体数が少ない。" },
       { id: "u", text: "どちらも毎回データ全体を取得する。" },
-      { id: "e", text: "増分の方が、復旧に必要な媒体数が少ない。" },
+      { id: "e", text: "差分は前回のフルバックアップ以降の変更、増分は前回のバックアップ以降の変更を取得する。" },
     ],
-    correctOptionId: "i",
+    correctOptionId: "e",
     explanation: {
       correct:
         "差分は基準となるフルバックアップからの変更を毎回取得し、増分は直前のバックアップからの変更を取得します。",
@@ -270,9 +270,9 @@ export const IT_QUESTIONS = [
       ],
       optionNotes: {
         a: "基準が逆です。差分の基準は前回のフル、増分の基準は前回のバックアップです。",
-        i: "正解です。基準の違いが復旧手順と容量に影響します。",
+        i: "増分の方が復旧に必要な媒体数は多くなります。",
         u: "毎回全体を取得するのはフルバックアップです。",
-        e: "増分の方が復旧に必要な媒体数は多くなります。",
+        e: "正解です。基準の違いが復旧手順と容量に影響します。",
       },
       english:
         "Differential backups capture changes since the last full backup; incremental backups capture changes since the last backup of any kind.",
@@ -326,11 +326,11 @@ export const IT_QUESTIONS = [
     stem: "小売業のB社では、夜間バッチで日次の売上を集計している。月初の処理で、同じ伝票が二重に集計される事象が発生した。調査の結果、集計プログラムが伝票テーブルを読み取っている最中に、別のオンライン処理が同じ伝票を更新していたことが分かった。再発防止として最も適切なものはどれか。",
     options: [
       { id: "a", text: "集計対象を分割し、バッチの実行時間を短くする。" },
-      { id: "i", text: "集計対象の読み取りに共有ロックを掛け、更新処理と排他する。" },
+      { id: "i", text: "伝票テーブルにインデックスを追加する。" },
       { id: "u", text: "バッチ実行中はオンライン処理をすべて停止する。" },
-      { id: "e", text: "伝票テーブルにインデックスを追加する。" },
+      { id: "e", text: "集計対象の読み取りに共有ロックを掛け、更新処理と排他する。" },
     ],
-    correctOptionId: "i",
+    correctOptionId: "e",
     explanation: {
       correct:
         "読み取り中のデータが更新されると、集計結果が一貫しなくなります。共有ロックで読み取りを保護し、更新処理を待たせることで一貫性を保てます。",
@@ -340,9 +340,9 @@ export const IT_QUESTIONS = [
       ],
       optionNotes: {
         a: "実行時間の短縮は事故の確率を下げますが、読み取り中の更新という原因は残ります。",
-        i: "正解です。読み取り一貫性をロックで確保します。",
+        i: "インデックスは検索性能を改善しますが、同時更新による不整合は防げません。",
         u: "全面停止は可用性を大きく損なう過剰な対策で、他の業務にも影響します。",
-        e: "インデックスは検索性能を改善しますが、同時更新による不整合は防げません。",
+        e: "正解です。読み取り一貫性をロックで確保します。",
       },
       english:
         "A shared lock on the rows being aggregated prevents concurrent updates and keeps the batch result consistent.",
@@ -363,11 +363,11 @@ export const IT_QUESTIONS = [
     stem: "MTBFが990時間、MTTRが10時間のシステムの稼働率はどれか。",
     options: [
       { id: "a", text: "90.0%" },
-      { id: "i", text: "99.0%" },
+      { id: "i", text: "99.99%" },
       { id: "u", text: "99.9%" },
-      { id: "e", text: "99.99%" },
+      { id: "e", text: "99.0%" },
     ],
-    correctOptionId: "i",
+    correctOptionId: "e",
     explanation: {
       correct: "稼働率は MTBF/(MTBF+MTTR) = 990/1,000 = 0.99、すなわち99.0%です。",
       why: [
@@ -376,9 +376,9 @@ export const IT_QUESTIONS = [
       ],
       optionNotes: {
         a: "90.0%はMTBFとMTTRの比率が9:1になる場合です。990:10は99:1です。",
-        i: "正解です。990/1,000=0.99です。",
+        i: "99.99%はMTTRを0.1時間程度まで短縮した場合に近い値です。",
         u: "99.9%はMTTRを1時間程度まで短縮した場合に近い値です。",
-        e: "99.99%はMTTRを0.1時間程度まで短縮した場合に近い値です。",
+        e: "正解です。990/1,000=0.99です。",
       },
       english:
         "Availability = MTBF / (MTBF + MTTR) = 990 / 1,000 = 99.0%.",
@@ -396,12 +396,12 @@ export const IT_QUESTIONS = [
     type: "knowledge",
     stem: "MTBFが990時間、MTTRが10時間のシステムで、MTTRを5時間に短縮した。稼働率に最も近いものはどれか。",
     options: [
-      { id: "a", text: "99.0%" },
-      { id: "i", text: "99.5%" },
+      { id: "a", text: "99.5%" },
+      { id: "i", text: "99.0%" },
       { id: "u", text: "99.9%" },
       { id: "e", text: "99.95%" },
     ],
-    correctOptionId: "i",
+    correctOptionId: "a",
     explanation: {
       correct: "990/(990+5) = 990/995 ≒ 0.99497 であり、約99.5%です。",
       why: [
@@ -409,8 +409,8 @@ export const IT_QUESTIONS = [
         "990/995は0.99497...となるため、99.5%が最も近い値です。",
       ],
       optionNotes: {
-        a: "99.0%はMTTRが10時間のときの値です。",
-        i: "正解です。990/995 ≒ 99.5%になります。",
+        a: "正解です。990/995 ≒ 99.5%になります。",
+        i: "99.0%はMTTRが10時間のときの値です。",
         u: "99.9%はMTTRを約1時間まで短縮する必要があります。",
         e: "99.95%はMTTRを約0.5時間まで短縮する必要があります。",
       },
@@ -466,11 +466,11 @@ export const IT_QUESTIONS = [
     stem: "RAID6の最低必要台数と耐障害性の組合せとして適切なものはどれか。",
     options: [
       { id: "a", text: "3台、1台の故障まで耐える。" },
-      { id: "i", text: "4台、2台の故障まで耐える。" },
-      { id: "u", text: "4台、1台の故障まで耐える。" },
+      { id: "i", text: "4台、1台の故障まで耐える。" },
+      { id: "u", text: "4台、2台の故障まで耐える。" },
       { id: "e", text: "5台、2台の故障まで耐える。" },
     ],
-    correctOptionId: "i",
+    correctOptionId: "u",
     explanation: {
       correct:
         "RAID6は2台分のパリティを持つため、最低4台が必要で、2台の同時故障まで耐えます。",
@@ -480,8 +480,8 @@ export const IT_QUESTIONS = [
       ],
       optionNotes: {
         a: "3台で1台故障までなのはRAID5です。",
-        i: "正解です。最低4台で2台故障まで耐えます。",
-        u: "1台故障までなのはRAID5です。RAID6は2台まで耐えます。",
+        i: "1台故障までなのはRAID5です。RAID6は2台まで耐えます。",
+        u: "正解です。最低4台で2台故障まで耐えます。",
         e: "5台でも構成できますが、最低台数は4台です。",
       },
       english:
@@ -606,11 +606,11 @@ export const IT_QUESTIONS = [
     stem: "コンテナの特徴として適切なものはどれか。",
     options: [
       { id: "a", text: "コンテナごとにゲストOSを持つため、仮想マシンより分離が強い。" },
-      { id: "i", text: "ホストのカーネルを共有するため、起動が速く軽量である。" },
+      { id: "i", text: "仮想マシンより多くの記憶域を必要とする。" },
       { id: "u", text: "カーネルを共有しないため、カーネルの脆弱性の影響を受けない。" },
-      { id: "e", text: "仮想マシンより多くの記憶域を必要とする。" },
+      { id: "e", text: "ホストのカーネルを共有するため、起動が速く軽量である。" },
     ],
-    correctOptionId: "i",
+    correctOptionId: "e",
     explanation: {
       correct:
         "コンテナはホストのカーネルを共有し、プロセスを分離します。ゲストOSを持たないため、起動が速くイメージも小さくなります。",
@@ -620,9 +620,9 @@ export const IT_QUESTIONS = [
       ],
       optionNotes: {
         a: "ゲストOSを持つのは仮想マシンです。コンテナの分離は仮想マシンより弱いとされます。",
-        i: "正解です。カーネル共有により軽量で起動が速くなります。",
+        i: "コンテナは仮想マシンより少ない記憶域で済むのが一般的です。",
         u: "カーネルを共有するため、カーネル脆弱性の影響は受けます。",
-        e: "コンテナは仮想マシンより少ない記憶域で済むのが一般的です。",
+        e: "正解です。カーネル共有により軽量で起動が速くなります。",
       },
       english:
         "Containers share the host kernel, making them lightweight and fast to start, but isolation is weaker than with virtual machines.",
@@ -675,12 +675,12 @@ export const IT_QUESTIONS = [
     type: "scenario",
     stem: "C社のファイルサーバは、1TBのディスク5台でRAID5を構成している。夜間に1台のディスクが故障し、翌朝に交換して再構築を開始した。再構築中に別の1台が故障し、データを失った。この状況から導ける対策として最も適切なものはどれか。",
     options: [
-      { id: "a", text: "RAID5の台数を増やせば、同時に2台故障してもデータを失わない。" },
-      { id: "i", text: "日次バックアップを別媒体・別拠点に取得し、復旧手順を訓練する。" },
-      { id: "u", text: "再構築時間を短縮するため、ディスク容量を増やす。" },
+      { id: "a", text: "再構築時間を短縮するため、ディスク容量を増やす。" },
+      { id: "i", text: "RAID5の台数を増やせば、同時に2台故障してもデータを失わない。" },
+      { id: "u", text: "日次バックアップを別媒体・別拠点に取得し、復旧手順を訓練する。" },
       { id: "e", text: "RAID0に変更して性能を上げ、再構築を不要にする。" },
     ],
-    correctOptionId: "i",
+    correctOptionId: "u",
     explanation: {
       correct:
         "RAID5は1台の故障までしか耐えられず、再構築中は無防備になります。ディスク故障以外も含めたデータ保護には、バックアップと復旧訓練が必要です。",
@@ -689,9 +689,9 @@ export const IT_QUESTIONS = [
         "台数を増やしてもRAID5の耐障害性は1台のままであり、再構築中のリスクは残ります。",
       ],
       optionNotes: {
-        a: "RAID5は台数を増やしても1台故障までです。2台故障に耐えるのはRAID6です。",
-        i: "正解です。バックアップと復旧訓練が最終的なデータ保護になります。",
-        u: "大容量化は再構築時間を長くし、リスクをむしろ高めます。",
+        a: "大容量化は再構築時間を長くし、リスクをむしろ高めます。",
+        i: "RAID5は台数を増やしても1台故障までです。2台故障に耐えるのはRAID6です。",
+        u: "正解です。バックアップと復旧訓練が最終的なデータ保護になります。",
         e: "RAID0は冗長性がなく、1台の故障で全データを失います。",
       },
       english:
@@ -713,11 +713,11 @@ export const IT_QUESTIONS = [
     stem: "クリティカルパスの説明として適切なものはどれか。",
     options: [
       { id: "a", text: "所要時間が最も短い経路である。" },
-      { id: "i", text: "所要時間が最も長く、その遅延が全体の遅延になる経路である。" },
-      { id: "u", text: "費用が最も大きい作業の集まりである。" },
+      { id: "i", text: "費用が最も大きい作業の集まりである。" },
+      { id: "u", text: "所要時間が最も長く、その遅延が全体の遅延になる経路である。" },
       { id: "e", text: "余裕時間が最も大きい経路である。" },
     ],
-    correctOptionId: "i",
+    correctOptionId: "u",
     explanation: {
       correct:
         "クリティカルパスは開始から終了までの最長経路であり、そこにある作業の遅延は全体の工期の遅延になります。",
@@ -727,8 +727,8 @@ export const IT_QUESTIONS = [
       ],
       optionNotes: {
         a: "最短経路ではありません。最長経路である点が重要です。",
-        i: "正解です。最長経路であり、遅延が全体に波及します。",
-        u: "費用の大きさではなく、依存関係と所要時間で決まります。",
+        i: "費用の大きさではなく、依存関係と所要時間で決まります。",
+        u: "正解です。最長経路であり、遅延が全体に波及します。",
         e: "余裕時間が最も大きいのはクリティカルパス以外の経路です。",
       },
       english:
@@ -781,12 +781,12 @@ export const IT_QUESTIONS = [
     type: "knowledge",
     stem: "SVが-40万円、CVが-40万円であるときのプロジェクトの状態として適切なものはどれか。",
     options: [
-      { id: "a", text: "進捗は計画より進み、コストは余剰である。" },
-      { id: "i", text: "進捗は計画より遅れ、コストは超過している。" },
+      { id: "a", text: "進捗は計画より遅れ、コストは超過している。" },
+      { id: "i", text: "進捗は計画より進み、コストは余剰である。" },
       { id: "u", text: "進捗は計画より遅れ、コストは余剰である。" },
       { id: "e", text: "進捗は計画より進み、コストは超過している。" },
     ],
-    correctOptionId: "i",
+    correctOptionId: "a",
     explanation: {
       correct:
         "SV=EV-PVが負なので進捗は遅れ、CV=EV-ACが負なのでコストは超過しています。",
@@ -795,8 +795,8 @@ export const IT_QUESTIONS = [
         "CVが負とは、出来高に対して実コストが大きい状態です。",
       ],
       optionNotes: {
-        a: "両方の符号を逆に解釈しています。負はそれぞれ遅延と超過を意味します。",
-        i: "正解です。SVもCVも負であり、遅延とコスト超過が同時に起きています。",
+        a: "正解です。SVもCVも負であり、遅延とコスト超過が同時に起きています。",
+        i: "両方の符号を逆に解釈しています。負はそれぞれ遅延と超過を意味します。",
         u: "CVが負なのでコストは余剰ではなく超過です。",
         e: "SVが負なので進捗は進みではなく遅れです。",
       },
@@ -817,11 +817,11 @@ export const IT_QUESTIONS = [
     stem: "SLAとSLOの関係について適切なものはどれか。",
     options: [
       { id: "a", text: "SLAは内部目標であり、SLOは顧客との契約である。" },
-      { id: "i", text: "SLAは顧客との合意であり、SLOはそれを達成するための内部目標である。" },
+      { id: "i", text: "SLOは下流の委託先との契約である。" },
       { id: "u", text: "SLAとSLOは同一の内容を指す。" },
-      { id: "e", text: "SLOは下流の委託先との契約である。" },
+      { id: "e", text: "SLAは顧客との合意であり、SLOはそれを達成するための内部目標である。" },
     ],
-    correctOptionId: "i",
+    correctOptionId: "e",
     explanation: {
       correct:
         "SLAは顧客との間で合意するサービス水準、SLOはSLAを満たすために提供者側が設定する内部目標です。",
@@ -831,9 +831,9 @@ export const IT_QUESTIONS = [
       ],
       optionNotes: {
         a: "関係が逆です。顧客との合意がSLA、内部目標がSLOです。",
-        i: "正解です。SLAが契約、SLOが内部目標です。",
+        i: "下流の委託先との契約はUCです。",
         u: "SLAとSLOは当事者と目的が異なります。",
-        e: "下流の委託先との契約はUCです。",
+        e: "正解です。SLAが契約、SLOが内部目標です。",
       },
       english:
         "The SLA is the customer agreement; SLOs are internal targets used to meet it.",
@@ -887,11 +887,11 @@ export const IT_QUESTIONS = [
     stem: "請負契約と労働者派遣の違いについて適切なものはどれか。",
     options: [
       { id: "a", text: "請負では注文者が作業者へ直接指示できる。" },
-      { id: "i", text: "請負では注文者は作業方法を指示できず、派遣では派遣先が指揮命令する。" },
-      { id: "u", text: "派遣では派遣元が指揮命令し、雇用主は派遣先である。" },
+      { id: "i", text: "派遣では派遣元が指揮命令し、雇用主は派遣先である。" },
+      { id: "u", text: "請負では注文者は作業方法を指示できず、派遣では派遣先が指揮命令する。" },
       { id: "e", text: "請負では受託者は成果物の完成責任を負わない。" },
     ],
-    correctOptionId: "i",
+    correctOptionId: "u",
     explanation: {
       correct:
         "請負は仕事の完成を目的とし、注文者は作業方法に指揮命令できません。派遣は派遣先が指揮命令し、雇用主は派遣元です。",
@@ -901,8 +901,8 @@ export const IT_QUESTIONS = [
       ],
       optionNotes: {
         a: "請負で直接指示すると偽装請負になります。",
-        i: "正解です。指揮命令関係の違いが契約形態の判断基準です。",
-        u: "指揮命令は派遣先、雇用主は派遣元です。逆になっています。",
+        i: "指揮命令は派遣先、雇用主は派遣元です。逆になっています。",
+        u: "正解です。指揮命令関係の違いが契約形態の判断基準です。",
         e: "請負では受託者が成果物の完成責任を負います。",
       },
       english:
@@ -922,11 +922,11 @@ export const IT_QUESTIONS = [
     stem: "サービスデスクの役割として適切なものはどれか。",
     options: [
       { id: "a", text: "システムの設計変更を承認する。" },
-      { id: "i", text: "利用者からの問い合わせを単一窓口で受け付け、記録し、一次切り分けを行う。" },
+      { id: "i", text: "本番環境へのリリースを実施する。" },
       { id: "u", text: "根本原因を特定し、恒久的な対策を実施する。" },
-      { id: "e", text: "本番環境へのリリースを実施する。" },
+      { id: "e", text: "利用者からの問い合わせを単一窓口で受け付け、記録し、一次切り分けを行う。" },
     ],
-    correctOptionId: "i",
+    correctOptionId: "e",
     explanation: {
       correct:
         "サービスデスクは利用者との単一窓口として、受付、記録、一次切り分け、回避策の提示、エスカレーションを行います。",
@@ -936,9 +936,9 @@ export const IT_QUESTIONS = [
       ],
       optionNotes: {
         a: "設計変更の承認は変更管理（CAB）の役割です。",
-        i: "正解です。単一窓口としての受付と一次切り分けが中心です。",
+        i: "本番環境へのリリースはリリース管理の役割です。",
         u: "根本原因の特定と恒久対策は問題管理の役割です。",
-        e: "本番環境へのリリースはリリース管理の役割です。",
+        e: "正解です。単一窓口としての受付と一次切り分けが中心です。",
       },
       english:
         "The service desk is the single point of contact for intake, logging, first-line diagnosis, and escalation.",
@@ -992,11 +992,11 @@ export const IT_QUESTIONS = [
     stem: "B社はシステム開発を請負契約で委託している。B社の課長が、委託先の作業者に毎日の作業手順を直接指示し、勤務時間の管理も行っていた。この状態について適切なものはどれか。",
     options: [
       { id: "a", text: "請負契約であるため、直接指示しても問題ない。" },
-      { id: "i", text: "実態が労働者派遣に該当する可能性があり、偽装請負として是正が必要である。" },
+      { id: "i", text: "委託先の作業者をB社の従業員として扱えば問題ない。" },
       { id: "u", text: "請負契約でも作業指示は注文者の権限であるため問題ない。" },
-      { id: "e", text: "委託先の作業者をB社の従業員として扱えば問題ない。" },
+      { id: "e", text: "実態が労働者派遣に該当する可能性があり、偽装請負として是正が必要である。" },
     ],
-    correctOptionId: "i",
+    correctOptionId: "e",
     explanation: {
       correct:
         "請負では注文者が作業者へ指揮命令できません。実際に直接指示し勤務時間を管理していると、実態は労働者派遣であり、偽装請負に該当する可能性があります。",
@@ -1006,9 +1006,9 @@ export const IT_QUESTIONS = [
       ],
       optionNotes: {
         a: "請負契約でも直接指示すれば偽装請負になります。",
-        i: "正解です。実態に応じた契約形態への是正が必要です。",
+        i: "雇用関係を形式的に変えても、指揮命令関係の実態が解消されなければ問題は残ります。",
         u: "請負では注文者は作業方法を指示できません。",
-        e: "雇用関係を形式的に変えても、指揮命令関係の実態が解消されなければ問題は残ります。",
+        e: "正解です。実態に応じた契約形態への是正が必要です。",
       },
       english:
         "Direct daily instruction and time management by the client indicate disguised dispatch, not a genuine work contract.",
@@ -1099,11 +1099,11 @@ export const IT_QUESTIONS = [
     stem: "RPAの適用に最も適した業務はどれか。",
     options: [
       { id: "a", text: "顧客との価格交渉" },
-      { id: "i", text: "毎日大量に届く注文書の内容を基幹システムへ転記する定型業務" },
+      { id: "i", text: "例外の多い苦情対応を担当者が判断する業務" },
       { id: "u", text: "新製品の企画を検討する業務" },
-      { id: "e", text: "例外の多い苦情対応を担当者が判断する業務" },
+      { id: "e", text: "毎日大量に届く注文書の内容を基幹システムへ転記する定型業務" },
     ],
-    correctOptionId: "i",
+    correctOptionId: "e",
     explanation: {
       correct:
         "RPAは、大量・定型・ルールが明確・例外が少ない業務に向きます。注文書の転記は代表的な適用業務です。",
@@ -1113,9 +1113,9 @@ export const IT_QUESTIONS = [
       ],
       optionNotes: {
         a: "価格交渉は相手の反応に応じた判断が必要で、定型化できません。",
-        i: "正解です。大量で定型的な転記業務はRPAの典型例です。",
+        i: "例外が多く判断を伴う業務は、RPAの適用に適しません。",
         u: "企画検討は非定型で創造的な判断を伴います。",
-        e: "例外が多く判断を伴う業務は、RPAの適用に適しません。",
+        e: "正解です。大量で定型的な転記業務はRPAの典型例です。",
       },
       english:
         "RPA fits high-volume, rule-based, repetitive tasks such as transferring order data into a core system.",
@@ -1134,11 +1134,11 @@ export const IT_QUESTIONS = [
     stem: "初期投資1,000万円、5年間で毎年300万円の効果が見込まれるシステムがある。運用コストを考慮しない場合のROIはどれか。",
     options: [
       { id: "a", text: "30%" },
-      { id: "i", text: "50%" },
-      { id: "u", text: "150%" },
+      { id: "i", text: "150%" },
+      { id: "u", text: "50%" },
       { id: "e", text: "300%" },
     ],
-    correctOptionId: "i",
+    correctOptionId: "u",
     explanation: {
       correct:
         "5年間の効果は1,500万円です。ROI=(1,500-1,000)/1,000=0.5となり、50%です。",
@@ -1148,8 +1148,8 @@ export const IT_QUESTIONS = [
       ],
       optionNotes: {
         a: "30%は年間効果300万円を投資額1,000万円で割った値であり、5年分を考慮していません。",
-        i: "正解です。(1,500-1,000)/1,000=50%です。",
-        u: "150%は効果の合計を投資額で割った値で、投資額を引いていません。",
+        i: "150%は効果の合計を投資額で割った値で、投資額を引いていません。",
+        u: "正解です。(1,500-1,000)/1,000=50%です。",
         e: "300%は年間効果を3年分と誤って計算した場合などに生じる値です。",
       },
       english:
@@ -1204,11 +1204,11 @@ export const IT_QUESTIONS = [
     stem: "CIOの役割として適切なものはどれか。",
     options: [
       { id: "a", text: "個人情報の取扱い方針を統括する。" },
-      { id: "i", text: "経営戦略に沿って情報システム戦略を定め、IT投資を統括する。" },
+      { id: "i", text: "財務諸表の作成と開示を行う。" },
       { id: "u", text: "情報セキュリティ対策の責任者として方針を定める。" },
-      { id: "e", text: "財務諸表の作成と開示を行う。" },
+      { id: "e", text: "経営戦略に沿って情報システム戦略を定め、IT投資を統括する。" },
     ],
-    correctOptionId: "i",
+    correctOptionId: "e",
     explanation: {
       correct:
         "CIOは経営戦略に沿って情報システム戦略を定め、IT投資の優先順位を決める経営層です。",
@@ -1218,9 +1218,9 @@ export const IT_QUESTIONS = [
       ],
       optionNotes: {
         a: "個人情報保護の方針を統括するのはCPOです。",
-        i: "正解です。IT戦略と投資の統括がCIOの役割です。",
+        i: "財務諸表の作成と開示はCFOや経理部門の役割です。",
         u: "情報セキュリティの責任者はCISOです。",
-        e: "財務諸表の作成と開示はCFOや経理部門の役割です。",
+        e: "正解です。IT戦略と投資の統括がCIOの役割です。",
       },
       english:
         "The CIO sets IT strategy aligned with business goals and governs IT investment.",

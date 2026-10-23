@@ -5,12 +5,6 @@ import { Field, Metric, Note, ResetButton, Verdict, WidgetBody } from "./shared"
 
 const CONTROLS = [
   {
-    id: "authenticate",
-    label: "多要素認証 + 不審メールの訓練・フィルタ",
-    rationale:
-      "認証情報が盗まれても、パスワード単独ではログインできない。メールフィルタと訓練でクリック率を下げる。ただし中間者（AiTM）型フィッシングではMFAも突破され得るため、FIDO2などの耐フィッシング認証を併用する。",
-  },
-  {
     id: "backup",
     label: "オフライン／イミュータブルなバックアップ + 復元訓練",
     rationale:
@@ -23,16 +17,22 @@ const CONTROLS = [
       "SQL文と入力を分離し、入力がSQL構文として解釈されないようにする。WAFやエスケープは補助であり、根本対策はパラメータ化クエリである。",
   },
   {
-    id: "separation",
-    label: "職務分離 + 最小権限 + 操作ログの監査",
-    rationale:
-      "単独では完結できない権限設計にし、操作ログで検知可能性を高める。最小権限は不正の機会だけでなく、実行された場合の被害範囲も狭める。",
-  },
-  {
     id: "encryption",
     label: "全ディスク暗号化 + 遠隔消去",
     rationale:
       "紛失・盗難時の主なリスクは媒体の読み取りである。全ディスク暗号化でデータを保護し、遠隔消去は端末がオンラインになった場合の補助として使う。",
+  },
+  {
+    id: "authenticate",
+    label: "多要素認証 + 不審メールの訓練・フィルタ",
+    rationale:
+      "認証情報が盗まれても、パスワード単独ではログインできない。メールフィルタと訓練でクリック率を下げる。ただし中間者（AiTM）型フィッシングではMFAも突破され得るため、FIDO2などの耐フィッシング認証を併用する。",
+  },
+  {
+    id: "separation",
+    label: "職務分離 + 最小権限 + 操作ログの監査",
+    rationale:
+      "単独では完結できない権限設計にし、操作ログで検知可能性を高める。最小権限は不正の機会だけでなく、実行された場合の被害範囲も狭める。",
   },
 ] as const;
 
@@ -111,7 +111,7 @@ export function ControlMatcher() {
               </div>
               <p className="mt-0.5 text-[0.7rem] leading-5 text-muted">{threat.detail}</p>
               <div className="mt-2">
-                <Field label="対策" htmlFor={`${groupId}-${threat.id}`}>
+                <Field label={`${threat.label}への対策`} htmlFor={`${groupId}-${threat.id}`}>
                   <select
                     id={`${groupId}-${threat.id}`}
                     className="field text-xs"
@@ -146,16 +146,20 @@ export function ControlMatcher() {
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
-        <button type="button" className="btn btn-primary" onClick={() => setGraded(true)}>
-          答え合わせ
+        <button type="button" className="btn btn-primary" onClick={() => setGraded(true)} disabled={graded}>
+          {graded ? "採点済み" : "答え合わせ"}
         </button>
         {!allAnswered ? (
           <span className="text-[0.68rem] text-muted">未選択の脅威は不正解として採点される</span>
         ) : null}
       </div>
 
+      <p className="sr-only" role="status">
+        {graded ? `採点結果は5問中${score}問正解です。` : ""}
+      </p>
+
       {graded ? (
-        <div aria-live="polite">
+        <div>
           <Metric
             label="スコア"
             value={`${score} / 5 問`}

@@ -196,7 +196,7 @@ export const securityTerms: GlossaryTerm[] = [
     shortJa: "情報資産に損害を与える可能性のある要因。",
     shortEn: "A potential cause of harm to an information asset.",
     explanationJa:
-      "脅威は、情報資産の confidentiality・integrity・availability を損なう可能性のある要因である。意図的なもの（攻撃、内部不正）と偶発的なもの（誤操作、故障、災害）に分けられ、人的・技術的・環境的という分類もされる。脅威そのものは排除できないことが多く、脆弱性を減らすことでリスクを下げる。",
+      "脅威は、情報資産の機密性・完全性・可用性を損なう可能性のある要因である。意図的なもの（攻撃、内部不正）と偶発的なもの（誤操作、故障、災害）に分けられ、人的・技術的・環境的という分類もされる。脅威そのものは排除できないことが多く、脆弱性を減らすことでリスクを下げる。",
     explanationEn:
       "A threat is any potential cause of harm to an asset, whether intentional (attack, insider fraud) or accidental (error, failure, disaster), and may be human, technical, or environmental.",
     examUsage:
@@ -222,6 +222,7 @@ export const securityTerms: GlossaryTerm[] = [
       "security/cia-and-design",
       "security/threats-and-malware",
       "security/attacks",
+      "security/crypto-auth",
     ],
     relatedTermIds: ["sec-threat", "sec-shadow-it", "sec-cvss"],
     tags: ["基礎", "リスク"],
@@ -629,7 +630,7 @@ export const securityTerms: GlossaryTerm[] = [
     shortJa: "大量の通信や処理要求でサービスを利用不能にする攻撃。",
     shortEn: "Overwhelming a service with traffic or requests to deny availability.",
     explanationJa:
-      "DoS攻撃は、大量の通信や計算要求を送り、サービスを利用不能にしたり著しく遅くしたりする攻撃である。多数の端末から分散して行うものをDDoS攻撃と呼び、ボットネットが使われることが多い。SYNフラッド、UDPフラッド、アンプ攻撃、HTTPリクエスト floodingなどがある。対策は、帯域の余裕確保、CDNやスクラビングサービスの利用、レート制限、異常検知、ボット対策である。",
+      "DoS攻撃は、大量の通信や計算要求を送り、サービスを利用不能にしたり著しく遅くしたりする攻撃である。多数の端末から分散して行うものをDDoS攻撃と呼び、ボットネットが使われることが多い。SYNフラッド、UDPフラッド、アンプ攻撃、HTTPリクエストを大量に送る攻撃などがある。対策は、帯域の余裕確保、CDNやスクラビングサービスの利用、レート制限、異常検知、ボット対策である。",
     explanationEn:
       "DoS overwhelms a service with traffic or requests; DDoS uses many distributed devices, often a botnet. Variants include SYN floods, UDP floods, amplification, and HTTP floods. Defenses include capacity, CDN/scrubbing, rate limiting, anomaly detection, and bot mitigation.",
     examUsage:

@@ -354,12 +354,12 @@ export const policyIsmsLesson: Lesson = {
     },
     {
       label: "JIPDEC ISMS適合性評価制度",
-      url: "https://www.isms.jipdec.or.jp/",
+      url: "https://www.jipdec.or.jp/isms.html",
       note: "ISMS認証の概要と規格の位置付け",
     },
     {
       label: "ISO/IEC 27001:2022 情報セキュリティマネジメントシステム",
-      url: "https://www.iso.org/standard/27001.html",
+      url: "https://www.iso.org/standard/27001",
       note: "要求事項の国際規格ページ",
     },
     {

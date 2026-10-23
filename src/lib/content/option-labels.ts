@@ -15,6 +15,6 @@ export const OPTION_LABEL: Record<OptionId, string> = {
 
 export const OPTION_IDS: OptionId[] = ["a", "i", "u", "e", "o", "ka", "ki", "ku", "ke", "ko"];
 
-export function optionLabel(id: OptionId): string {
-  return OPTION_LABEL[id];
+export function optionLabel(id: string): string {
+  return (OPTION_LABEL as Record<string, string>)[id] ?? id;
 }

@@ -16,7 +16,7 @@ export function Card({
 
 const toneStyles = {
   neutral: "bg-surface-2 text-muted border-border",
-  accent: "bg-accent-soft text-accent border-transparent",
+  accent: "bg-surface-2 text-accent border-accent/30",
   success: "bg-success/10 text-success border-success/20",
   warning: "bg-warning/10 text-warning border-warning/25",
   error: "bg-error/10 text-error border-error/25",
@@ -69,7 +69,7 @@ export function ProgressBar({
       aria-label={label ?? "進捗"}
     >
       <div
-        className="h-full rounded-full transition-[width] duration-500"
+        className="h-full rounded-full"
         style={{ width: `${pct}%`, background: tone }}
       />
     </div>

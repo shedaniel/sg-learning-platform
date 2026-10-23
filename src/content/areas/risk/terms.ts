@@ -65,7 +65,7 @@ export const terms: GlossaryTerm[] = [
     shortEn:
       "Loss from damage to or destruction of buildings, equipment, or data.",
     explanationJa:
-      "火災によるサーバ焼失、機器の故障、データの消失と再作成費用などが該当する。再取得費用や復旧作業費として金額を把握しやすい。バックアップや冗長化はこの損失を減らす。",
+      "火災によるサーバ焼失、機器の故障、データの消失と再作成費用などが該当する。再取得費用として金額を把握しやすい。バックアップや冗長化はこの損失を減らす。",
     explanationEn:
       "Examples include servers destroyed by fire, hardware failure, and data loss with re-creation costs. Backups and redundancy reduce this loss.",
     examUsage:
@@ -105,7 +105,7 @@ export const terms: GlossaryTerm[] = [
     explanationEn:
       "This includes lost sales during outages, costs of workarounds, and customer churn from reputational damage. It grows with outage duration even when physical assets are intact.",
     examUsage:
-      "「機会損失」「売上減少」「顧客離れ」は純収益損失。復旧費用そのものは財産損失として整理する場合が多い。",
+      "「機会損失」「売上減少」「顧客離れ」は純収益損失。再開のための追加費用も純収益損失に含めて整理する。",
     lessonIds: ["risk/fundamentals"],
     relatedTermIds: ["risk-property-loss", "risk-human-loss"],
     tags: ["損失", "事業停止"],
@@ -125,7 +125,7 @@ export const terms: GlossaryTerm[] = [
     examUsage:
       "「従業員の休業・健康被害」は人的損失。顧客への賠償と混同しない。",
     lessonIds: ["risk/fundamentals"],
-    relatedTermIds: ["risk-net-income-loss", "risk-moral-hazard"],
+    relatedTermIds: ["risk-net-income-loss", "risk-liability-loss"],
     tags: ["損失", "人材"],
   },
   {
@@ -233,7 +233,7 @@ export const terms: GlossaryTerm[] = [
     examUsage:
       "「保険に入ったので対策を後回しにした」はモラルハザード。内部不正（故意の窃取）とは区別する。",
     lessonIds: ["risk/fundamentals"],
-    relatedTermIds: ["risk-cyber-insurance", "risk-human-loss"],
+    relatedTermIds: ["risk-cyber-insurance", "risk-transfer"],
     tags: ["行動", "保険"],
   },
   {
@@ -251,7 +251,7 @@ export const terms: GlossaryTerm[] = [
       "ALE = SLE × ARO. It is used to compare treatment costs, but as an average it understates rare catastrophic events, so maximum loss estimates should be used alongside it.",
     examUsage:
       "計算問題ではAROを年間回数として扱う。%で与えられたら100で割る。ALEは「平均」であり、最悪ケースではない。",
-    lessonIds: ["risk/fundamentals", "risk/assessment"],
+    lessonIds: ["risk/fundamentals"],
     relatedTermIds: ["risk-quantitative-analysis", "risk-property-loss"],
     tags: ["定量", "計算"],
   },
@@ -392,11 +392,11 @@ export const terms: GlossaryTerm[] = [
     shortEn:
       "Scoring likelihood and impact numerically and multiplying them to rank risks.",
     explanationJa:
-      "5段階などの尺度で発生可能性と影響度を評価し、その積をリスクスコアとする。計算が単純で説明しやすく、多数のリスクを同じ土俵で比較できる。尺度の間隔が等間隔とは限らず、本質は定性評価である。",
+      "5段階などの尺度で発生可能性と影響度を評価し、その積をリスクスコアとする。計算が単純で説明しやすく、多数のリスクを同じ土俵で比較できる。尺度の間隔が等間隔とは限らず、金額に基づく定量分析ではなく半定量または定性として扱われる。",
     explanationEn:
-      "Likelihood and impact are rated, often on a five-point scale, and multiplied. It is simple and comparable across many risks, but the scale intervals are not guaranteed equal and the method remains qualitative.",
+      "Likelihood and impact are rated, often on a five-point scale, and multiplied. It is simple and comparable across many risks, but the scale intervals are not guaranteed equal and the method is semi-quantitative or qualitative rather than monetary.",
     examUsage:
-      "得点法は定量的に見えるが定性評価。点数が金額の裏付けを持つわけではない。",
+      "得点法は数値を使うが、金額に基づく定量分析ではない。半定量または定性として扱い、ALEなどの定量分析と区別する。",
     lessonIds: ["risk/assessment"],
     relatedTermIds: ["risk-matrix", "risk-qualitative-analysis", "risk-level"],
     tags: ["分析手法", "得点"],

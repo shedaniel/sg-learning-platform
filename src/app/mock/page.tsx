@@ -16,7 +16,7 @@ export default async function MockPage() {
   const latest = history[0];
 
   return (
-    <div className="animate-in">
+    <div className="">
       <PageHeader
         eyebrow="Mock examination"
         title="本番の120分を、一度体験する。"

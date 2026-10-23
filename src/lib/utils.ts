@@ -90,5 +90,14 @@ export function normalizeJapanese(input: string): string {
 }
 
 export function todayKey(date = new Date()): string {
-  return date.toISOString().slice(0, 10);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+export function dateKeyAfterDays(days: number, from = new Date()): string {
+  const date = new Date(from);
+  date.setDate(date.getDate() + days);
+  return todayKey(date);
 }

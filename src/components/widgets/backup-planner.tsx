@@ -88,7 +88,7 @@ export function BackupPlanner({ props }: { props?: WidgetProps }) {
             size,
             schedule: buildWeekSchedule(fullDay, fullDay * 1440 + hour * 60 + minute, interval),
             restoreSeconds: (size * 1024) / rate,
-            fullGenerations: Math.floor(retention / 7),
+            fullGenerations: Math.max(1, Math.floor(retention / 7)),
           };
         })()
       : null;
@@ -146,9 +146,8 @@ export function BackupPlanner({ props }: { props?: WidgetProps }) {
           />
         </Field>
         <Field
-          label="増分バックアップの間隔"
+          label="増分バックアップの間隔（時間）"
           htmlFor={`${groupId}-interval`}
-          hint="時間"
           error={intervalError}
         >
           <input
@@ -166,9 +165,8 @@ export function BackupPlanner({ props }: { props?: WidgetProps }) {
           />
         </Field>
         <Field
-          label="保持期間"
+          label="保持期間（日）"
           htmlFor={`${groupId}-retention`}
-          hint="日"
           error={retentionError}
         >
           <input
@@ -186,9 +184,8 @@ export function BackupPlanner({ props }: { props?: WidgetProps }) {
           />
         </Field>
         <Field
-          label="リストア速度"
+          label="リストア速度（MB/s）"
           htmlFor={`${groupId}-rate`}
-          hint="MB/s"
           error={rateError}
         >
           <input
@@ -197,7 +194,7 @@ export function BackupPlanner({ props }: { props?: WidgetProps }) {
             inputMode="decimal"
             min={1}
             max={100000}
-            step={1}
+            step="any"
             className="field"
             value={rateInput}
             onChange={(event) => setRateInput(event.target.value)}
@@ -206,9 +203,8 @@ export function BackupPlanner({ props }: { props?: WidgetProps }) {
           />
         </Field>
         <Field
-          label="復元するデータ量"
+          label="復元するデータ量（GB）"
           htmlFor={`${groupId}-size`}
-          hint="GB"
           error={sizeError}
         >
           <input
@@ -217,7 +213,7 @@ export function BackupPlanner({ props }: { props?: WidgetProps }) {
             inputMode="decimal"
             min={0.1}
             max={1000000}
-            step={0.1}
+            step="any"
             className="field"
             value={sizeInput}
             onChange={(event) => setSizeInput(event.target.value)}
@@ -230,7 +226,7 @@ export function BackupPlanner({ props }: { props?: WidgetProps }) {
       <p className="sr-only" role="status">
         {computed
           ? `RPO は ${computed.interval} 時間、リストア時間は ${formatDuration(computed.restoreSeconds)} です。`
-          : "入力値を確認してください。"}
+          : ""}
       </p>
 
       {computed ? (
@@ -239,13 +235,13 @@ export function BackupPlanner({ props }: { props?: WidgetProps }) {
             <Metric
               label="RPO（最大データ損失）"
               value={`${computed.interval} 時間`}
-              sub={`復旧できるのは最大 ${computed.interval * 60} 分前の時点（時間幅で表示）`}
+              sub={`復旧できるのは最大 ${computed.interval} 時間前の時点（時間幅で表示）`}
               tone="accent"
             />
             <Metric
               label="リストア時間（転送のみ）"
               value={formatDuration(computed.restoreSeconds)}
-              sub={`${computed.size} GB ÷ ${computed.rate} MB/s（1 GB = 1,024 MB）`}
+              sub={`${computed.size} GB ÷ ${computed.rate} MB/s（フル1回分、1 GB = 1,024 MB）`}
               tone="warning"
             />
             <Metric
@@ -277,7 +273,7 @@ export function BackupPlanner({ props }: { props?: WidgetProps }) {
                     aria-label={`${DAY_LABELS[day]}曜日: ${isFull ? `フルバックアップ ${fullTime}、` : ""}増分 ${increments} 回`}
                     className={
                       isFull
-                        ? "rounded-md border border-accent bg-accent-soft/60 px-1 py-1.5 text-center"
+                        ? "rounded-md border border-accent bg-bg-soft px-1 py-1.5 text-center"
                         : "rounded-md border border-border bg-surface-2 px-1 py-1.5 text-center"
                     }
                   >
@@ -293,7 +289,7 @@ export function BackupPlanner({ props }: { props?: WidgetProps }) {
               })}
             </ol>
             <p className="mt-1.5 text-[0.65rem] leading-5 text-muted">
-              F = フルバックアップ、I = 増分バックアップ。曜日は日曜始まり。増分は直前のフルを基準に数えている。
+              F = フルバックアップ、I = 増分バックアップ。曜日は日曜始まり。増分はフル開始の{computed.interval}時間後から{computed.interval}時間ごとに走り、7日周期で繰り返す。
             </p>
           </div>
 
@@ -305,7 +301,7 @@ export function BackupPlanner({ props }: { props?: WidgetProps }) {
 
           <Note>
             <strong className="font-semibold">RPO は増分の間隔で決まる。</strong>{" "}
-            RPO は本来「復旧すべき時点」を指し、ここでは現在からその時点までの最大時間幅として表示している。フルバックアップを毎日取得しても、増分が 24 時間間隔なら最大 24 時間分の更新が失われ得る。増分が失敗した場合はさらに前の成功時点まで戻るため、失敗の監視と再実行が必要である。リストア時間は転送のみの試算であり、実際の RTO には増分の適用、整合性の検証、業務の切戻し時間が加わる。
+            RPO は本来「復旧すべき時点」を指し、ここでは現在からその時点までの最大時間幅として表示している。フルバックアップを毎日取得しても、増分が 24 時間間隔なら最大 24 時間分の更新が失われ得る。増分が失敗した場合はさらに前の成功時点まで戻るため、失敗の監視と再実行が必要である。リストア時間は転送のみの試算であり、実際の RTO には増分の適用、整合性の検証、業務の切戻し時間が加わる。取得時間やネットワーク帯域の競合は考慮していない。
           </Note>
         </div>
       ) : (

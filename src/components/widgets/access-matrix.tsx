@@ -5,6 +5,8 @@ import { ShieldAlert } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Note, ResetButton, Verdict, WidgetBody } from "./shared";
 
+// 指定された5つの主体（営業・人事・経理・管理者・委託先）を役割、
+// 保護対象の3区分を資源として扱う。委託先×顧客データの違反を検出できる。
 const ROLES = [
   { id: "sales", label: "営業", note: "顧客対応・提案" },
   { id: "hr", label: "人事", note: "採用・評価・給与" },
@@ -44,11 +46,15 @@ function violationFor(role: Role, resource: Resource): Violation | null {
   if (ALLOWED[role.id].includes(resource.id)) return null;
 
   if (role.id === "contractor") {
+    const scope =
+      resource.id === "customer"
+        ? "顧客データは特に、委託先の作業に必要なレコード・項目だけに限定し、多要素認証と操作ログを必須にする。"
+        : "必要なレコード・期間だけに限定し、多要素認証と操作ログを必須にする。";
     return {
       role,
       resource,
       severity: "高",
-      reason: `${resource.label}を外部委託先に付与している。委託契約の作業範囲を超える権限は最小権限違反であり、顧客データは特に、必要なレコード・項目だけに限定して多要素認証と操作ログを必須にする。`,
+      reason: `${resource.label}を外部委託先に付与している。委託契約の作業範囲を超える権限は最小権限違反である。${scope}`,
     };
   }
 
@@ -115,10 +121,10 @@ export function AccessMatrix() {
       </div>
 
       <p className="text-[0.76rem] leading-6 text-muted">
-        5つの役割に、3種類のデータへの閲覧権限を与える。チェックした組合せを「最小権限の原則」と職務分離の観点で判定する。
+        5つの役割に、3種類のデータへの閲覧権限を与える。チェックした組合せを「最小権限の原則」と職務分離の観点で判定する。ここでは常時付与する権限を点検し、作業単位・期間単位の一時付与は別に設計する。
       </p>
 
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto" role="region" aria-label="アクセス権限マトリックス" tabIndex={0}>
         <table className="w-full min-w-[27rem] border-collapse text-xs">
           <caption className="sr-only">
             役割ごとのデータアクセス権限。各行が役割、各列がデータ区分で、チェックを付けると権限を付与する。
@@ -153,7 +159,7 @@ export function AccessMatrix() {
                   return (
                     <td
                       key={resource.id}
-                      className={cn("border border-border p-0 text-center", checked && "bg-accent-soft/40")}
+                      className={cn("border border-border p-0 text-center", checked && "bg-bg-soft")}
                     >
                       <label className="flex min-h-9 cursor-pointer items-center justify-center p-1.5">
                         <input
@@ -161,11 +167,12 @@ export function AccessMatrix() {
                           className="size-4"
                           style={{ accentColor: "var(--accent)" }}
                           checked={checked}
-                          aria-label={`${role.label}に${resource.label}の閲覧権限を付与する`}
+                          aria-label={`${role.label}の${resource.label}閲覧権限`}
                           onChange={(event) => {
+                            const checked = event.target.checked;
                             setSelected((previous) => {
                               const next = new Set(previous);
-                              if (event.target.checked) next.add(key);
+                              if (checked) next.add(key);
                               else next.delete(key);
                               return next;
                             });
@@ -190,7 +197,7 @@ export function AccessMatrix() {
           違反 {violations.length}
         </span>
         <span className="ml-auto text-[0.6rem] leading-4 text-muted">
-          推奨ベースライン: 営業=顧客／人事=人事・給与／経理=財務・請求／管理者・委託先=なし
+          推奨ベースライン: 営業=顧客／人事=人事・給与／経理=財務・請求／システム管理者・委託先=なし
         </span>
       </div>
 
@@ -240,7 +247,7 @@ export function AccessMatrix() {
       </div>
 
       <p className="text-[0.68rem] leading-5 text-muted">
-        外部委託先には、自社の従業員と同じ権限を与えない。委託先のアカウントは作業単位・期間単位で発行し、契約終了時に確実に失効させる。管理者には業務データの閲覧ではなく、アカウント管理に必要な権限だけを与える。
+        外部委託先には、自社の従業員と同じ権限を与えない。委託先のアカウントは作業単位・期間単位で発行し、契約終了時に確実に失効させる。システム管理者には業務データの閲覧ではなく、アカウント管理に必要な権限だけを与える。
       </p>
     </WidgetBody>
   );

@@ -344,7 +344,7 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
   if (finished) {
     const weak = questions.filter((item) => !answers[item.id]?.correct);
     return (
-      <div className="space-y-5 animate-in">
+      <div className="space-y-5">
         <div className="card overflow-hidden">
           <div className="border-b border-border bg-surface-2 px-5 py-3 text-xs font-semibold text-muted">
             {title} · 結果
@@ -496,7 +496,7 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
         </div>
 
         {revealed ? (
-          <div className="mt-5 space-y-3 animate-in" aria-live="polite">
+          <div className="mt-5 space-y-3" aria-live="polite">
             <div
               className={cn(
                 "rounded-xl border px-4 py-3",
@@ -600,7 +600,7 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
                         ? record.correct
                           ? "border-success/40 bg-success/10 text-success"
                           : "border-error/40 bg-error/10 text-error"
-                        : "border-accent/40 bg-accent-soft text-accent"
+                        : "border-accent/40 bg-bg-soft text-accent"
                       : "border-border bg-surface text-muted hover:border-accent/50",
                 )}
               >

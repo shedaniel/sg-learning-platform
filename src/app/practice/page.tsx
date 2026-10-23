@@ -26,7 +26,7 @@ export default async function PracticePage() {
   const attemptedTopicIds = new Set(snapshot.topics.filter((topic) => topic.attempts > 0).map((topic) => topic.topic.id));
 
   return (
-    <div className="animate-in">
+    <div className="">
       <PageHeader
         eyebrow="Practice"
         title="知識を、使える形へ。"
@@ -44,7 +44,7 @@ export default async function PracticePage() {
           {
             label: "問題バンク",
             value: `${totalQuestions}問`,
-            sub: `科目A/B · 公式${snapshot.quizHistory.length ? "" : "問題も収録"}`,
+            sub: "科目A/B · IPA公開60問",
             icon: ListChecks,
             href: "/practice/run?count=10",
           },
@@ -141,6 +141,7 @@ export default async function PracticePage() {
           <PracticeSetup
             topics={topicOptions}
             weakTopicIds={snapshot.weakTopics.map((topic) => topic.topic.id)}
+            totalCount={totalQuestions}
           />
           <div className="card p-5">
             <p className="eyebrow">Quick start</p>

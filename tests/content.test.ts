@@ -62,3 +62,29 @@ describe("content bank", () => {
     expect(SYLLABUS_VERSION.examStructure.partA + SYLLABUS_VERSION.examStructure.partB).toBe(60);
   });
 });
+
+describe("historical archive", () => {
+  it("lists all eight 2016–2019 paper exams with booklet and answer links", async () => {
+    const { HISTORICAL_PAPERS } = await import("@/content");
+    expect(HISTORICAL_PAPERS).toHaveLength(8);
+    expect(new Set(HISTORICAL_PAPERS.map((paper) => paper.id)).size).toBe(8);
+    for (const paper of HISTORICAL_PAPERS) {
+      expect(paper.year).toBeGreaterThanOrEqual(2016);
+      expect(paper.year).toBeLessThanOrEqual(2019);
+      for (const link of [
+        paper.morning.booklet,
+        paper.morning.answers,
+        paper.afternoon.booklet,
+        paper.afternoon.answers,
+        paper.pageUrl,
+      ]) {
+        expect(link).toMatch(/^https:\/\/www\.ipa\.go\.jp\//);
+      }
+      expect(linkEndsWithPdf(paper.morning.booklet)).toBe(true);
+    }
+  });
+});
+
+function linkEndsWithPdf(link: string) {
+  return /\.pdf$/.test(link);
+}

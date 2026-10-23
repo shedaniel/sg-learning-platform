@@ -24,6 +24,18 @@
 - Every lesson maps to one or more syllabus topic IDs. `docs/COVERAGE.md` and `/coverage` are generated from those mappings. "Complete" means ≥1 lesson and ≥4 questions, not a claim of official endorsement.
 - Mastery is attempt-based (multiple attempts, accuracy, breadth), never awarded for merely opening a lesson.
 
+## Learner pace (supersedes PLAN.md §9)
+
+- The user explicitly asked not to build a Duolingo-style daily plan or streak. The study-plan generator, daily quotas, streak counter, and "learn 30 minutes every day" language were removed.
+- The dashboard now reports factual progress and optional 14-day activity, not targets. Lesson order is free; the only sequencing is the curriculum map and spaced-repetition reviews.
+- `study_plans` is retired by migration v2. No gamification badges, streak counts, or daily goals remain.
+
+## Visual direction (2026-10-24)
+
+- Removed fade/stagger animations, backdrop blur, the serif display face, pill buttons, and most tinted accent panels.
+- Headings now use the same system sans stack as body text. Green is limited to primary actions, links, focus rings, and data accents; cards and callouts are neutral.
+- No streaks, daily goals, or gamified copy. The interface reports state and offers the next useful action.
+
 ## Deliberate limits
 
 - No AI tutor/chat. PLAN.md allows optional AI, but the core must work without paid AI; adding an ungrounded tutor would weaken trust.

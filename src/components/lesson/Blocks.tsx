@@ -71,7 +71,7 @@ export function TermsBlock({ termIds }: { termIds: readonly string[] }) {
 
 const calloutStyles = {
   tip: {
-    wrap: "border-accent/25 bg-accent-soft/55",
+    wrap: "border-border border-l-2 border-l-accent bg-surface-2",
     label: "試験のヒント",
     icon: "◎",
   },
@@ -223,8 +223,8 @@ export function BlockRenderer({ block }: { block: Block }) {
       );
     case "interactive":
       return (
-        <div className="my-7 overflow-hidden rounded-xl border border-accent/25 bg-surface shadow-sm">
-          <div className="flex items-center gap-2 border-b border-border bg-accent-soft/50 px-4 py-2.5">
+        <div className="my-7 overflow-hidden rounded-xl border border-border bg-surface">
+          <div className="flex items-center gap-2 border-b border-border bg-surface-2 px-4 py-2.5">
             <span className="size-1.5 rounded-full bg-accent" />
             <span className="text-xs font-semibold text-accent">
               {block.title ?? "インタラクティブ"}
@@ -264,7 +264,7 @@ export function BlockRenderer({ block }: { block: Block }) {
               {index < block.items.length - 1 ? (
                 <span className="absolute left-[0.95rem] top-8 h-full w-px bg-border" aria-hidden />
               ) : null}
-              <span className="mono grid size-8 shrink-0 place-items-center rounded-full border border-accent/30 bg-accent-soft text-xs font-semibold text-accent">
+              <span className="mono grid size-8 shrink-0 place-items-center rounded-full border border-accent/30 bg-bg-soft text-xs font-semibold text-accent">
                 {index + 1}
               </span>
               <div className="pt-0.5">

@@ -26,7 +26,7 @@ export default async function GlossaryPage({
   });
 
   return (
-    <div className="animate-in">
+    <div className="">
       <PageHeader
         eyebrow="Glossary"
         title="日本語のまま、理解する。"
@@ -50,7 +50,7 @@ export default async function GlossaryPage({
       />
 
       <div className="mb-5 flex flex-wrap items-center gap-2">
-        <Link href="/glossary" className={`chip ${!area ? "border-accent bg-accent-soft text-accent" : ""}`}>
+        <Link href="/glossary" className={`chip ${!area ? "border-accent bg-surface text-accent" : ""}`}>
           すべて（{ALL_TERMS.length}）
         </Link>
         {AREAS.map((item) => {
@@ -59,7 +59,7 @@ export default async function GlossaryPage({
             <Link
               key={item.id}
               href={`/glossary?area=${item.id}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
-              className={`chip ${area === item.id ? "border-accent bg-accent-soft text-accent" : ""}`}
+              className={`chip ${area === item.id ? "border-accent bg-surface text-accent" : ""}`}
             >
               {item.shortTitle}（{count}）
             </Link>

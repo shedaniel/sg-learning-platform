@@ -23,7 +23,7 @@ export default async function PaperPage({ params }: { params: Promise<{ year: st
   const ids = paper.questions.map((question) => question.id).join(",");
 
   return (
-    <div className="animate-in">
+    <div className="">
       <Breadcrumbs items={[{ label: "過去問", href: "/past-papers" }, { label: paper.label }]} />
       <PageHeader
         eyebrow={`${paper.label} · IPA 公開問題`}

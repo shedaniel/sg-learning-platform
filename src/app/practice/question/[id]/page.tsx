@@ -19,7 +19,7 @@ export default async function QuestionPage({ params }: { params: Promise<{ id: s
   const bookmarked = isBookmarked(profileId, "question", questionId);
 
   return (
-    <div className="animate-in">
+    <div className="">
       <Breadcrumbs
         items={[
           { label: "演習", href: "/practice" },

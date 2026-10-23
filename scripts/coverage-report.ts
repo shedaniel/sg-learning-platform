@@ -7,7 +7,7 @@ const stats = coverageStats();
 const lines = [
   "# Syllabus coverage",
   "",
-  `Generated: ${new Date().toISOString().slice(0, 10)}`,
+  `Generated: ${new Date().toLocaleDateString("en-CA")}`,
   "",
   `Current syllabus: **${SYLLABUS_VERSION.current}** (published ${SYLLABUS_VERSION.currentPublished})`,
   `Proposed syllabus: ${SYLLABUS_VERSION.proposed} (published ${SYLLABUS_VERSION.proposedPublished})`,

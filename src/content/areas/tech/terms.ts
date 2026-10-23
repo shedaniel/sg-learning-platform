@@ -421,7 +421,7 @@ export const techTerms: GlossaryTerm[] = [
     shortEn:
       "A suite of protocols that authenticates and encrypts IP packets, commonly used for site-to-site VPNs.",
     explanationJa:
-      "拠点間のVPNで広く使われ、AHとESPという2つのプロトコルを持ちます。AHは認証のみで暗号化は行わず、ESPは暗号化と認証の両方を行います。接続の確立にはIKEを使い、トンネルモードでは元のIPパケットを丸ごと保護します。",
+      "拠点間のVPNで広く使われ、AHとESPという2つのプロトコルを持ちます。AHは認証と完全性の保護を行い、暗号化は行いません。ESPは暗号化と認証の両方を行います。接続の確立にはIKEを使い、トンネルモードでは元のIPパケットを丸ごと保護します。",
     explanationEn:
       "IPsec ESP provides confidentiality and integrity at the IP layer; AH provides integrity only.",
     examUsage:

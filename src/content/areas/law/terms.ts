@@ -248,9 +248,9 @@ export const lawTerms: GlossaryTerm[] = [
     shortEn:
       "An external bureau of the Cabinet Office supervising the Personal Information Protection Act and the My Number Act.",
     explanationJa:
-      "2016年1月に設置された独立規制機関で、民間部門に加え、2022年4月以降は公的部門の個人情報保護も一元的に所管する。報告徴収・立入検査、指導・助言、勧告、命令などの権限を持つ。認定個人情報保護団体の認定も行う。漏えい等の報告先でもある。",
+      "2016年1月に設置された独立規制機関で、国の行政機関等については2022年4月から、地方公共団体については2023年4月から、公的部門の個人情報保護も一元的に所管する。報告徴収・立入検査、指導・助言、勧告、命令などの権限を持つ。認定個人情報保護団体の認定も行う。漏えい等の報告先でもある。",
     explanationEn:
-      "Established in January 2016, the Commission is an independent regulator that has supervised both the private and, since April 2022, the public sectors in a unified manner. It can collect reports, conduct on-site inspections, issue guidance, advice, recommendations, and orders, and certify accredited personal information protection organizations. It is also the reporting destination for data breaches.",
+      "Established in January 2016, the Commission is an independent regulator that has supervised the private sector and, from April 2022, national public-sector bodies, with local governments added in April 2023. It can collect reports, conduct on-site inspections, issue guidance, advice, recommendations, and orders, and certify accredited personal information protection organizations. It is also the reporting destination for data breaches.",
     examUsage:
       "「主務大臣」ではなく「個人情報保護委員会」が窓口。漏えい等の報告先も委員会。",
     lessonIds: ["law/privacy"],
@@ -268,7 +268,7 @@ export const lawTerms: GlossaryTerm[] = [
     shortEn:
       "The EU regulation on personal data protection, characterized by extraterritorial reach and heavy fines.",
     explanationJa:
-      "2018年5月25日から適用されているEUの規則で、EU域内のデータ主体に商品・サービスを提供する場合や行動を監視する場合には、EU域外の事業者にも適用される。同意・契約・法的義務など6つの適法性根拠、データ主体の権利、72時間以内の監督機関への通知、DPOの設置などを定める。制裁金は最大2,000万ユーロまたは全世界売上高の4%のいずれか高い方である。",
+      "2018年5月25日から適用されているEUの規則で、EU域内のデータ主体に商品・サービスを提供する場合や行動を監視する場合には、EU域外の事業者にも適用される。同意・契約・法的義務など6つの適法性根拠、データ主体の権利、72時間以内の監督機関への通知、一定の場合のDPO設置などを定める。制裁金は最大2,000万ユーロまたは全世界売上高の4%のいずれか高い方である。",
     explanationEn:
       "Applied since 25 May 2018, the GDPR also reaches businesses outside the EU when they offer goods or services to data subjects in the EU or monitor their behavior. It sets out six lawful bases, data subject rights, notification to supervisory authorities within 72 hours, and DPO requirements. Fines can reach EUR 20 million or 4% of worldwide annual turnover, whichever is higher.",
     examUsage:
@@ -329,9 +329,9 @@ export const lawTerms: GlossaryTerm[] = [
     shortEn:
       "Using a computer with access control without authorization by bypassing its restrictions.",
     explanationJa:
-      "①他人の識別符号を入力して制限を免れる行為、②識別符号以外の情報・指令を入力して制限を免れる行為、③ネットワーク越しに他の計算機のアクセス制御機能の制限を免れる行為の3類型をいう。アクセス管理者や利用権者の承諾がある場合、管理者自身が行う場合は該当しない。",
+      "①他人の識別符号を入力して制限を免れる行為、②識別符号以外の情報・指令を入力して制限を免れる行為、③ネットワーク越しに他の計算機のアクセス制御機能の制限を免れる行為の3類型をいう。アクセス管理者自身が行う場合のほか、第1号はアクセス管理者又は利用権者の承諾、第2号・第3号はアクセス管理者の承諾がある場合は該当しない。",
     explanationEn:
-      "The Act defines three types: entering another person's identification code to bypass restrictions; entering other information or commands to bypass restrictions; and bypassing restrictions through a networked computer. Acts with the administrator's or authorized user's consent, or by the administrator, are excluded.",
+      "The Act defines three types: entering another person's identification code to bypass restrictions; entering other information or commands to bypass restrictions; and bypassing restrictions through a networked computer. Acts by the administrator are excluded; type 1 also excludes acts with the administrator's or authorized user's consent, while types 2 and 3 require the administrator's consent.",
     examUsage:
       "「ID・パスワードを入力した」だけでなく、「セキュリティホールを突いた」「制限を回避した」も不正アクセス。",
     lessonIds: ["law/cyber-criminal"],
@@ -397,9 +397,9 @@ export const lawTerms: GlossaryTerm[] = [
     shortEn:
       "Acts that induce or ease unauthorized access, such as wrongfully obtaining, providing, storing, or requesting identification codes.",
     explanationJa:
-      "不正アクセス行為そのものではないが、それを助長する行為をいう。①不正アクセス行為の用に供する目的での他人の識別符号の取得、②識別符号の提供、③不正に取得された識別符号の保管、④管理者になりすまして識別符号の入力を求める行為が該当する。法定刑は1年以下の懲役又は50万円以下の罰金である。",
+      "不正アクセス行為そのものではないが、それを助長する行為をいう。①不正アクセス行為の用に供する目的での他人の識別符号の取得、②識別符号の提供、③不正に取得された識別符号の保管、④管理者になりすまして識別符号の入力を求める行為が該当する。法定刑は1年以下の懲役又は50万円以下の罰金が基本だが、第5条の提供で相手方の目的を知らない場合は30万円以下の罰金となる。",
     explanationEn:
-      "Facilitating acts are not unauthorized access itself but make it easier: obtaining another person's identification code for use in unauthorized access; providing such a code; storing a wrongfully obtained code; and impersonating the administrator to request code entry. The statutory penalty is imprisonment for up to one year or a fine of up to 500,000 yen.",
+      "Facilitating acts are not unauthorized access itself but make it easier: obtaining another person's identification code for use in unauthorized access; providing such a code; storing a wrongfully obtained code; and impersonating the administrator to request code entry. The basic penalty is imprisonment for up to one year or a fine of up to 500,000 yen; providing a code without knowledge of the recipient's purpose carries a fine of up to 300,000 yen.",
     examUsage:
       "助長行為は「他人のID・パスワードを不正に取得・提供する」行為。自分がログインしていなくても処罰対象になる。",
     lessonIds: ["law/cyber-criminal"],
@@ -439,9 +439,9 @@ export const lawTerms: GlossaryTerm[] = [
     shortEn:
       "The law regulating advertising email, based on an opt-in principle.",
     explanationJa:
-      "特定電子メールの送信の適正化等に関する法律。営業のために広告宣伝目的の電子メールを送る場合、原則としてあらかじめ同意した者にしか送信できない（オプトイン）。送信者情報の表示、受信拒否者への再送信禁止、送信者情報の偽装禁止などを定める。違反には1年以下の懲役又は100万円以下の罰金、法人には3,000万円以下の罰金が科され得る。",
+      "特定電子メールの送信の適正化等に関する法律。営業のために広告宣伝目的の電子メールを送る場合、原則としてあらかじめ同意した者にしか送信できない（オプトイン）。送信者情報の表示、受信拒否者への再送信禁止、送信者情報の偽装禁止などを定める。主要な違反には1年以下の懲役又は100万円以下の罰金、法人には3,000万円以下の罰金が科され得る。",
     explanationEn:
-      "The Act regulates advertising email sent for business. In principle, email may be sent only to recipients who have given prior consent (opt-in). It also requires sender information, prohibits resending to recipients who have refused, and prohibits falsifying sender information. Violations can result in imprisonment for up to one year or a fine of up to 1 million yen, and up to 30 million yen for corporations.",
+      "The Act regulates advertising email sent for business. In principle, email may be sent only to recipients who have given prior consent (opt-in). It also requires sender information, prohibits resending to recipients who have refused, and prohibits falsifying sender information. Major violations can result in imprisonment for up to one year or a fine of up to 1 million yen, and up to 30 million yen for corporations.",
     examUsage:
       "2011年改正でオプトアウトからオプトインへ移行。迷惑メール対策の基本。",
     lessonIds: ["law/cyber-criminal"],
@@ -837,9 +837,9 @@ export const lawTerms: GlossaryTerm[] = [
     shortJa: "公的な標準化機関が制定した標準。",
     shortEn: "A standard established by an official standards body.",
     explanationJa:
-      "ISO、IEC、ITU、JISなど、公的な標準化機関が定めた標準をいう。法的拘束力は原則としてないが、調達要件や認証制度を通じて実質的な強制力を持つことがある。相互運用性や取引の円滑化を目的とする。",
+      "ISO、IEC、ITUなどの公的な標準化機関が定めた標準や、日本産業規格（JIS）をいう。法的拘束力は原則としてないが、調達要件や認証制度を通じて実質的な強制力を持つことがある。相互運用性や取引の円滑化を目的とする。",
     explanationEn:
-      "De jure standards are established by official standards bodies such as ISO, IEC, ITU, and JIS. They are generally not legally binding, but procurement requirements and certification schemes can give them practical force. Their purpose is interoperability and smoother transactions.",
+      "De jure standards are established by official standards bodies such as ISO, IEC, and ITU, or are national standards such as Japan's JIS. They are generally not legally binding, but procurement requirements and certification schemes can give them practical force. Their purpose is interoperability and smoother transactions.",
     examUsage:
       "デジュレは「公的機関」、デファクトは「市場の実績」。例で判別する。",
     lessonIds: ["law/ip-contract"],

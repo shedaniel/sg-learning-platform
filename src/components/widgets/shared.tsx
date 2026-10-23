@@ -1,3 +1,5 @@
+"use client";
+
 import type { ReactNode } from "react";
 import { Check, RotateCcw, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -88,7 +90,7 @@ export function Metric({
 }
 
 const NOTE_TONES = {
-  info: "border-accent/45 bg-accent-soft/40",
+  info: "border-accent/45 bg-bg-soft",
   tip: "border-success/45 bg-success/10",
   warn: "border-warning/50 bg-warning/10",
 } as const;
@@ -129,7 +131,7 @@ export function Verdict({ ok, children }: { ok: boolean; children: ReactNode }) 
 
 export function ResetButton({ onClick, label = "リセット" }: { onClick: () => void; label?: string }) {
   return (
-    <button type="button" onClick={onClick} className="btn btn-ghost shrink-0 px-2.5 py-1 text-[0.7rem]">
+    <button type="button" onClick={onClick} className="btn btn-ghost">
       <RotateCcw aria-hidden className="size-3.5" />
       {label}
     </button>

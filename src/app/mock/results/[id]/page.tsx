@@ -8,6 +8,7 @@ import { getLearner } from "@/lib/session";
 import { PageHeader, Badge, ProgressBar } from "@/components/ui/primitives";
 import { formatDateTime, formatDuration, percent } from "@/lib/utils";
 import { PART_LABEL, DIFFICULTY_LABEL } from "@/content";
+import { optionLabel } from "@/lib/content/option-labels";
 
 export const dynamic = "force-dynamic";
 
@@ -58,7 +59,7 @@ export default async function MockResultPage({ params }: { params: Promise<{ id:
     .slice(0, 4);
 
   return (
-    <div className="animate-in">
+    <div className="">
       <PageHeader
         eyebrow={`Mock result · ${formatDateTime(attempt.submittedAt)}`}
         title="模擬試験の結果"
@@ -218,7 +219,7 @@ export default async function MockResultPage({ params }: { params: Promise<{ id:
                   </p>
                   <p className="mt-0.5 line-clamp-2 text-xs leading-5">{question.stem}</p>
                   <p className="mt-0.5 text-[0.65rem] text-muted">
-                    選択: {detail.selected ?? "未解答"} / 正答: {detail.correctOptionId}
+                    選択: {detail.selected ? optionLabel(detail.selected) : "未解答"} / 正答: {optionLabel(detail.correctOptionId)}
                   </p>
                 </div>
                 <Link href={`/practice/question/${question.id}`} className="shrink-0 text-[0.7rem] font-semibold text-accent hover:underline">

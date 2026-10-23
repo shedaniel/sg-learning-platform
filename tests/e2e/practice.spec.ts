@@ -28,7 +28,30 @@ test("official past paper exposes source and answer", async ({ page }) => {
   await page.goto("/past-papers/2026");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("2026年度");
   await expect(page.getByText("出典：IPA").first()).toBeVisible();
-  await page.getByRole("link", { name: /問1|問題/ }).first().click();
-  await expect(page.getByText(/出典：IPA 情報セキュリティマネジメント試験/)).toBeVisible();
+  await page.locator('a[href^="/practice/question/"]').first().click();
+  await page.waitForURL(/\/practice\/question\//);
+  await expect(page.getByText(/出典：IPA 情報セキュリティマネジメント試験/).first()).toBeVisible();
   await expect(page.getByText("公式PDF・出題年度ページ")).toBeVisible();
+});
+
+test("a wrong answer enters the spaced-repetition queue", async ({ page }) => {
+  await page.goto("/practice");
+  await page.evaluate(async () => {
+    const start = await fetch("/api/quiz/start", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ count: 1, part: "A", includeOfficial: true }),
+    }).then((response) => response.json());
+    const question = start.questions[0];
+    const wrong = question.options.find((option: { id: string }) => option.id !== question.correctOptionId);
+    await fetch("/api/attempts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ questionId: question.id, selected: wrong.id, elapsedMs: 1000, mode: "quiz" }),
+    });
+    return { id: question.id };
+  });
+  await page.goto("/review");
+  await expect(page.getByText("今日の復習キュー")).toBeVisible();
+  await expect(page.locator('a[href^="/practice/question/"]').first()).toBeVisible();
 });

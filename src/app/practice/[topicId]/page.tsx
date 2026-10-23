@@ -27,7 +27,7 @@ export default async function TopicPracticePage({
   );
 
   return (
-    <div className="animate-in">
+    <div className="">
       <Breadcrumbs
         items={[
           { label: "演習", href: "/practice" },
@@ -102,6 +102,7 @@ export default async function TopicPracticePage({
           <PracticeSetup
             topics={[{ id: topic.id, title: topic.title, areaTitle: "選択中", questionCount: questions.length }]}
             defaultTopic={topic.id}
+            totalCount={questions.length}
           />
           <div className="card p-4">
             <div className="flex items-center gap-2">
