@@ -36,7 +36,7 @@ Validated: unique IDs, topic/lesson/term references, four-option original questi
 
 ## Automated tests
 
-`npm test` — **26 tests passed** across 4 files:
+`npm test` — **27 tests passed** across 4 files:
 
 - mock composition (48 A + 12 B, uniqueness, deterministic seed, short bank);
 - scoring (correct/unanswered/time/part/topic/difficulty);
@@ -44,7 +44,7 @@ Validated: unique IDs, topic/lesson/term references, four-option original questi
 - quiz filtering/grading;
 - SRS intervals and lapse behavior;
 - migrations and schema uniqueness;
-- content integrity, official papers, 51/51 coverage, historical archive.
+- content integrity, official papers and answer keys, 51/51 coverage, historical archive.
 
 `npm run test:e2e` — **11 Playwright tests passed** (final production build):
 

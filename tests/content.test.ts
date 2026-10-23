@@ -56,6 +56,23 @@ describe("content bank", () => {
     expect(OFFICIAL_QUESTIONS).toHaveLength(60);
   });
 
+  it("matches the official IPA answer keys for 2023–2026", () => {
+    const expected: Record<number, string[]> = {
+      2026: ["u", "a", "a", "e", "u", "a", "e", "i", "i", "i", "a", "u", "e", "ku", "e"],
+      2025: ["e", "a", "i", "a", "i", "a", "e", "a", "e", "a", "i", "u", "ku", "u", "ki"],
+      2024: ["i", "e", "e", "u", "i", "u", "u", "u", "u", "e", "a", "a", "a", "e", "i"],
+      2023: ["i", "i", "u", "e", "e", "a", "i", "i", "u", "a", "i", "i", "e", "o", "u"],
+    };
+    for (const paper of OFFICIAL_PAPERS) {
+      const questions = [...paper.questions].sort(
+        (a, b) => (a.source.questionNo ?? 0) - (b.source.questionNo ?? 0),
+      );
+      expect(questions.map((question) => question.correctOptionId)).toEqual(expected[paper.year]);
+      expect(questions.filter((question) => question.part === "A")).toHaveLength(12);
+      expect(questions.filter((question) => question.part === "B")).toHaveLength(3);
+    }
+  });
+
   it("pins the current syllabus version", () => {
     expect(SYLLABUS_VERSION.current).toBe("Ver.4.1");
     expect(SYLLABUS_VERSION.examStructure.questions).toBe(60);
