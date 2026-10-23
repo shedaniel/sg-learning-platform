@@ -24,6 +24,7 @@ test("lesson reading, completion and persistence", async ({ page }) => {
   }
   await page.reload();
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  await expect(page.getByRole("button", { name: "読了済み" })).toBeVisible();
 });
 
 test("glossary search and term detail", async ({ page }) => {
