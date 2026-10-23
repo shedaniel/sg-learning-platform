@@ -147,7 +147,7 @@ export function generateStudyPlan(
   });
 
   const days: StudyPlanDay[] = [];
-  let cursor = startOfToday();
+  let cursor = start;
   let templateIndex = 0;
   for (let i = 0; i < horizon; i += 1) {
     const weekday = cursor.getDay();

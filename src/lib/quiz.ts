@@ -10,6 +10,8 @@ export interface QuizConfig {
   seed?: number;
   preferWeak?: string[];
   includeOfficial?: boolean;
+  questionIds?: string[];
+  officialYear?: number;
 }
 
 export interface QuizSelection {
@@ -34,6 +36,8 @@ export function selectQuizQuestions(
       if (question.difficulty !== config.difficulty) return false;
     }
     if (config.includeOfficial === false && question.source.kind === "official") return false;
+    if (config.questionIds?.length && !config.questionIds.includes(question.id)) return false;
+    if (config.officialYear && question.source.year !== config.officialYear) return false;
     return true;
   });
 

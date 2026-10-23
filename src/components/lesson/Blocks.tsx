@@ -282,7 +282,7 @@ export function BlockRenderer({ block }: { block: Block }) {
   }
 }
 
-export function BlockList({ blocks }: { blocks: Block[] }) {
+export function BlockList({ blocks }: { blocks: readonly Block[] }) {
   return (
     <>
       {blocks.map((block, index) => (

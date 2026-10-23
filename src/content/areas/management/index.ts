@@ -1,9 +1,15 @@
 import type { Area } from "@/lib/content/types";
 import { AREA_META } from "@/content/syllabus";
+import { policyIsmsLesson } from "./policy-isms";
+import { governanceOrgLesson } from "./governance-org";
+import { incidentLesson } from "./incident";
+import { terms } from "./terms";
+import { policyIsmsQuestions } from "./questions-policy-isms";
+import { governanceOrgQuestions } from "./questions-governance-org";
+import { incidentQuestions } from "./questions-incident";
 
 const meta = AREA_META.find((m) => m.id === "management")!;
 
-// Placeholder replaced by the content author for this area.
 export const area: Area = {
   id: meta.id,
   order: meta.order,
@@ -12,7 +18,11 @@ export const area: Area = {
   shortTitle: meta.shortTitle,
   description: meta.description,
   color: meta.color,
-  lessons: [],
-  terms: [],
-  questions: [],
+  lessons: [policyIsmsLesson, governanceOrgLesson, incidentLesson],
+  terms,
+  questions: [
+    ...policyIsmsQuestions,
+    ...governanceOrgQuestions,
+    ...incidentQuestions,
+  ],
 };

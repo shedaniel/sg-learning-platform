@@ -68,6 +68,12 @@
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-error: var(--error);
+  --color-c1: var(--c1);
+  --color-c2: var(--c2);
+  --color-c3: var(--c3);
+  --color-c4: var(--c4);
+  --color-c5: var(--c5);
+  --color-c6: var(--c6);
   --font-sans: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI",
     "Yu Gothic", "Noto Sans JP", system-ui, -apple-system, sans-serif;
   --font-serif: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", Georgia,

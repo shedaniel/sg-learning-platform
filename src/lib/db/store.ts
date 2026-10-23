@@ -603,17 +603,20 @@ export function submitMockAttempt(
 ): void {
   const db = getDb();
   inTransaction(db, () => {
+    const submittedAt = nowIso();
     db.prepare(
       `UPDATE mock_attempts SET answers_json = ?, flags_json = ?, current_index = ?,
-         submitted_at = ?, correct = ?, result_json = ?
+         submitted_at = ?, correct = ?, result_json = ?,
+         duration_sec = CAST((julianday(?) - julianday(started_at)) * 86400 AS INTEGER)
        WHERE id = ? AND profile_id = ? AND submitted_at IS NULL`,
     ).run(
       JSON.stringify(input.answers),
       JSON.stringify(input.flags),
       input.currentIndex,
-      nowIso(),
+      submittedAt,
       input.correct,
       JSON.stringify(input.result),
+      submittedAt,
       id,
       profileId,
     );

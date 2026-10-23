@@ -5,7 +5,7 @@ import type {
   Question,
   SyllabusTopic,
 } from "@/lib/content/types";
-import { AREA_META, SYLLABUS_TOPICS, TOPIC_BY_ID } from "@/content/syllabus";
+import { AREA_META, SYLLABUS_TOPICS, TOPIC_BY_ID, topicsForArea } from "@/content/syllabus";
 import { area as security } from "@/content/areas/security";
 import { area as risk } from "@/content/areas/risk";
 import { area as management } from "@/content/areas/management";
@@ -16,7 +16,7 @@ import { area as org } from "@/content/areas/org";
 import { area as it } from "@/content/areas/it";
 import { OFFICIAL_QUESTIONS, OFFICIAL_PAPERS } from "@/content/official";
 
-export { OFFICIAL_QUESTIONS, OFFICIAL_PAPERS };
+export { OFFICIAL_QUESTIONS, OFFICIAL_PAPERS, topicsForArea };
 
 export const AREAS: Area[] = [
   security,

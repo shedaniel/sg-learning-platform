@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const existing = request.cookies.get("sg_profile")?.value;
   const profileId = existing ?? crypto.randomUUID();
   const headers = new Headers(request.headers);

@@ -1,6 +1,6 @@
 import { ALL_LESSONS, ALL_QUESTIONS, ALL_TERMS, AREAS, coverageStats, OFFICIAL_PAPERS, OFFICIAL_QUESTIONS } from "../src/content";
 import { AREA_META, SYLLABUS_TOPICS } from "../src/content/syllabus";
-import type { Block, DiagramId, Question, WidgetId } from "../src/lib/content/types";
+import type { Block, DiagramId, OptionId, Question, WidgetId } from "../src/lib/content/types";
 
 const DIAGRAMS: Record<DiagramId, true> = {
   "cia-triad": true,
@@ -140,16 +140,24 @@ for (const area of AREAS) {
 
 function validateQuestion(question: Question, context: string) {
   if (!question.stem) fail(`${context}: stem が空です`);
-  if (question.options.length !== 4) fail(`${context}: 選択肢が4つではありません`);
+  if (question.source.kind === "original" && question.options.length !== 4) {
+    fail(`${context}: 独自問題の選択肢が4つではありません`);
+  }
+  if (question.options.length < 4 || question.options.length > 10) {
+    fail(`${context}: 選択肢数が4〜10の範囲外です`);
+  }
   const ids = question.options.map((option) => option.id);
+  const allowed: OptionId[] = ["a", "i", "u", "e", "o", "ka", "ki", "ku", "ke", "ko"];
   checkUnique(`${context} 選択肢`, ids);
-  if (!ids.every((id) => ["a", "i", "u", "e"].includes(id))) fail(`${context}: 選択肢IDが不正`);
+  if (!ids.every((id) => allowed.includes(id))) fail(`${context}: 選択肢IDが不正`);
   if (!ids.includes(question.correctOptionId)) fail(`${context}: 正解IDが選択肢にありません`);
   if (!question.topicIds.every((id) => topicIds.has(id))) fail(`${context}: 未知のトピック`);
   if (!question.lessonIds.every((id) => lessonIds.has(id))) fail(`${context}: 未知のレッスン`);
-  const wrong = ids.filter((id) => id !== question.correctOptionId);
-  for (const id of wrong) {
-    if (!question.explanation.optionNotes[id]) fail(`${context}: 誤答肢 ${id} の解説がありません`);
+  if (question.source.kind === "original") {
+    const wrong = ids.filter((id) => id !== question.correctOptionId);
+    for (const id of wrong) {
+      if (!question.explanation.optionNotes[id]) fail(`${context}: 誤答肢 ${id} の解説がありません`);
+    }
   }
   if (question.explanation.why.length === 0) fail(`${context}: why が空です`);
   if (question.part === "B" && question.type !== "scenario") {

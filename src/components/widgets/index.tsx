@@ -1,23 +1,29 @@
 "use client";
 
+import type { ComponentType } from "react";
 import type { WidgetId } from "@/lib/content/types";
+import { AccessMatrix } from "./access-matrix";
+import { BackupPlanner } from "./backup-planner";
+import { CiaImpact } from "./cia-impact";
+import { ControlMatcher } from "./control-matcher";
+import { HashDemo } from "./hash-demo";
+import { IncidentTriage } from "./incident-triage";
+import { RiskMatrix } from "./risk-matrix";
+import { SubnetCalculator } from "./subnet-calculator";
+import type { WidgetProps } from "./shared";
 
-const LABELS: Record<WidgetId, string> = {
-  "risk-matrix": "リスクマトリックス",
-  "backup-planner": "バックアップ計画",
-  "access-matrix": "アクセス権マトリックス",
-  "hash-demo": "ハッシュ実験",
-  "incident-triage": "インシデント・トリアージ",
-  "control-matcher": "管理策マッチング",
-  "cia-impact": "CIA 影響",
-  "subnet-calculator": "サブネット計算",
+const WIDGETS: Record<WidgetId, ComponentType<{ props?: WidgetProps }>> = {
+  "risk-matrix": RiskMatrix,
+  "backup-planner": BackupPlanner,
+  "access-matrix": AccessMatrix,
+  "hash-demo": HashDemo,
+  "incident-triage": IncidentTriage,
+  "control-matcher": ControlMatcher,
+  "cia-impact": CiaImpact,
+  "subnet-calculator": SubnetCalculator,
 };
 
-export function WidgetRenderer({ widget }: { widget: WidgetId; props?: Record<string, string | number | boolean> }) {
-  return (
-    <div className="rounded-lg border border-dashed border-border bg-surface-2 px-4 py-8 text-center">
-      <p className="text-sm font-semibold">{LABELS[widget]}</p>
-      <p className="mt-1 text-xs text-muted">インタラクティブ部品を読み込み中</p>
-    </div>
-  );
+export function WidgetRenderer({ widget, props }: { widget: WidgetId; props?: WidgetProps }) {
+  const Component = WIDGETS[widget];
+  return <Component props={props} />;
 }

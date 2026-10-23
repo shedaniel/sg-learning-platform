@@ -1,9 +1,11 @@
 import type { Area } from "@/lib/content/types";
 import { AREA_META } from "@/content/syllabus";
+import { techLessons } from "./lessons";
+import { techTerms } from "./terms";
+import { techQuestions } from "./questions";
 
 const meta = AREA_META.find((m) => m.id === "tech")!;
 
-// Placeholder replaced by the content author for this area.
 export const area: Area = {
   id: meta.id,
   order: meta.order,
@@ -12,7 +14,7 @@ export const area: Area = {
   shortTitle: meta.shortTitle,
   description: meta.description,
   color: meta.color,
-  lessons: [],
-  terms: [],
-  questions: [],
+  lessons: techLessons,
+  terms: techTerms,
+  questions: techQuestions,
 };

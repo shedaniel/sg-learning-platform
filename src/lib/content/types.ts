@@ -1,6 +1,7 @@
 export type ExamPart = "A" | "B";
 export type Difficulty = "easy" | "medium" | "hard";
 export type SourceKind = "original" | "official";
+export type OptionId = "a" | "i" | "u" | "e" | "o" | "ka" | "ki" | "ku" | "ke" | "ko";
 
 export type DiagramId =
   | "cia-triad"
@@ -121,14 +122,14 @@ export interface GlossaryTerm {
 }
 
 export interface QuestionOption {
-  id: "a" | "i" | "u" | "e";
+  id: OptionId;
   text: string;
 }
 
 export interface QuestionExplanation {
   correct: string;
   why: readonly string[];
-  optionNotes: Partial<Record<"a" | "i" | "u" | "e", string>>;
+  optionNotes: Partial<Record<OptionId, string>>;
   english?: string;
   termIds: readonly string[];
 }
@@ -152,7 +153,7 @@ export interface Question {
   stem: string;
   presentation?: Block[];
   options: readonly QuestionOption[];
-  correctOptionId: "a" | "i" | "u" | "e";
+  correctOptionId: OptionId;
   explanation: QuestionExplanation;
   source: QuestionSource;
   tags: readonly string[];
