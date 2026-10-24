@@ -4,8 +4,14 @@
 
 - Source: https://github.com/cosscom/ui
 - Documentation: https://coss.com/ui
-- Copied source: `src/coss/ui/` (components, hooks, fonts, styles)
-- License: AGPL-3.0-or-later for the default repository; the `apps/ui` registry is MIT. The copied component source is from `packages/ui` and is used under the repository's default AGPL-3.0-or-later terms.
-- Fonts: Cal Sans 2.010 variable and Paper Mono, as distributed with coss ui. See `src/coss/ui/fonts/` and the upstream font guide.
+- Vendored source: `src/coss/ui/`
+- License: the components are taken from `apps/ui/registry/default/`, which is licensed under the repository's **MIT** directory terms (the repository's default AGPLv3.0 applies to other directories, notably `packages/ui/`). The application does not vendor `packages/ui` component code.
+- Style tokens follow the publicly documented coss token system and are implemented in `src/app/globals.css`.
 
-Because coss ui source is incorporated into this application, this repository is licensed under AGPL-3.0-or-later (see `LICENSE`). If you need a different license, replace `src/coss/ui` with the MIT-licensed registry copies from `apps/ui/registry/default/ui` or with your own components.
+## Fonts
+
+- **Cal Sans 2.010** — © Cal.com / WORDMARK; SIL Open Font License 1.1. Source: https://github.com/calcom/sans
+- **Paper Mono** — © Paper; SIL Open Font License 1.1. Source: https://github.com/paper-design/paper-mono
+- Font files live in `src/coss/ui/fonts/` and are loaded with `next/font/local`.
+
+The application source itself is private/unlicensed unless a separate license is added.

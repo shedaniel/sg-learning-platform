@@ -41,7 +41,7 @@
 - Adopted as the UI system: token set, color semantics, radius/shadows, Cal Sans 2.010 + Paper Mono fonts, and coss components.
 - Source is vendored under `src/coss/ui/` from the coss UI repository and exposed through the `@coss/ui/*` tsconfig alias. Shared primitives in `src/components/ui/primitives.tsx` wrap coss `Button`, `Badge`, `Card`, `Progress`, `Kbd`, and `Empty`. Key actions use coss `Button` directly.
 - App-specific reading prose, diagram typography, and layout classes remain in `src/app/globals.css`, built on coss tokens (`bg-background`, `text-muted-foreground`, `bg-card`, `border-input`, `ring`).
-- coss source is AGPL-3.0-or-later; the repository license and third-party notice were updated accordingly (`LICENSE`, `THIRD_PARTY.md`).
+- coss components are vendored from the **MIT** `apps/ui/registry/default` tree, not the AGPL `packages/ui` package. Style tokens are implemented locally from the documented token system. Fonts are SIL OFL 1.1. See `THIRD_PARTY.md`; the application itself remains private/unlicensed.
 
 ## Deliberate limits
 
