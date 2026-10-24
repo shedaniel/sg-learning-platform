@@ -36,6 +36,12 @@
 - Headings now use the same system sans stack as body text. Green is limited to primary actions, links, focus rings, and data accents; cards and callouts are neutral.
 - No streaks, daily goals, or gamified copy. The interface reports state and offers the next useful action.
 
+## coss ui (`coss.com/ui/llms.txt`)
+
+- coss ui was reviewed as the suggested component source in PLAN.md. It is a shadcn/Base UI copy-paste registry, not a runtime dependency.
+- It was not adopted wholesale because its style preset installs Inter/Geist fonts and its own color tokens, which conflicts with the later requirement to avoid special fonts and reduce decorative/green styling. The app already has accessible Tailwind primitives tuned to the Japanese textbook layout.
+- If coss components are wanted later, migrate individual primitives (Button, Field, Select, Dialog, Tabs) without importing `@coss/style` or its fonts. This is a UI refactor, not a correctness gap.
+
 ## Deliberate limits
 
 - No AI tutor/chat. PLAN.md allows optional AI, but the core must work without paid AI; adding an ungrounded tutor would weaken trust.
