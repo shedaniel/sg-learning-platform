@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, Play, Timer } from "lucide-react";
+import { Play, Timer } from "lucide-react";
+import { Button } from "@coss/ui/components/button";
 
 export function MockStartButton({ disabled = false }: { disabled?: boolean }) {
   const router = useRouter();
@@ -30,20 +31,20 @@ export function MockStartButton({ disabled = false }: { disabled?: boolean }) {
 
   return (
     <div>
-      <button
-        type="button"
-        className="btn btn-primary h-11 px-5"
+      <Button
+        size="lg"
         onClick={() => void start()}
-        disabled={disabled || loading}
+        disabled={disabled}
+        loading={loading}
       >
-        {loading ? <Loader2 className="size-4 animate-spin" /> : <Play className="size-4" />}
+        <Play />
         {loading ? "準備中…" : "120分の模擬試験を開始"}
-      </button>
-      {error ? <p className="mt-2 max-w-sm text-xs leading-5 text-error">{error}</p> : null}
+      </Button>
+      {error ? <p className="mt-2 max-w-sm text-xs leading-5 text-destructive-foreground">{error}</p> : null}
       {disabled ? (
-        <p className="mt-2 text-xs text-muted">問題バンクが60問未満のため開始できません。</p>
+        <p className="mt-2 text-xs text-muted-foreground">問題バンクが60問未満のため開始できません。</p>
       ) : null}
-      <p className="mt-2 flex items-center gap-1 text-[0.65rem] text-muted">
+      <p className="mt-2 flex items-center gap-1 text-[0.65rem] text-muted-foreground">
         <Timer className="size-3" />
         開始するとタイマーが動きます。途中保存・再開できます。
       </p>

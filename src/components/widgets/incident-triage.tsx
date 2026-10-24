@@ -102,7 +102,7 @@ export function IncidentTriage() {
       <div className="flex items-start justify-between gap-2">
         <div>
           <p className="eyebrow">Incident triage</p>
-          <h3 className="text-sm font-semibold text-fg">重大度と初動を判断する</h3>
+          <h3 className="text-sm font-semibold text-foreground">重大度と初動を判断する</h3>
         </div>
         <ResetButton
           onClick={() => {
@@ -123,9 +123,9 @@ export function IncidentTriage() {
           const actionCorrect = answer.action === scenario.correctActionId;
           const correctAction = scenario.actions.find((action) => action.id === scenario.correctActionId);
           return (
-            <fieldset key={scenario.id} className="rounded-lg border border-border bg-surface-2 p-3">
-              <legend className="px-1 text-[0.72rem] font-semibold text-fg">{scenario.title}</legend>
-              <p className="jp text-[0.78rem] leading-6 text-muted">{scenario.text}</p>
+            <fieldset key={scenario.id} className="rounded-lg border border-border bg-muted p-3">
+              <legend className="px-1 text-[0.72rem] font-semibold text-foreground">{scenario.title}</legend>
+              <p className="jp text-[0.78rem] leading-6 text-muted-foreground">{scenario.text}</p>
               <div className="mt-2 grid gap-2 sm:grid-cols-2">
                 <Field label="重大度" htmlFor={`${groupId}-severity-${scenarioIndex}`}>
                   <select
@@ -181,7 +181,7 @@ export function IncidentTriage() {
                   <Verdict ok={actionCorrect}>
                     初動: {actionCorrect ? "正解" : `不正解（正解は「${correctAction?.label ?? ""}」）`}
                   </Verdict>
-                  <p className="jp text-[0.72rem] leading-6 text-muted">{scenario.explanation}</p>
+                  <p className="jp text-[0.72rem] leading-6 text-muted-foreground">{scenario.explanation}</p>
                 </div>
               ) : null}
             </fieldset>
@@ -215,23 +215,23 @@ export function IncidentTriage() {
         <button type="button" className="btn btn-primary" onClick={() => setGraded(true)} disabled={graded}>
           {graded ? "採点済み" : "採点する"}
         </button>
-        <span className="text-[0.68rem] text-muted">未回答は不正解として扱われる</span>
+        <span className="text-[0.68rem] text-muted-foreground">未回答は不正解として扱われる</span>
       </div>
 
-      <details className="rounded-lg border border-border bg-surface px-3 py-2">
-        <summary className="cursor-pointer text-[0.72rem] font-semibold text-fg">重大度の目安</summary>
-        <ul className="mt-1.5 space-y-1 text-[0.7rem] leading-5 text-muted">
+      <details className="rounded-lg border border-border bg-card px-3 py-2">
+        <summary className="cursor-pointer text-[0.72rem] font-semibold text-foreground">重大度の目安</summary>
+        <ul className="mt-1.5 space-y-1 text-[0.7rem] leading-5 text-muted-foreground">
           <li>
-            <strong className="text-fg">重大:</strong> 個人情報の漏えい、重要システムの長期停止など、経営判断・対外報告が必要。
+            <strong className="text-foreground">重大:</strong> 個人情報の漏えい、重要システムの長期停止など、経営判断・対外報告が必要。
           </li>
           <li>
-            <strong className="text-fg">高:</strong> 侵害の疑いが強く、封じ込めと全社調整が必要。
+            <strong className="text-foreground">高:</strong> 侵害の疑いが強く、封じ込めと全社調整が必要。
           </li>
           <li>
-            <strong className="text-fg">中:</strong> 統制の不備はあるが、悪用の証拠はまだ確認されていない。
+            <strong className="text-foreground">中:</strong> 統制の不備はあるが、悪用の証拠はまだ確認されていない。
           </li>
           <li>
-            <strong className="text-fg">低:</strong> 実害がなく、局所的な確認と再発防止で足りる。
+            <strong className="text-foreground">低:</strong> 実害がなく、局所的な確認と再発防止で足りる。
           </li>
         </ul>
       </details>

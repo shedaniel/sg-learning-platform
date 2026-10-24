@@ -35,17 +35,17 @@ function ReadinessRing({ score }: { score: number }) {
         cy="60"
         r={radius}
         fill="none"
-        stroke="var(--accent)"
+        stroke="var(--chart-2)"
         strokeWidth="8"
         strokeLinecap="round"
         strokeDasharray={circumference}
         strokeDashoffset={offset}
         transform="rotate(-90 60 60)"
       />
-      <text x="60" y="64" textAnchor="middle" fontSize="22" fontWeight="700" fill="var(--fg)">
+      <text x="60" y="64" textAnchor="middle" fontSize="22" fontWeight="700" fill="var(--foreground)">
         {score}
       </text>
-      <text x="60" y="80" textAnchor="middle" fontSize="8" fill="var(--muted)">
+      <text x="60" y="80" textAnchor="middle" fontSize="8" fill="var(--muted-foreground)">
         / 100 暫定
       </text>
     </svg>
@@ -66,7 +66,7 @@ export default async function DashboardPage() {
           <h1 className="display mt-1.5 text-3xl md:text-[2.5rem]">
             学習状況と、次の一歩。
           </h1>
-          <p className="mt-2 max-w-2xl text-sm leading-7 text-muted">
+          <p className="mt-2 max-w-2xl text-sm leading-7 text-muted-foreground">
             SG の学習状況を、レッスン・演習・復習・模擬試験から一箇所に集約しています。読んだだけでは習得にせず、複数回の解答で判定します。
           </p>
         </div>
@@ -97,7 +97,7 @@ export default async function DashboardPage() {
           label="Review due"
           value={snapshot.reviewCounts.due}
           sub={`期限到来 / 全${snapshot.reviewCounts.total}件`}
-          tone={snapshot.reviewCounts.due > 0 ? "var(--warning)" : undefined}
+          tone={snapshot.reviewCounts.due > 0 ? "var(--warning-foreground)" : undefined}
         />
         <Stat
           label="Attempted"
@@ -110,17 +110,17 @@ export default async function DashboardPage() {
         <section className="card p-5 md:p-7">
           <div>
             <div className="flex items-center gap-2">
-              <span className="grid size-8 place-items-center rounded-full bg-bg-soft text-accent">
+              <span className="grid size-8 place-items-center rounded-full bg-muted text-info-foreground">
                 <BookOpen className="size-4" />
               </span>
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
                 Next lesson
               </p>
             </div>
             {nextLesson ? (
               <>
                 <h2 className="display mt-3 text-2xl font-semibold">{nextLesson.title}</h2>
-                <p className="mt-1.5 max-w-xl text-sm leading-7 text-muted">{nextLesson.summary}</p>
+                <p className="mt-1.5 max-w-xl text-sm leading-7 text-muted-foreground">{nextLesson.summary}</p>
                 <div className="mt-4 flex flex-wrap items-center gap-2">
                   <Badge>{nextLesson.readingMinutes}分</Badge>
                   <Badge>{nextLesson.sections.length}セクション</Badge>
@@ -142,7 +142,7 @@ export default async function DashboardPage() {
             ) : (
               <div className="mt-3">
                 <h2 className="display text-2xl font-semibold">学習コンテンツを準備中</h2>
-                <p className="mt-2 text-sm text-muted">レッスンが読み込まれると、ここに次の一歩が表示されます。</p>
+                <p className="mt-2 text-sm text-muted-foreground">レッスンが読み込まれると、ここに次の一歩が表示されます。</p>
               </div>
             )}
           </div>
@@ -157,14 +157,14 @@ export default async function DashboardPage() {
           </div>
           <ReadinessRing score={snapshot.readiness.score} />
           <p className="mt-1 text-sm font-semibold">暫定準備度</p>
-          <p className="mt-1 text-[0.68rem] leading-5 text-muted">{snapshot.readiness.note}</p>
+          <p className="mt-1 text-[0.68rem] leading-5 text-muted-foreground">{snapshot.readiness.note}</p>
           <div className="mt-3 grid w-full grid-cols-2 gap-2 text-left">
-            <div className="rounded-lg border border-border bg-surface-2 p-2.5">
-              <p className="text-[0.6rem] text-muted">レッスン</p>
+            <div className="rounded-lg border border-border bg-muted p-2.5">
+              <p className="text-[0.6rem] text-muted-foreground">レッスン</p>
               <p className="mono text-sm font-semibold">{snapshot.lessonPercent}%</p>
             </div>
-            <div className="rounded-lg border border-border bg-surface-2 p-2.5">
-              <p className="text-[0.6rem] text-muted">模擬</p>
+            <div className="rounded-lg border border-border bg-muted p-2.5">
+              <p className="text-[0.6rem] text-muted-foreground">模擬</p>
               <p className="mono text-sm font-semibold">{snapshot.lastMockAccuracy ? `${snapshot.lastMockAccuracy}%` : "—"}</p>
             </div>
           </div>
@@ -178,7 +178,7 @@ export default async function DashboardPage() {
               <p className="eyebrow">8 areas</p>
               <h2 className="mt-1 text-sm font-semibold">分野の進捗</h2>
             </div>
-            <Link href="/learn" className="text-[0.7rem] font-semibold text-accent hover:underline">
+            <Link href="/learn" className="text-[0.7rem] font-semibold text-info-foreground hover:underline">
               学習マップ
             </Link>
           </div>
@@ -186,14 +186,14 @@ export default async function DashboardPage() {
             {areaProgress.map((area) => (
               <Link key={area.areaId} href={`/learn/${area.areaId}`} className="group block">
                 <div className="flex items-center justify-between text-[0.7rem]">
-                  <span className="truncate group-hover:text-accent">{area.title}</span>
-                  <span className="mono shrink-0 text-muted">
+                  <span className="truncate group-hover:text-info-foreground">{area.title}</span>
+                  <span className="mono shrink-0 text-muted-foreground">
                     {area.completedLessons}/{area.totalLessons}
                   </span>
                 </div>
                 <div className="mt-1 flex items-center gap-2">
                   <ProgressBar value={area.percent} height={5} />
-                  <span className="mono w-8 text-right text-[0.6rem] text-muted">{area.percent}%</span>
+                  <span className="mono w-8 text-right text-[0.6rem] text-muted-foreground">{area.percent}%</span>
                 </div>
               </Link>
             ))}
@@ -206,16 +206,16 @@ export default async function DashboardPage() {
               <p className="eyebrow">Weak points</p>
               <h2 className="mt-1 text-sm font-semibold">いま伸ばすべき分野</h2>
             </div>
-            <Link href="/statistics" className="text-[0.7rem] font-semibold text-accent hover:underline">
+            <Link href="/statistics" className="text-[0.7rem] font-semibold text-info-foreground hover:underline">
               統計
             </Link>
           </div>
           {snapshot.weakTopics.length === 0 ? (
-            <div className="mt-3 rounded-lg border border-dashed border-border p-4 text-xs leading-5 text-muted">
+            <div className="mt-3 rounded-lg border border-dashed border-border p-4 text-xs leading-5 text-muted-foreground">
               <p>まだ十分な演習データがありません。5〜10問解くと、誤答の傾向がここに表示されます。</p>
               <div className="mt-2 flex flex-wrap gap-1.5">
                 {snapshot.nextLessons.slice(0, 3).map((lesson) => (
-                  <Link key={lesson.id} href={`/learn/${lesson.id}`} className="chip hover:border-accent/50">
+                  <Link key={lesson.id} href={`/learn/${lesson.id}`} className="chip hover:border-ring/50">
                     {lesson.title}
                   </Link>
                 ))}
@@ -227,16 +227,16 @@ export default async function DashboardPage() {
                 <Link
                   key={topic.topic.id}
                   href={`/practice/${topic.topic.id}`}
-                  className="flex items-center gap-3 rounded-lg border border-border bg-surface-2 px-3 py-2.5 transition-colors hover:border-accent/50"
+                  className="flex items-center gap-3 rounded-lg border border-border bg-muted px-3 py-2.5 transition-colors hover:border-ring/50"
                 >
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-xs font-medium">{topic.topic.title}</p>
-                    <p className="mt-0.5 text-[0.6rem] text-muted">
+                    <p className="mt-0.5 text-[0.6rem] text-muted-foreground">
                       {topic.attempts}回 · {topic.uniqueAttempted}問 · {MASTERY_LABEL[topic.mastery]}
                     </p>
                   </div>
-                  <span className="mono text-xs font-semibold text-warning">{topic.accuracy}%</span>
-                  <ArrowRight className="size-3.5 text-muted" />
+                  <span className="mono text-xs font-semibold text-warning-foreground">{topic.accuracy}%</span>
+                  <ArrowRight className="size-3.5 text-muted-foreground" />
                 </Link>
               ))}
             </div>
@@ -254,10 +254,10 @@ export default async function DashboardPage() {
         <section className="card self-start p-5">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-semibold">学習ログ</h2>
-            <span className="text-[0.65rem] text-muted">直近14日（任意）</span>
+            <span className="text-[0.65rem] text-muted-foreground">直近14日（任意）</span>
           </div>
           {snapshot.studyDays.length === 0 ? (
-            <p className="mt-4 rounded-lg border border-dashed border-border p-4 text-xs leading-5 text-muted">
+            <p className="mt-4 rounded-lg border border-dashed border-border p-4 text-xs leading-5 text-muted-foreground">
               学習時間は記録された分だけ表示されます。毎日の目標や連続日数はありません。
             </p>
           ) : (
@@ -269,30 +269,30 @@ export default async function DashboardPage() {
               return (
                 <div key={date} className="group flex flex-1 flex-col items-center justify-end gap-1">
                   <div
-                    className="w-full rounded-t-sm bg-accent/25 transition-colors group-hover:bg-accent/60"
+                    className="w-full rounded-t-sm bg-primary/25 transition-colors group-hover:bg-primary/60"
                     style={{ height: `${Math.max(4, height)}%` }}
                     title={`${date}: ${minutes}分`}
                   />
-                  <span className="text-[0.5rem] text-muted">{date.slice(8)}</span>
+                  <span className="text-[0.5rem] text-muted-foreground">{date.slice(8)}</span>
                 </div>
               );
             })}
           </div>
           )}
-          <div className="mt-3 flex items-center gap-3 text-[0.65rem] text-muted">
+          <div className="mt-3 flex items-center gap-3 text-[0.65rem] text-muted-foreground">
             <span className="flex items-center gap-1"><Clock className="size-3" />14日合計 {snapshot.studyDays.reduce((total, day) => total + day.minutes, 0)}分</span>
             <span className="flex items-center gap-1"><TrendingUp className="size-3" />直近の誤答 {snapshot.reviewQuestions.length}問</span>
           </div>
         </section>
 
         <section className="card self-start overflow-hidden">
-          <div className="flex items-center justify-between border-b border-border bg-surface-2/60 px-4 py-2.5">
+          <div className="flex items-center justify-between border-b border-border bg-muted/60 px-4 py-2.5">
             <h2 className="text-sm font-semibold">最近の演習</h2>
-            <Link href="/review" className="text-[0.65rem] text-accent hover:underline">すべて見る</Link>
+            <Link href="/review" className="text-[0.65rem] text-info-foreground hover:underline">すべて見る</Link>
           </div>
           {snapshot.recentAttempts.length === 0 ? (
-            <div className="p-5 text-center text-xs leading-6 text-muted">
-              まだ解答履歴がありません。<Link href="/practice" className="text-accent">10問クイズ</Link>から始めましょう。
+            <div className="p-5 text-center text-xs leading-6 text-muted-foreground">
+              まだ解答履歴がありません。<Link href="/practice" className="text-info-foreground">10問クイズ</Link>から始めましょう。
             </div>
           ) : (
             <ul className="divide-y divide-border">
@@ -300,19 +300,19 @@ export default async function DashboardPage() {
                 const question = ALL_QUESTIONS.find((item) => item.id === attempt.questionId);
                 return (
                   <li key={`${attempt.attemptedAt}-${index}`} className="flex items-start gap-3 px-4 py-2.5">
-                    <span className={`mt-1 grid size-4 shrink-0 place-items-center rounded-full text-[0.55rem] text-white ${attempt.correct ? "bg-success" : "bg-error"}`}>
+                    <span className={`mt-1 grid size-4 shrink-0 place-items-center rounded-full text-[0.55rem] text-white ${attempt.correct ? "bg-success" : "bg-destructive"}`}>
                       {attempt.correct ? "○" : "×"}
                     </span>
                     <div className="min-w-0 flex-1">
                       <p className="line-clamp-1 text-xs">
                         {question ? question.stem : attempt.questionId}
                       </p>
-                      <p className="mt-0.5 text-[0.6rem] text-muted">
+                      <p className="mt-0.5 text-[0.6rem] text-muted-foreground">
                         {formatDateTime(attempt.attemptedAt)} · {attempt.mode}
                       </p>
                     </div>
                     {question ? (
-                      <Link href={`/practice/question/${question.id}`} className="text-[0.65rem] text-accent hover:underline">
+                      <Link href={`/practice/question/${question.id}`} className="text-[0.65rem] text-info-foreground hover:underline">
                         解説
                       </Link>
                     ) : null}
@@ -328,17 +328,17 @@ export default async function DashboardPage() {
         <section className="card mt-5 p-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Target className="size-4 text-accent" />
+              <Target className="size-4 text-info-foreground" />
               <h2 className="text-sm font-semibold">模擬試験</h2>
             </div>
-            <Link href="/mock" className="text-[0.7rem] font-semibold text-accent hover:underline">履歴</Link>
+            <Link href="/mock" className="text-[0.7rem] font-semibold text-info-foreground hover:underline">履歴</Link>
           </div>
           <div className="mt-3 grid gap-3 sm:grid-cols-3">
             {snapshot.mockHistory.slice(0, 3).map((attempt) => (
-              <Link key={attempt.id} href={`/mock/results/${attempt.id}`} className="rounded-lg border border-border bg-surface-2 p-3 hover:border-accent/50">
-                <p className="text-[0.65rem] text-muted">{formatDateTime(attempt.startedAt)}</p>
+              <Link key={attempt.id} href={`/mock/results/${attempt.id}`} className="rounded-lg border border-border bg-muted p-3 hover:border-ring/50">
+                <p className="text-[0.65rem] text-muted-foreground">{formatDateTime(attempt.startedAt)}</p>
                 <p className="mono mt-1 text-xl font-semibold">{percent(attempt.correct, attempt.total)}%</p>
-                <p className="text-[0.6rem] text-muted">
+                <p className="text-[0.6rem] text-muted-foreground">
                   {attempt.correct}/{attempt.total} · {formatDuration(attempt.durationSec)}
                 </p>
               </Link>
@@ -348,12 +348,12 @@ export default async function DashboardPage() {
       ) : null}
 
       {snapshot.completedLessons === 0 && snapshot.attemptCount === 0 ? (
-        <section className="mt-6 rounded-xl border border-border bg-surface-2 p-5">
+        <section className="mt-6 rounded-xl border border-border bg-muted p-5">
           <div className="flex flex-wrap items-center gap-4">
-            <BookOpen className="size-5 text-accent" />
+            <BookOpen className="size-5 text-info-foreground" />
             <div className="min-w-0 flex-1">
               <p className="text-sm font-semibold">順序もペースも自由です</p>
-              <p className="mt-0.5 text-xs leading-5 text-muted">
+              <p className="mt-0.5 text-xs leading-5 text-muted-foreground">
                 気になる章から読み、必要だと感じたときに演習してください。連続日数や1日のノルマは設けていません。
               </p>
             </div>
@@ -363,15 +363,15 @@ export default async function DashboardPage() {
       ) : null}
 
       {ALL_LESSONS.length === 0 ? (
-        <section className="mt-6 card p-6 text-center text-sm text-muted">
+        <section className="mt-6 card p-6 text-center text-sm text-muted-foreground">
           コンテンツを準備中です。しばらくしてから再読み込みしてください。
         </section>
       ) : null}
 
-      <div className="mt-8 flex flex-wrap items-center gap-2 text-[0.65rem] text-muted">
-        <CheckCircle2 className="size-3.5 text-success" />
+      <div className="mt-8 flex flex-wrap items-center gap-2 text-[0.65rem] text-muted-foreground">
+        <CheckCircle2 className="size-3.5 text-success-foreground" />
         <span>学習履歴はブラウザの匿名プロフィールに紐づけて保存されます。</span>
-        <Link href="/about" className="text-accent hover:underline">データと出典について</Link>
+        <Link href="/about" className="text-info-foreground hover:underline">データと出典について</Link>
       </div>
     </div>
   );

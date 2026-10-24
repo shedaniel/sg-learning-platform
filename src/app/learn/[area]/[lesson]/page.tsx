@@ -77,8 +77,8 @@ export default async function LessonPage({
         <h1 className="display mt-4 max-w-3xl text-3xl font-semibold md:text-[2.55rem]">
           {lesson.title}
         </h1>
-        <p className="mt-1.5 text-xs uppercase tracking-[0.16em] text-muted">{lesson.titleEn}</p>
-        <p className="jp mt-4 max-w-3xl text-[0.95rem] leading-8 text-muted">{lesson.summary}</p>
+        <p className="mt-1.5 text-xs uppercase tracking-[0.16em] text-muted-foreground">{lesson.titleEn}</p>
+        <p className="jp mt-4 max-w-3xl text-[0.95rem] leading-8 text-muted-foreground">{lesson.summary}</p>
         <div className="mt-5">
           <LessonActions
             lessonId={lesson.id}
@@ -94,7 +94,7 @@ export default async function LessonPage({
               <Link
                 key={topicId}
                 href={`/coverage#${topicId}`}
-                className="text-[0.68rem] text-muted underline decoration-border underline-offset-4 hover:text-accent"
+                className="text-[0.68rem] text-muted-foreground underline decoration-border underline-offset-4 hover:text-info-foreground"
               >
                 {topic?.title ?? topicId}
               </Link>
@@ -105,17 +105,17 @@ export default async function LessonPage({
 
       <div className="grid gap-8 lg:grid-cols-[1fr_240px]">
         <article className="min-w-0">
-          <section className="mb-8 rounded-xl border border-border border-l-2 border-l-accent bg-surface-2 p-4 md:p-5">
+          <section className="mb-8 rounded-xl border border-border border-l-2 border-l-accent bg-muted p-4 md:p-5">
             <div className="flex items-center gap-2">
-              <Target className="size-4 text-accent" />
-              <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">
+              <Target className="size-4 text-info-foreground" />
+              <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-info-foreground">
                 このレッスンの到達点
               </h2>
             </div>
             <ul className="mt-2.5 space-y-1.5">
               {lesson.objectives.map((objective, index) => (
                 <li key={index} className="flex gap-2 text-sm leading-6">
-                  <span className="mono mt-0.5 text-[0.65rem] text-accent">{index + 1}.</span>
+                  <span className="mono mt-0.5 text-[0.65rem] text-info-foreground">{index + 1}.</span>
                   <span>{objective}</span>
                 </li>
               ))}
@@ -126,7 +126,7 @@ export default async function LessonPage({
             {lesson.sections.map((section, sectionIndex) => (
               <section key={section.id} id={section.id} className="scroll-mt-24 pb-8">
                 <div className="mb-3 flex items-baseline gap-3">
-                  <span className="mono text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-accent">
+                  <span className="mono text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-info-foreground">
                     {String(sectionIndex + 1).padStart(2, "0")}
                   </span>
                   <h2 className="display text-xl font-semibold md:text-2xl">{section.title}</h2>
@@ -136,9 +136,9 @@ export default async function LessonPage({
             ))}
           </div>
 
-          <section className="mt-2 rounded-xl border border-border bg-surface p-5">
+          <section className="mt-2 rounded-xl border border-border bg-card p-5">
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="size-4 text-success" />
+              <CheckCircle2 className="size-4 text-success-foreground" />
               <h2 className="text-sm font-semibold">このレッスンの要点</h2>
             </div>
             <ul className="mt-3 space-y-2">
@@ -153,13 +153,13 @@ export default async function LessonPage({
 
           <section className="mt-4 rounded-xl border border-warning/30 bg-warning/5 p-5">
             <div className="flex items-center gap-2">
-              <AlertTriangle className="size-4 text-warning" />
+              <AlertTriangle className="size-4 text-warning-foreground" />
               <h2 className="text-sm font-semibold">試験のひっかけ</h2>
             </div>
             <ul className="mt-3 space-y-2">
               {lesson.examTraps.map((trap, index) => (
-                <li key={index} className="flex gap-2 text-sm leading-6 text-muted">
-                  <span className="mono text-[0.65rem] text-warning">{index + 1}</span>
+                <li key={index} className="flex gap-2 text-sm leading-6 text-muted-foreground">
+                  <span className="mono text-[0.65rem] text-warning-foreground">{index + 1}</span>
                   <span>{trap}</span>
                 </li>
               ))}
@@ -167,9 +167,9 @@ export default async function LessonPage({
           </section>
 
           {terms.length > 0 ? (
-            <section className="mt-4 rounded-xl border border-border bg-surface p-5">
+            <section className="mt-4 rounded-xl border border-border bg-card p-5">
               <div className="flex items-center gap-2">
-                <BookMarked className="size-4 text-accent" />
+                <BookMarked className="size-4 text-info-foreground" />
                 <h2 className="text-sm font-semibold">このレッスンの用語</h2>
               </div>
               <div className="mt-3 grid gap-2 sm:grid-cols-2">
@@ -178,15 +178,15 @@ export default async function LessonPage({
                     <Link
                       key={term.id}
                       href={`/glossary/${term.id}`}
-                      className="rounded-lg border border-border bg-surface-2 px-3 py-2 transition-colors hover:border-accent/50"
+                      className="rounded-lg border border-border bg-muted px-3 py-2 transition-colors hover:border-ring/50"
                     >
                       <p className="text-xs font-semibold">
                         {term.ja}
                         {term.reading ? (
-                          <span className="ml-1 font-normal text-muted">（{term.reading}）</span>
+                          <span className="ml-1 font-normal text-muted-foreground">（{term.reading}）</span>
                         ) : null}
                       </p>
-                      <p className="text-[0.65rem] text-muted">{term.en}</p>
+                      <p className="text-[0.65rem] text-muted-foreground">{term.en}</p>
                     </Link>
                   ) : null,
                 )}
@@ -199,34 +199,34 @@ export default async function LessonPage({
               このレッスンの確認クイズ（10問）
               <ArrowRight className="size-4" />
             </Link>
-            <p className="text-xs leading-5 text-muted">
+            <p className="text-xs leading-5 text-muted-foreground">
               誤答は自動で復習キューに入ります。読了だけでは習得扱いになりません。
             </p>
           </div>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
             {prev ? (
-              <Link href={`/learn/${prev.id}`} className="card group p-4 hover:border-accent/50">
-                <p className="flex items-center gap-1.5 text-[0.65rem] text-muted">
+              <Link href={`/learn/${prev.id}`} className="card group p-4 hover:border-ring/50">
+                <p className="flex items-center gap-1.5 text-[0.65rem] text-muted-foreground">
                   <ArrowLeft className="size-3" />
                   前のレッスン
                 </p>
-                <p className="mt-1 text-sm font-medium group-hover:text-accent">{prev.title}</p>
+                <p className="mt-1 text-sm font-medium group-hover:text-info-foreground">{prev.title}</p>
               </Link>
             ) : <span />}
             {next ? (
-              <Link href={`/learn/${next.id}`} className="card group p-4 text-right hover:border-accent/50">
-                <p className="flex items-center justify-end gap-1.5 text-[0.65rem] text-muted">
+              <Link href={`/learn/${next.id}`} className="card group p-4 text-right hover:border-ring/50">
+                <p className="flex items-center justify-end gap-1.5 text-[0.65rem] text-muted-foreground">
                   次のレッスン
                   <ArrowRight className="size-3" />
                 </p>
-                <p className="mt-1 text-sm font-medium group-hover:text-accent">{next.title}</p>
+                <p className="mt-1 text-sm font-medium group-hover:text-info-foreground">{next.title}</p>
               </Link>
             ) : null}
           </div>
 
           <section className="mt-8 border-t border-border pt-5">
-            <h2 className="text-xs font-semibold text-muted">出典・参考文献</h2>
+            <h2 className="text-xs font-semibold text-muted-foreground">出典・参考文献</h2>
             <ul className="mt-2 space-y-1.5">
               {lesson.sources.map((source) => (
                 <li key={source.url} className="text-[0.7rem] leading-5">
@@ -234,16 +234,16 @@ export default async function LessonPage({
                     href={source.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1 text-muted hover:text-accent"
+                    className="inline-flex items-center gap-1 text-muted-foreground hover:text-info-foreground"
                   >
                     {source.label}
                     <ExternalLink className="size-3" />
                   </a>
-                  {source.note ? <span className="text-muted"> — {source.note}</span> : null}
+                  {source.note ? <span className="text-muted-foreground"> — {source.note}</span> : null}
                 </li>
               ))}
             </ul>
-            <p className="mt-3 text-[0.65rem] leading-5 text-muted">
+            <p className="mt-3 text-[0.65rem] leading-5 text-muted-foreground">
               本文は学習用に独自執筆したものです。公式見解ではありません。試験制度・出題範囲は IPA の最新情報を確認してください。
             </p>
           </section>
@@ -253,7 +253,7 @@ export default async function LessonPage({
           <div className="sticky top-20 space-y-4">
             <nav className="card p-4" aria-label="目次">
               <div className="flex items-center gap-2">
-                <ListTree className="size-4 text-accent" />
+                <ListTree className="size-4 text-info-foreground" />
                 <p className="text-xs font-semibold">目次</p>
               </div>
               <ol className="mt-3 space-y-1.5">
@@ -261,9 +261,9 @@ export default async function LessonPage({
                   <li key={section.id}>
                     <a
                       href={`#${section.id}`}
-                      className="block rounded-md px-2 py-1 text-[0.7rem] leading-5 text-muted transition-colors hover:bg-bg-soft hover:text-fg"
+                      className="block rounded-md px-2 py-1 text-[0.7rem] leading-5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                     >
-                      <span className="mono mr-1.5 text-[0.6rem] text-accent">
+                      <span className="mono mr-1.5 text-[0.6rem] text-info-foreground">
                         {String(index + 1).padStart(2, "0")}
                       </span>
                       {section.title}
@@ -275,7 +275,7 @@ export default async function LessonPage({
             <div className="card p-4">
               <p className="text-xs font-semibold">読書の進捗</p>
               <ProgressBar value={snapshot.lessonPercent} className="mt-2" height={5} />
-              <p className="mt-2 text-[0.65rem] text-muted">
+              <p className="mt-2 text-[0.65rem] text-muted-foreground">
                 全{snapshot.lessonCount}レッスン中 {snapshot.completedLessons} 完了
               </p>
             </div>

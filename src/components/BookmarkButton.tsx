@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Bookmark } from "lucide-react";
+import { Button } from "@coss/ui/components/button";
 import { cn } from "@/lib/utils";
 
 export function BookmarkButton({
@@ -37,15 +38,16 @@ export function BookmarkButton({
   }
 
   return (
-    <button
-      type="button"
+    <Button
+      variant="ghost"
+      size="sm"
       onClick={() => void toggle()}
       aria-pressed={bookmarked}
       aria-label={bookmarked ? `${label}を解除` : label}
-      className={cn("btn btn-ghost gap-1.5 text-xs", bookmarked && "text-accent")}
+      className={bookmarked ? "text-info-foreground" : undefined}
     >
-      <Bookmark className={cn("size-4", bookmarked && "fill-current")} />
+      <Bookmark className={bookmarked ? "fill-current" : undefined} />
       {bookmarked ? "保存済み" : label}
-    </button>
+    </Button>
   );
 }

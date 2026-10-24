@@ -52,16 +52,16 @@ export function TermsBlock({ termIds }: { termIds: readonly string[] }) {
           <Link
             key={term.id}
             href={`/glossary/${term.id}`}
-            className="group rounded-xl border border-border bg-surface-2 p-3.5 transition-colors hover:border-accent/50"
+            className="group rounded-xl border border-border bg-muted p-3.5 transition-colors hover:border-ring/50"
           >
             <div className="flex flex-wrap items-baseline gap-x-2">
-              <span className="font-semibold text-fg group-hover:text-accent">{term.ja}</span>
+              <span className="font-semibold text-foreground group-hover:text-info-foreground">{term.ja}</span>
               {term.reading ? (
-                <span className="text-[0.7rem] text-muted">（{term.reading}）</span>
+                <span className="text-[0.7rem] text-muted-foreground">（{term.reading}）</span>
               ) : null}
-              <span className="text-[0.7rem] text-muted">{term.en}</span>
+              <span className="text-[0.7rem] text-muted-foreground">{term.en}</span>
             </div>
-            <p className="mt-1 text-xs leading-5 text-muted">{term.shortJa}</p>
+            <p className="mt-1 text-xs leading-5 text-muted-foreground">{term.shortJa}</p>
           </Link>
         );
       })}
@@ -71,7 +71,7 @@ export function TermsBlock({ termIds }: { termIds: readonly string[] }) {
 
 const calloutStyles = {
   tip: {
-    wrap: "border-border border-l-2 border-l-accent bg-surface-2",
+    wrap: "border-border border-l-2 border-l-accent bg-muted",
     label: "試験のヒント",
     icon: "◎",
   },
@@ -81,7 +81,7 @@ const calloutStyles = {
     icon: "△",
   },
   info: {
-    wrap: "border-border bg-surface-2",
+    wrap: "border-border bg-muted",
     label: "補足",
     icon: "i",
   },
@@ -113,7 +113,7 @@ export function CalloutBlock({
           {style.label}
         </span>
       </p>
-      <p className="jp text-sm leading-7 text-fg/90">
+      <p className="jp text-sm leading-7 text-foreground/90">
         <InlineText text={text} />
       </p>
     </aside>
@@ -124,19 +124,19 @@ export function BlockRenderer({ block }: { block: Block }) {
   switch (block.type) {
     case "lead":
       return (
-        <p className="jp mb-5 mt-1 text-lg font-medium leading-8 text-fg md:text-xl md:leading-9">
+        <p className="jp mb-5 mt-1 text-lg font-medium leading-8 text-foreground md:text-xl md:leading-9">
           <InlineText text={block.text} />
         </p>
       );
     case "p":
       return (
-        <p className="jp my-3.5 text-[0.98rem] leading-8 text-fg/90">
+        <p className="jp my-3.5 text-[0.98rem] leading-8 text-foreground/90">
           <InlineText text={block.text} />
         </p>
       );
     case "list":
       return block.ordered ? (
-        <ol className="my-4 list-decimal space-y-2 pl-5 text-[0.95rem] leading-7 marker:text-muted">
+        <ol className="my-4 list-decimal space-y-2 pl-5 text-[0.95rem] leading-7 marker:text-muted-foreground">
           {block.items.map((item, index) => (
             <li key={index} className="jp pl-1">
               <InlineText text={item} />
@@ -147,7 +147,7 @@ export function BlockRenderer({ block }: { block: Block }) {
         <ul className="my-4 space-y-2 pl-1 text-[0.95rem] leading-7">
           {block.items.map((item, index) => (
             <li key={index} className="jp flex gap-2.5">
-              <span aria-hidden className="mt-[0.65rem] size-1.5 shrink-0 rounded-full bg-accent/70" />
+              <span aria-hidden className="mt-[0.65rem] size-1.5 shrink-0 rounded-full bg-primary/70" />
               <span>
                 <InlineText text={item} />
               </span>
@@ -158,20 +158,20 @@ export function BlockRenderer({ block }: { block: Block }) {
     case "table":
       return (
         <figure className="my-6">
-          <div className="scrollbar-thin overflow-x-auto rounded-xl border border-border bg-surface">
+          <div className="scrollbar-thin overflow-x-auto rounded-xl border border-border bg-card">
             <table className="w-full min-w-[520px] border-collapse text-left text-sm">
               {block.caption ? (
-                <caption className="border-b border-border bg-surface-2 px-4 py-3 text-left text-xs font-semibold text-muted">
+                <caption className="border-b border-border bg-muted px-4 py-3 text-left text-xs font-semibold text-muted-foreground">
                   {block.caption}
                 </caption>
               ) : null}
               <thead>
-                <tr className="border-b border-border bg-surface-2/70">
+                <tr className="border-b border-border bg-muted/70">
                   {block.headers.map((header, index) => (
                     <th
                       key={index}
                       scope="col"
-                      className="px-4 py-2.5 text-xs font-semibold text-muted"
+                      className="px-4 py-2.5 text-xs font-semibold text-muted-foreground"
                     >
                       {header}
                     </th>
@@ -186,7 +186,7 @@ export function BlockRenderer({ block }: { block: Block }) {
                         key={cellIndex}
                         className={cn(
                           "jp px-4 py-3 align-top text-[0.86rem] leading-6",
-                          cellIndex === 0 && "font-medium text-fg",
+                          cellIndex === 0 && "font-medium text-foreground",
                         )}
                       >
                         <InlineText text={cell} />
@@ -198,7 +198,7 @@ export function BlockRenderer({ block }: { block: Block }) {
             </table>
           </div>
           {block.note ? (
-            <figcaption className="mt-2 px-1 text-[0.7rem] leading-5 text-muted">
+            <figcaption className="mt-2 px-1 text-[0.7rem] leading-5 text-muted-foreground">
               {block.note}
             </figcaption>
           ) : null}
@@ -211,11 +211,11 @@ export function BlockRenderer({ block }: { block: Block }) {
     case "diagram":
       return (
         <figure className="my-7">
-          <div className="rounded-xl border border-border bg-surface p-3 md:p-5">
+          <div className="rounded-xl border border-border bg-card p-3 md:p-5">
             <Diagram id={block.diagram} props={block.props} />
           </div>
           {block.caption ? (
-            <figcaption className="mt-2 px-1 text-center text-xs leading-5 text-muted">
+            <figcaption className="mt-2 px-1 text-center text-xs leading-5 text-muted-foreground">
               {block.caption}
             </figcaption>
           ) : null}
@@ -223,13 +223,13 @@ export function BlockRenderer({ block }: { block: Block }) {
       );
     case "interactive":
       return (
-        <div className="my-7 overflow-hidden rounded-xl border border-border bg-surface">
-          <div className="flex items-center gap-2 border-b border-border bg-surface-2 px-4 py-2.5">
-            <span className="size-1.5 rounded-full bg-accent" />
-            <span className="text-xs font-semibold text-accent">
+        <div className="my-7 overflow-hidden rounded-xl border border-border bg-card">
+          <div className="flex items-center gap-2 border-b border-border bg-muted px-4 py-2.5">
+            <span className="size-1.5 rounded-full bg-primary" />
+            <span className="text-xs font-semibold text-info-foreground">
               {block.title ?? "インタラクティブ"}
             </span>
-            <span className="ml-auto text-[0.62rem] uppercase tracking-wider text-muted">
+            <span className="ml-auto text-[0.62rem] uppercase tracking-wider text-muted-foreground">
               Try it
             </span>
           </div>
@@ -242,12 +242,12 @@ export function BlockRenderer({ block }: { block: Block }) {
       return (
         <div className="my-6 grid gap-3 md:grid-cols-2">
           {[block.left, block.right].map((column, index) => (
-            <div key={index} className="rounded-xl border border-border bg-surface-2 p-4">
-              <h4 className="mb-2 text-sm font-semibold text-fg">{column.title}</h4>
+            <div key={index} className="rounded-xl border border-border bg-muted p-4">
+              <h4 className="mb-2 text-sm font-semibold text-foreground">{column.title}</h4>
               <ul className="space-y-1.5">
                 {column.items.map((item, itemIndex) => (
-                  <li key={itemIndex} className="jp flex gap-2 text-[0.86rem] leading-6 text-muted">
-                    <span aria-hidden className="mt-2 size-1 shrink-0 rounded-full bg-accent/60" />
+                  <li key={itemIndex} className="jp flex gap-2 text-[0.86rem] leading-6 text-muted-foreground">
+                    <span aria-hidden className="mt-2 size-1 shrink-0 rounded-full bg-primary/60" />
                     <InlineText text={item} />
                   </li>
                 ))}
@@ -264,12 +264,12 @@ export function BlockRenderer({ block }: { block: Block }) {
               {index < block.items.length - 1 ? (
                 <span className="absolute left-[0.95rem] top-8 h-full w-px bg-border" aria-hidden />
               ) : null}
-              <span className="mono grid size-8 shrink-0 place-items-center rounded-full border border-accent/30 bg-bg-soft text-xs font-semibold text-accent">
+              <span className="mono grid size-8 shrink-0 place-items-center rounded-full border border-ring/30 bg-muted text-xs font-semibold text-info-foreground">
                 {index + 1}
               </span>
               <div className="pt-0.5">
                 <p className="text-sm font-semibold">{item.title}</p>
-                <p className="jp mt-1 text-[0.87rem] leading-6 text-muted">
+                <p className="jp mt-1 text-[0.87rem] leading-6 text-muted-foreground">
                   <InlineText text={item.text} />
                 </p>
               </div>

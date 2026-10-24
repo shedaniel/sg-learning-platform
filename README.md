@@ -33,12 +33,13 @@ Sources are recorded in `src/content/syllabus.ts` and shown in the UI. Official 
 ## Stack
 
 - Next.js 16 (App Router), React 19, TypeScript 5.9, Tailwind CSS 4.
+- coss ui (Cal.com design system) components, tokens, Cal Sans 2.010, and Paper Mono, vendored under `src/coss/ui/`.
 - SQLite via Node's built-in `node:sqlite` (`DatabaseSync`) — no native module, no Docker required.
 - Vitest for unit/integration tests, Playwright for end-to-end tests.
-- Custom SVG for diagrams and charts; no runtime Mermaid/Recharts dependency.
+- coss ui components for shared primitives and actions; custom SVG for diagrams and charts, with no runtime Mermaid/Recharts dependency.
 - No paid AI service and no LLM generation at request time.
 
-See `DECISIONS.md` for the reasoning and tradeoffs.
+See `DECISIONS.md` for the reasoning and tradeoffs. coss ui source, fonts, and tokens are used under AGPL-3.0-or-later; see `THIRD_PARTY.md` and `LICENSE`.
 
 ## Run locally
 
@@ -83,6 +84,7 @@ src/
   app/                 routes: dashboard, learn, practice, past-papers, mock, review,
                        glossary, statistics, coverage, search, about, API
   components/          AppShell, lesson renderer, diagrams, widgets, quiz/mock runners
+  coss/ui/             vendored coss ui components, fonts, tokens (AGPL-3.0-or-later)
   content/
     syllabus.ts        8 areas + 51 syllabus topics + official source metadata
     areas/<area>/      lessons, terms, questions, area index

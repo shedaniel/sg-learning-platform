@@ -2,7 +2,9 @@
   "name": "sg-learning-platform",
   "version": "1.0.0",
   "private": true,
-  "engines": { "node": ">=24" },
+  "engines": {
+    "node": ">=24"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -17,6 +19,8 @@
     "coverage:report": "tsx scripts/coverage-report.ts"
   },
   "dependencies": {
+    "@base-ui/react": "^1.9.0",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.561.0",
     "next": "16.4.3",
@@ -34,5 +38,6 @@
     "tsx": "^4.20.6",
     "typescript": "5.9.3",
     "vitest": "^5.0.5"
-  }
+  },
+  "license": "AGPL-3.0-or-later"
 }

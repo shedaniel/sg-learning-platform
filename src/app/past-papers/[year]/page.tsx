@@ -64,44 +64,44 @@ export default async function PaperPage({ params }: { params: Promise<{ year: st
             <li key={question.id}>
               <Link
                 href={`/practice/question/${question.id}`}
-                className="group flex items-start gap-3 px-4 py-3.5 transition-colors hover:bg-surface-2"
+                className="group flex items-start gap-3 px-4 py-3.5 transition-colors hover:bg-muted"
               >
-                <span className="mono mt-0.5 grid size-7 shrink-0 place-items-center rounded-md border border-border bg-surface-2 text-[0.62rem]">
+                <span className="mono mt-0.5 grid size-7 shrink-0 place-items-center rounded-md border border-border bg-muted text-[0.62rem]">
                   {question.source.questionNo}
                 </span>
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-1.5">
-                    <span className="text-[0.62rem] font-semibold text-muted">{PART_LABEL[question.part]}</span>
-                    <span className="text-[0.62rem] text-muted">· {question.difficulty === "easy" ? "基礎" : question.difficulty === "medium" ? "標準" : "応用"}</span>
+                    <span className="text-[0.62rem] font-semibold text-muted-foreground">{PART_LABEL[question.part]}</span>
+                    <span className="text-[0.62rem] text-muted-foreground">· {question.difficulty === "easy" ? "基礎" : question.difficulty === "medium" ? "標準" : "応用"}</span>
                     {attempted.has(question.id) ? <Badge tone="success">解答済み</Badge> : null}
                   </div>
-                  <p className="mt-0.5 line-clamp-2 text-xs leading-5 group-hover:text-accent">
+                  <p className="mt-0.5 line-clamp-2 text-xs leading-5 group-hover:text-info-foreground">
                     {question.stem}
                   </p>
-                  <p className="mt-0.5 text-[0.6rem] text-muted">
+                  <p className="mt-0.5 text-[0.6rem] text-muted-foreground">
                     {question.source.attribution}
                   </p>
                 </div>
-                <ArrowRight className="mt-1 size-3.5 shrink-0 text-border-strong group-hover:text-accent" />
+                <ArrowRight className="mt-1 size-3.5 shrink-0 text-muted-foreground group-hover:text-info-foreground" />
               </Link>
             </li>
           ))}
         </ul>
         {paper.questions.length === 0 ? (
-          <p className="p-6 text-sm text-muted">この年度の問題は未収録です。公式 PDF を参照してください。</p>
+          <p className="p-6 text-sm text-muted-foreground">この年度の問題は未収録です。公式 PDF を参照してください。</p>
         ) : null}
       </div>
 
-      <section className="mt-5 rounded-xl border border-border bg-surface-2 p-4 text-[0.68rem] leading-6 text-muted">
+      <section className="mt-5 rounded-xl border border-border bg-muted p-4 text-[0.68rem] leading-6 text-muted-foreground">
         <p>
           出典：IPA 情報セキュリティマネジメント試験 {paper.label}。問題文・選択肢は公式 PDF に基づき、図表は等価な表・箇条書きとして再構成しています。解説は本サイト独自のもので、IPA の見解ではありません。
         </p>
         <div className="mt-2 flex flex-wrap gap-3">
-          <a href={paper.bookletUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-accent hover:underline">
+          <a href={paper.bookletUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-info-foreground hover:underline">
             問題冊子（PDF）
             <ExternalLink className="size-3" />
           </a>
-          <a href={paper.answerUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-accent hover:underline">
+          <a href={paper.answerUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-info-foreground hover:underline">
             解答例（PDF）
             <ExternalLink className="size-3" />
           </a>

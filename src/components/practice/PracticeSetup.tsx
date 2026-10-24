@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Sparkles } from "lucide-react";
+import { Button } from "@coss/ui/components/button";
 
 export interface PracticeTopicOption {
   id: string;
@@ -42,12 +43,12 @@ export function PracticeSetup({
   return (
     <div className="card p-5">
       <div className="flex items-center gap-2">
-        <Sparkles className="size-4 text-accent" />
+        <Sparkles className="size-4 text-info-foreground" />
         <h2 className="text-sm font-semibold">カスタム演習</h2>
       </div>
       <div className="mt-4 space-y-3">
         <label className="block">
-          <span className="text-[0.7rem] font-semibold text-muted">出題範囲</span>
+          <span className="text-[0.7rem] font-semibold text-muted-foreground">出題範囲</span>
           <select
             value={topicId}
             onChange={(event) => setTopicId(event.target.value)}
@@ -64,7 +65,7 @@ export function PracticeSetup({
 
         <div className="grid grid-cols-2 gap-2">
           <label className="block">
-            <span className="text-[0.7rem] font-semibold text-muted">問題数</span>
+            <span className="text-[0.7rem] font-semibold text-muted-foreground">問題数</span>
             <select
               value={count}
               onChange={(event) => setCount(Number(event.target.value))}
@@ -78,7 +79,7 @@ export function PracticeSetup({
             </select>
           </label>
           <label className="block">
-            <span className="text-[0.7rem] font-semibold text-muted">科目</span>
+            <span className="text-[0.7rem] font-semibold text-muted-foreground">科目</span>
             <select
               value={part}
               onChange={(event) => setPart(event.target.value)}
@@ -90,7 +91,7 @@ export function PracticeSetup({
             </select>
           </label>
           <label className="block">
-            <span className="text-[0.7rem] font-semibold text-muted">難易度</span>
+            <span className="text-[0.7rem] font-semibold text-muted-foreground">難易度</span>
             <select
               value={difficulty}
               onChange={(event) => setDifficulty(event.target.value)}
@@ -103,7 +104,7 @@ export function PracticeSetup({
             </select>
           </label>
           <label className="block">
-            <span className="text-[0.7rem] font-semibold text-muted">答え合わせ</span>
+            <span className="text-[0.7rem] font-semibold text-muted-foreground">答え合わせ</span>
             <select
               value={feedback}
               onChange={(event) => setFeedback(event.target.value)}
@@ -115,12 +116,12 @@ export function PracticeSetup({
           </label>
         </div>
 
-        <button type="button" className="btn btn-primary w-full" onClick={start}>
+        <Button className="w-full" onClick={start}>
           演習を開始
-        </button>
+        </Button>
         {weakTopicIds.length > 0 ? (
           <div>
-            <p className="mb-1.5 text-[0.65rem] text-muted">直近の誤答が多い分野</p>
+            <p className="mb-1.5 text-[0.65rem] text-muted-foreground">直近の誤答が多い分野</p>
             <div className="flex flex-wrap gap-1.5">
               {weakTopicIds.slice(0, 4).map((id) => {
                 const topic = topics.find((item) => item.id === id);
@@ -133,7 +134,7 @@ export function PracticeSetup({
                       setTopicId(id);
                       setCount(10);
                     }}
-                    className="chip border-warning/30 bg-warning/10 text-warning"
+                    className="chip border-warning/30 bg-warning/10 text-warning-foreground"
                   >
                     {topic.title}
                   </button>
@@ -142,7 +143,7 @@ export function PracticeSetup({
             </div>
           </div>
         ) : null}
-        <p className="text-[0.65rem] leading-5 text-muted">
+        <p className="text-[0.65rem] leading-5 text-muted-foreground">
           正答率と誤答履歴は保存されます。誤答は間隔反復の復習キューへ自動登録されます。
         </p>
       </div>

@@ -61,7 +61,7 @@ export default async function PracticeRunPage({
 
   return (
     <div className="">
-      <Link href="/practice" className="mb-4 inline-flex items-center gap-1.5 text-xs text-muted hover:text-fg">
+      <Link href="/practice" className="mb-4 inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground">
         <ArrowLeft className="size-3.5" />
         演習トップ
       </Link>

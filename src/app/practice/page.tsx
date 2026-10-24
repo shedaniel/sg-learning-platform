@@ -70,13 +70,13 @@ export default async function PracticePage() {
             href: "/review",
           },
         ].map((item) => (
-          <Link key={item.label} href={item.href} className="card group p-4 transition-colors hover:border-accent/50">
+          <Link key={item.label} href={item.href} className="card group p-4 transition-colors hover:border-ring/50">
             <div className="flex items-center justify-between">
-              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-muted">{item.label}</p>
-              <item.icon className="size-4 text-accent" />
+              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-muted-foreground">{item.label}</p>
+              <item.icon className="size-4 text-info-foreground" />
             </div>
             <p className="mono mt-2 text-2xl font-semibold">{item.value}</p>
-            <p className="mt-0.5 text-[0.68rem] text-muted">{item.sub}</p>
+            <p className="mt-0.5 text-[0.68rem] text-muted-foreground">{item.sub}</p>
           </Link>
         ))}
       </div>
@@ -98,10 +98,10 @@ export default async function PracticePage() {
                 .reduce((total, topic) => total + topic.attempts, 0);
               return (
                 <section key={area.id} className="card overflow-hidden">
-                  <div className="flex items-center gap-3 border-b border-border bg-surface-2/60 px-4 py-2.5">
+                  <div className="flex items-center gap-3 border-b border-border bg-muted/60 px-4 py-2.5">
                     <span className="size-2 rounded-full" style={{ background: area.color }} />
                     <h3 className="text-xs font-semibold">{area.title}</h3>
-                    <span className="ml-auto text-[0.6rem] text-muted">
+                    <span className="ml-auto text-[0.6rem] text-muted-foreground">
                       {areaAttempts ? `${areaAttempts}回解答` : "未演習"}
                     </span>
                   </div>
@@ -113,11 +113,11 @@ export default async function PracticePage() {
                         <li key={topic.id}>
                           <Link
                             href={`/practice/${topic.id}`}
-                            className="group flex items-center gap-3 px-4 py-2.5 transition-colors hover:bg-surface-2"
+                            className="group flex items-center gap-3 px-4 py-2.5 transition-colors hover:bg-muted"
                           >
                             <div className="min-w-0 flex-1">
-                              <p className="text-xs font-medium group-hover:text-accent">{topic.title}</p>
-                              <p className="mt-0.5 text-[0.6rem] text-muted">
+                              <p className="text-xs font-medium group-hover:text-info-foreground">{topic.title}</p>
+                              <p className="mt-0.5 text-[0.6rem] text-muted-foreground">
                                 {count}問 · {topic.examPart === "both" ? "A/B" : `科目${topic.examPart}`}
                                 {attemptedTopicIds.has(topic.id) ? ` · 正答率 ${stat?.accuracy ?? 0}%` : ""}
                               </p>
@@ -125,7 +125,7 @@ export default async function PracticePage() {
                             <div className="w-20">
                               <ProgressBar value={stat?.accuracy ?? 0} height={4} />
                             </div>
-                            <ArrowRight className="size-3.5 text-border-strong group-hover:text-accent" />
+                            <ArrowRight className="size-3.5 text-muted-foreground group-hover:text-info-foreground" />
                           </Link>
                         </li>
                       );
@@ -155,20 +155,20 @@ export default async function PracticePage() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="flex items-center justify-between rounded-lg border border-border px-3 py-2 text-xs transition-colors hover:border-accent/50 hover:bg-surface-2"
+                  className="flex items-center justify-between rounded-lg border border-border px-3 py-2 text-xs transition-colors hover:border-ring/50 hover:bg-muted"
                 >
                   {item.label}
-                  <ArrowRight className="size-3.5 text-muted" />
+                  <ArrowRight className="size-3.5 text-muted-foreground" />
                 </Link>
               ))}
             </div>
           </div>
           <div className="card p-5">
             <div className="flex items-center gap-2">
-              <FileText className="size-4 text-accent" />
+              <FileText className="size-4 text-info-foreground" />
               <p className="text-xs font-semibold">解き方の推奨</p>
             </div>
-            <ol className="mt-2 space-y-1.5 text-[0.7rem] leading-5 text-muted">
+            <ol className="mt-2 space-y-1.5 text-[0.7rem] leading-5 text-muted-foreground">
               <li>1. まずレッスン10問で概念の穴を見つける</li>
               <li>2. 誤答は選択肢ごとの理由を読む</li>
               <li>3. 翌日・3日後・1週間後に復習</li>

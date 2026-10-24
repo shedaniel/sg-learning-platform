@@ -115,12 +115,12 @@ export function AccessMatrix() {
       <div className="flex items-start justify-between gap-2">
         <div>
           <p className="eyebrow">Least privilege</p>
-          <h3 className="text-sm font-semibold text-fg">役割 × データの権限を点検する</h3>
+          <h3 className="text-sm font-semibold text-foreground">役割 × データの権限を点検する</h3>
         </div>
         <ResetButton onClick={() => setSelected(new Set())} label="全解除" />
       </div>
 
-      <p className="text-[0.76rem] leading-6 text-muted">
+      <p className="text-[0.76rem] leading-6 text-muted-foreground">
         5つの役割に、3種類のデータへの閲覧権限を与える。チェックした組合せを「最小権限の原則」と職務分離の観点で判定する。ここでは常時付与する権限を点検し、作業単位・期間単位の一時付与は別に設計する。
       </p>
 
@@ -131,17 +131,17 @@ export function AccessMatrix() {
           </caption>
           <thead>
             <tr>
-              <th scope="col" className="border border-border bg-surface-2 px-2 py-2 text-left font-semibold">
+              <th scope="col" className="border border-border bg-muted px-2 py-2 text-left font-semibold">
                 役割
               </th>
               {RESOURCES.map((resource) => (
                 <th
                   key={resource.id}
                   scope="col"
-                  className="border border-border bg-surface-2 px-1.5 py-2 text-center font-semibold"
+                  className="border border-border bg-muted px-1.5 py-2 text-center font-semibold"
                 >
                   <span className="block">{resource.label}</span>
-                  <span className="mt-0.5 block text-[0.55rem] font-normal leading-4 text-muted">{resource.note}</span>
+                  <span className="mt-0.5 block text-[0.55rem] font-normal leading-4 text-muted-foreground">{resource.note}</span>
                 </th>
               ))}
             </tr>
@@ -150,8 +150,8 @@ export function AccessMatrix() {
             {ROLES.map((role) => (
               <tr key={role.id}>
                 <th scope="row" className="border border-border px-2 py-1.5 text-left font-medium">
-                  <span className="block text-[0.72rem] text-fg">{role.label}</span>
-                  <span className="block text-[0.55rem] font-normal leading-4 text-muted">{role.note}</span>
+                  <span className="block text-[0.72rem] text-foreground">{role.label}</span>
+                  <span className="block text-[0.55rem] font-normal leading-4 text-muted-foreground">{role.note}</span>
                 </th>
                 {RESOURCES.map((resource) => {
                   const key = cellKey(role.id, resource.id);
@@ -159,13 +159,13 @@ export function AccessMatrix() {
                   return (
                     <td
                       key={resource.id}
-                      className={cn("border border-border p-0 text-center", checked && "bg-bg-soft")}
+                      className={cn("border border-border p-0 text-center", checked && "bg-muted")}
                     >
                       <label className="flex min-h-9 cursor-pointer items-center justify-center p-1.5">
                         <input
                           type="checkbox"
                           className="size-4"
-                          style={{ accentColor: "var(--accent)" }}
+                          style={{ accentColor: "var(--chart-2)" }}
                           checked={checked}
                           aria-label={`${role.label}の${resource.label}閲覧権限`}
                           onChange={(event) => {
@@ -190,13 +190,13 @@ export function AccessMatrix() {
 
       <div className="flex flex-wrap items-center gap-1.5">
         <span className="chip">付与 {grants.length} 件</span>
-        <span className="chip" style={{ color: "var(--success)", borderColor: "var(--success)" }}>
+        <span className="chip" style={{ color: "var(--success-foreground)", borderColor: "var(--success-foreground)" }}>
           適正 {allowedCount}
         </span>
-        <span className="chip" style={{ color: "var(--error)", borderColor: "var(--error)" }}>
+        <span className="chip" style={{ color: "var(--destructive-foreground)", borderColor: "var(--destructive-foreground)" }}>
           違反 {violations.length}
         </span>
-        <span className="ml-auto text-[0.6rem] leading-4 text-muted">
+        <span className="ml-auto text-[0.6rem] leading-4 text-muted-foreground">
           推奨ベースライン: 営業=顧客／人事=人事・給与／経理=財務・請求／システム管理者・委託先=なし
         </span>
       </div>
@@ -214,7 +214,7 @@ export function AccessMatrix() {
           <Verdict ok>付与した権限はすべて推奨ベースライン内である。不要になった権限は定期的に棚卸しする。</Verdict>
         ) : (
           <>
-            <div className="flex items-center gap-1.5 text-xs font-semibold text-error">
+            <div className="flex items-center gap-1.5 text-xs font-semibold text-destructive-foreground">
               <ShieldAlert aria-hidden className="size-4" />
               {violations.length} 件の最小権限違反
             </div>
@@ -222,23 +222,23 @@ export function AccessMatrix() {
               {violations.map((violation) => (
                 <li
                   key={cellKey(violation.role.id, violation.resource.id)}
-                  className="rounded-lg border border-border bg-surface-2 px-2.5 py-2"
+                  className="rounded-lg border border-border bg-muted px-2.5 py-2"
                 >
                   <div className="flex flex-wrap items-center gap-1.5">
                     <span
                       className="chip"
                       style={{
-                        color: violation.severity === "高" ? "var(--error)" : "var(--warning)",
-                        borderColor: violation.severity === "高" ? "var(--error)" : "var(--warning)",
+                        color: violation.severity === "高" ? "var(--destructive-foreground)" : "var(--warning-foreground)",
+                        borderColor: violation.severity === "高" ? "var(--destructive-foreground)" : "var(--warning-foreground)",
                       }}
                     >
                       重大度 {violation.severity}
                     </span>
-                    <span className="text-[0.72rem] font-semibold text-fg">
+                    <span className="text-[0.72rem] font-semibold text-foreground">
                       {violation.role.label} × {violation.resource.label}
                     </span>
                   </div>
-                  <p className="mt-1 text-[0.7rem] leading-5 text-muted">{violation.reason}</p>
+                  <p className="mt-1 text-[0.7rem] leading-5 text-muted-foreground">{violation.reason}</p>
                 </li>
               ))}
             </ul>
@@ -246,7 +246,7 @@ export function AccessMatrix() {
         )}
       </div>
 
-      <p className="text-[0.68rem] leading-5 text-muted">
+      <p className="text-[0.68rem] leading-5 text-muted-foreground">
         外部委託先には、自社の従業員と同じ権限を与えない。委託先のアカウントは作業単位・期間単位で発行し、契約終了時に確実に失効させる。システム管理者には業務データの閲覧ではなく、アカウント管理に必要な権限だけを与える。
       </p>
     </WidgetBody>

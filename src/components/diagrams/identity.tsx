@@ -223,10 +223,10 @@ export function CloudResponsibility() {
             stroke="var(--c1)"
             strokeWidth="1.5"
           />
-          <text x="192" y={row.y + 29} fontSize="13" fill="var(--fg)">
+          <text x="192" y={row.y + 29} fontSize="13" fill="var(--foreground)">
             {row.customer}
           </text>
-          <text x={row.boundary + 10} y={row.y + 29} fontSize="13" fill="var(--fg)">
+          <text x={row.boundary + 10} y={row.y + 29} fontSize="13" fill="var(--foreground)">
             {row.provider}
           </text>
         </g>

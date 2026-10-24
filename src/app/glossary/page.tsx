@@ -35,7 +35,7 @@ export default async function GlossaryPage({
           <form action="/glossary" className="flex items-center gap-2">
             {area ? <input type="hidden" name="area" value={area} /> : null}
             <div className="relative">
-              <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted" />
+              <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
               <input
                 name="q"
                 defaultValue={q}
@@ -50,7 +50,7 @@ export default async function GlossaryPage({
       />
 
       <div className="mb-5 flex flex-wrap items-center gap-2">
-        <Link href="/glossary" className={`chip ${!area ? "border-accent bg-surface text-accent" : ""}`}>
+        <Link href="/glossary" className={`chip ${!area ? "border-ring bg-card text-info-foreground" : ""}`}>
           すべて（{ALL_TERMS.length}）
         </Link>
         {AREAS.map((item) => {
@@ -59,20 +59,20 @@ export default async function GlossaryPage({
             <Link
               key={item.id}
               href={`/glossary?area=${item.id}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
-              className={`chip ${area === item.id ? "border-accent bg-surface text-accent" : ""}`}
+              className={`chip ${area === item.id ? "border-ring bg-card text-info-foreground" : ""}`}
             >
               {item.shortTitle}（{count}）
             </Link>
           );
         })}
-        <span className="ml-auto text-[0.65rem] text-muted">
+        <span className="ml-auto text-[0.65rem] text-muted-foreground">
           覚えた {snapshot.learnedTermIds.length}/{ALL_TERMS.length}
         </span>
       </div>
       <ProgressBar value={snapshot.termPercent} height={4} className="mb-6" label="用語の学習進捗" />
 
       {filtered.length === 0 ? (
-        <div className="card p-8 text-center text-sm text-muted">該当する用語がありません。</div>
+        <div className="card p-8 text-center text-sm text-muted-foreground">該当する用語がありません。</div>
       ) : (
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((term) => {
@@ -82,23 +82,23 @@ export default async function GlossaryPage({
               <Link
                 key={term.id}
                 href={`/glossary/${term.id}`}
-                className="card group p-4 transition-colors hover:border-accent/50"
+                className="card group p-4 transition-colors hover:border-ring/50"
               >
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <p className="font-semibold leading-6 group-hover:text-accent">
+                    <p className="font-semibold leading-6 group-hover:text-info-foreground">
                       {term.ja}
                       {term.reading ? (
-                        <span className="ml-1.5 text-[0.65rem] font-normal text-muted">（{term.reading}）</span>
+                        <span className="ml-1.5 text-[0.65rem] font-normal text-muted-foreground">（{term.reading}）</span>
                       ) : null}
                     </p>
-                    <p className="mt-0.5 text-[0.65rem] uppercase tracking-wider text-muted">
+                    <p className="mt-0.5 text-[0.65rem] uppercase tracking-wider text-muted-foreground">
                       {term.abbr ? `${term.abbr} · ` : ""}{term.en}
                     </p>
                   </div>
-                  {learned ? <BookMarked className="size-3.5 shrink-0 text-success" /> : null}
+                  {learned ? <BookMarked className="size-3.5 shrink-0 text-success-foreground" /> : null}
                 </div>
-                <p className="mt-2 line-clamp-2 text-[0.7rem] leading-5 text-muted">{term.shortJa}</p>
+                <p className="mt-2 line-clamp-2 text-[0.7rem] leading-5 text-muted-foreground">{term.shortJa}</p>
                 <div className="mt-2 flex items-center gap-1">
                   <Badge>{areaInfo?.shortTitle ?? "用語"}</Badge>
                   {term.tags.slice(0, 1).map((tag) => <Badge key={tag}>{tag}</Badge>)}

@@ -39,7 +39,7 @@ export default async function SearchPage({
 
       <form action="/search" className="mb-6 flex max-w-2xl gap-2">
         <div className="relative flex-1">
-          <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted" />
+          <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
           <input
             name="q"
             defaultValue={q}
@@ -53,9 +53,9 @@ export default async function SearchPage({
       </form>
 
       <div className="mb-6 flex flex-wrap items-center gap-1.5">
-        <span className="text-[0.65rem] text-muted">よく検索される語:</span>
+        <span className="text-[0.65rem] text-muted-foreground">よく検索される語:</span>
         {SUGGESTIONS.map((suggestion) => (
-          <Link key={suggestion} href={`/search?q=${encodeURIComponent(suggestion)}`} className="chip hover:border-accent/50">
+          <Link key={suggestion} href={`/search?q=${encodeURIComponent(suggestion)}`} className="chip hover:border-ring/50">
             {suggestion}
           </Link>
         ))}
@@ -67,9 +67,9 @@ export default async function SearchPage({
             <h2 className="text-sm font-semibold">主要な用語</h2>
             <div className="mt-3 grid gap-2 sm:grid-cols-2">
               {popularTerms.map((term) => (
-                <Link key={term.id} href={`/glossary/${term.id}`} className="rounded-lg border border-border bg-surface-2 p-3 text-xs hover:border-accent/50">
+                <Link key={term.id} href={`/glossary/${term.id}`} className="rounded-lg border border-border bg-muted p-3 text-xs hover:border-ring/50">
                   <span className="font-semibold">{term.ja}</span>
-                  <span className="ml-1 text-[0.62rem] text-muted">{term.en}</span>
+                  <span className="ml-1 text-[0.62rem] text-muted-foreground">{term.en}</span>
                 </Link>
               ))}
             </div>
@@ -78,20 +78,20 @@ export default async function SearchPage({
             <h2 className="text-sm font-semibold">公式問題（2026年度）</h2>
             <div className="mt-3 space-y-2">
               {recentOfficial.map((question) => (
-                <Link key={question.id} href={`/practice/question/${question.id}`} className="block rounded-lg border border-border p-2.5 text-xs leading-5 hover:border-accent/50">
+                <Link key={question.id} href={`/practice/question/${question.id}`} className="block rounded-lg border border-border p-2.5 text-xs leading-5 hover:border-ring/50">
                   <span className="line-clamp-2">{question.stem}</span>
-                  <span className="mt-1 block text-[0.6rem] text-muted">IPA 2026 問{question.source.questionNo}</span>
+                  <span className="mt-1 block text-[0.6rem] text-muted-foreground">IPA 2026 問{question.source.questionNo}</span>
                 </Link>
               ))}
-              <Link href="/past-papers" className="text-[0.7rem] font-semibold text-accent hover:underline">過去問一覧 →</Link>
+              <Link href="/past-papers" className="text-[0.7rem] font-semibold text-info-foreground hover:underline">過去問一覧 →</Link>
             </div>
           </section>
         </div>
       ) : results.length === 0 ? (
         <div className="card p-8 text-center">
-          <Search className="mx-auto size-6 text-muted" />
+          <Search className="mx-auto size-6 text-muted-foreground" />
           <h2 className="mt-3 font-semibold">該当する内容がありません</h2>
-          <p className="mt-1 text-sm text-muted">表記ゆれを試すか、英語・略語でも検索してください。</p>
+          <p className="mt-1 text-sm text-muted-foreground">表記ゆれを試すか、英語・略語でも検索してください。</p>
           <div className="mt-3 flex flex-wrap justify-center gap-1.5">
             {SUGGESTIONS.slice(0, 5).map((suggestion) => (
               <Link key={suggestion} href={`/search?q=${encodeURIComponent(suggestion)}`} className="chip">{suggestion}</Link>
@@ -100,29 +100,29 @@ export default async function SearchPage({
         </div>
       ) : (
         <div className="space-y-6">
-          <p className="text-xs text-muted">{results.length} 件</p>
+          <p className="text-xs text-muted-foreground">{results.length} 件</p>
           {grouped.map(({ kind, items }) => {
             if (items.length === 0) return null;
             const meta = KIND_META[kind];
             const Icon = meta.icon;
             return (
               <section key={kind} className="card overflow-hidden">
-                <div className="flex items-center gap-2 border-b border-border bg-surface-2/60 px-4 py-2.5">
-                  <Icon className="size-4 text-accent" />
+                <div className="flex items-center gap-2 border-b border-border bg-muted/60 px-4 py-2.5">
+                  <Icon className="size-4 text-info-foreground" />
                   <h2 className="text-xs font-semibold">{meta.label}</h2>
                   <Badge className="ml-auto">{items.length}</Badge>
                 </div>
                 <ul className="divide-y divide-border">
                   {items.map((result) => (
                     <li key={`${result.kind}-${result.id}`}>
-                      <Link href={result.href} className="group flex items-start gap-3 px-4 py-3 hover:bg-surface-2">
+                      <Link href={result.href} className="group flex items-start gap-3 px-4 py-3 hover:bg-muted">
                         <div className="min-w-0 flex-1">
-                          <p className="text-sm font-medium leading-6 group-hover:text-accent">{result.title}</p>
-                          <p className="text-[0.65rem] text-muted">{result.subtitle}</p>
-                          <p className="mt-1 line-clamp-2 text-[0.7rem] leading-5 text-muted">{result.snippet}</p>
+                          <p className="text-sm font-medium leading-6 group-hover:text-info-foreground">{result.title}</p>
+                          <p className="text-[0.65rem] text-muted-foreground">{result.subtitle}</p>
+                          <p className="mt-1 line-clamp-2 text-[0.7rem] leading-5 text-muted-foreground">{result.snippet}</p>
                         </div>
-                        <span className="shrink-0 text-[0.6rem] text-muted">{result.meta}</span>
-                        <ArrowRight className="mt-1 size-3.5 shrink-0 text-border-strong group-hover:text-accent" />
+                        <span className="shrink-0 text-[0.6rem] text-muted-foreground">{result.meta}</span>
+                        <ArrowRight className="mt-1 size-3.5 shrink-0 text-muted-foreground group-hover:text-info-foreground" />
                       </Link>
                     </li>
                   ))}

@@ -141,18 +141,18 @@ export function Backup321() {
             width={220}
             height={84}
             rx={12}
-            fill="var(--surface-2)"
+            fill="var(--muted)"
             fillOpacity="0.65"
             stroke="var(--border)"
             strokeWidth="1.5"
           />
-          <text x={card.x + 34} y={102} textAnchor="middle" fontSize="28" fontWeight="700" fill="var(--accent)">
+          <text x={card.x + 34} y={102} textAnchor="middle" fontSize="28" fontWeight="700" fill="var(--chart-2)">
             {card.number}
           </text>
           <text x={card.x + 62} y={86} fontSize="15" fontWeight="600">
             {card.title}
           </text>
-          <text x={card.x + 62} y={110} fontSize="13" fill="var(--muted)">
+          <text x={card.x + 62} y={110} fontSize="13" fill="var(--muted-foreground)">
             {card.sub}
           </text>
         </g>
@@ -199,23 +199,23 @@ export function RpoRto() {
         RPO は失ってよいデータの範囲、RTO は停止してよい時間の範囲を表す
       </Txt>
 
-      <rect x="130" y="182" width="170" height="16" fill="var(--error)" fillOpacity="0.18" />
-      <rect x="300" y="182" width="240" height="16" fill="var(--warning)" fillOpacity="0.18" />
+      <rect x="130" y="182" width="170" height="16" fill="var(--destructive-foreground)" fillOpacity="0.18" />
+      <rect x="300" y="182" width="240" height="16" fill="var(--warning-foreground)" fillOpacity="0.18" />
       <Arrow prefix="rpo" x1={48} y1={190} x2={704} y2={190} />
       <Txt x={700} y={178} anchor="end" tone="muted">
         時間
       </Txt>
 
-      <line x1="130" y1="122" x2="130" y2="204" stroke="var(--border-strong)" strokeWidth="1.5" strokeDasharray="5 4" />
-      <line x1="300" y1="108" x2="300" y2="204" stroke="var(--error)" strokeWidth="1.5" strokeDasharray="5 4" />
-      <line x1="540" y1="108" x2="540" y2="204" stroke="var(--success)" strokeWidth="1.5" strokeDasharray="5 4" />
+      <line x1="130" y1="122" x2="130" y2="204" stroke="var(--input)" strokeWidth="1.5" strokeDasharray="5 4" />
+      <line x1="300" y1="108" x2="300" y2="204" stroke="var(--destructive-foreground)" strokeWidth="1.5" strokeDasharray="5 4" />
+      <line x1="540" y1="108" x2="540" y2="204" stroke="var(--success-foreground)" strokeWidth="1.5" strokeDasharray="5 4" />
 
       <circle cx="130" cy="190" r="4" fill="var(--c5)" />
-      <circle cx="300" cy="190" r="4" fill="var(--error)" />
-      <circle cx="540" cy="190" r="4" fill="var(--success)" />
+      <circle cx="300" cy="190" r="4" fill="var(--destructive-foreground)" />
+      <circle cx="540" cy="190" r="4" fill="var(--success-foreground)" />
 
-      <path d="M 130 142 V 158 M 130 150 H 296 M 296 142 V 158" fill="none" stroke="var(--error)" strokeWidth="1.5" />
-      <path d="M 304 142 V 158 M 304 150 H 540 M 540 142 V 158" fill="none" stroke="var(--warning)" strokeWidth="1.5" />
+      <path d="M 130 142 V 158 M 130 150 H 296 M 296 142 V 158" fill="none" stroke="var(--destructive-foreground)" strokeWidth="1.5" />
+      <path d="M 304 142 V 158 M 304 150 H 540 M 540 142 V 158" fill="none" stroke="var(--warning-foreground)" strokeWidth="1.5" />
 
       <Txt x={215} y={128} tone="error">
         RPO：目標復旧時点
@@ -280,15 +280,15 @@ export function BcpTimeline() {
       </Txt>
 
       <line x1="90" y1="100" x2="90" y2="122" stroke="var(--c5)" strokeWidth="1.5" strokeDasharray="4 3" />
-      <line x1="210" y1="100" x2="210" y2="122" stroke="var(--error)" strokeWidth="1.5" strokeDasharray="4 3" />
-      <line x1="330" y1="100" x2="330" y2="122" stroke="var(--warning)" strokeWidth="1.5" strokeDasharray="4 3" />
-      <line x1="550" y1="100" x2="550" y2="122" stroke="var(--success)" strokeWidth="1.5" strokeDasharray="4 3" />
+      <line x1="210" y1="100" x2="210" y2="122" stroke="var(--destructive-foreground)" strokeWidth="1.5" strokeDasharray="4 3" />
+      <line x1="330" y1="100" x2="330" y2="122" stroke="var(--warning-foreground)" strokeWidth="1.5" strokeDasharray="4 3" />
+      <line x1="550" y1="100" x2="550" y2="122" stroke="var(--success-foreground)" strokeWidth="1.5" strokeDasharray="4 3" />
       <line x1="660" y1="100" x2="660" y2="122" stroke="var(--c6)" strokeWidth="1.5" strokeDasharray="4 3" />
 
       <circle cx="90" cy="116" r="4" fill="var(--c5)" />
-      <circle cx="210" cy="116" r="4" fill="var(--error)" />
-      <circle cx="330" cy="116" r="4" fill="var(--warning)" />
-      <circle cx="550" cy="116" r="4" fill="var(--success)" />
+      <circle cx="210" cy="116" r="4" fill="var(--destructive-foreground)" />
+      <circle cx="330" cy="116" r="4" fill="var(--warning-foreground)" />
+      <circle cx="550" cy="116" r="4" fill="var(--success-foreground)" />
       <circle cx="660" cy="116" r="4" fill="var(--c6)" />
 
       <Txt x={90} y={92} tone="muted">
@@ -307,12 +307,12 @@ export function BcpTimeline() {
         レビュー
       </Txt>
 
-      <path d="M 90 136 V 152 M 90 144 H 210 M 210 136 V 152" fill="none" stroke="var(--error)" strokeWidth="1.5" />
+      <path d="M 90 136 V 152 M 90 144 H 210 M 210 136 V 152" fill="none" stroke="var(--destructive-foreground)" strokeWidth="1.5" />
       <Txt x={150} y={166} tone="error">
         RPO：データ消失の許容範囲
       </Txt>
 
-      <path d="M 210 176 V 192 M 210 184 H 550 M 550 176 V 192" fill="none" stroke="var(--warning)" strokeWidth="1.5" />
+      <path d="M 210 176 V 192 M 210 184 H 550 M 550 176 V 192" fill="none" stroke="var(--warning-foreground)" strokeWidth="1.5" />
       <Txt x={380} y={210} tone="warning">
         RTO：サービス停止の許容範囲
       </Txt>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
+import { Button } from "@coss/ui/components/button";
 
 export function ThemeToggle() {
   const [dark, setDark] = useState(false);
@@ -20,15 +21,15 @@ export function ThemeToggle() {
   }
 
   return (
-    <button
-      type="button"
+    <Button
+      variant="ghost"
+      size="icon"
       onClick={toggle}
-      className="btn btn-ghost size-9 rounded-full p-0"
       aria-label={dark ? "ライトテーマに切り替え" : "ダークテーマに切り替え"}
       title={dark ? "ライトテーマ" : "ダークテーマ"}
       data-ready={ready}
     >
-      {dark ? <Sun className="size-4" /> : <Moon className="size-4" />}
-    </button>
+      {dark ? <Sun /> : <Moon />}
+    </Button>
   );
 }

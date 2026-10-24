@@ -38,9 +38,10 @@
 
 ## coss ui (`coss.com/ui/llms.txt`)
 
-- coss ui was reviewed as the suggested component source in PLAN.md. It is a shadcn/Base UI copy-paste registry, not a runtime dependency.
-- It was not adopted wholesale because its style preset installs Inter/Geist fonts and its own color tokens, which conflicts with the later requirement to avoid special fonts and reduce decorative/green styling. The app already has accessible Tailwind primitives tuned to the Japanese textbook layout.
-- If coss components are wanted later, migrate individual primitives (Button, Field, Select, Dialog, Tabs) without importing `@coss/style` or its fonts. This is a UI refactor, not a correctness gap.
+- Adopted as the UI system: token set, color semantics, radius/shadows, Cal Sans 2.010 + Paper Mono fonts, and coss components.
+- Source is vendored under `src/coss/ui/` from the coss UI repository and exposed through the `@coss/ui/*` tsconfig alias. Shared primitives in `src/components/ui/primitives.tsx` wrap coss `Button`, `Badge`, `Card`, `Progress`, `Kbd`, and `Empty`. Key actions use coss `Button` directly.
+- App-specific reading prose, diagram typography, and layout classes remain in `src/app/globals.css`, built on coss tokens (`bg-background`, `text-muted-foreground`, `bg-card`, `border-input`, `ring`).
+- coss source is AGPL-3.0-or-later; the repository license and third-party notice were updated accordingly (`LICENSE`, `THIRD_PARTY.md`).
 
 ## Deliberate limits
 

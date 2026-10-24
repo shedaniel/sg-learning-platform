@@ -24,17 +24,17 @@ function ResultRing({ value }: { value: number }) {
         cy="80"
         r={radius}
         fill="none"
-        stroke="var(--accent)"
+        stroke="var(--chart-2)"
         strokeWidth="11"
         strokeLinecap="round"
         strokeDasharray={circumference}
         strokeDashoffset={offset}
         transform="rotate(-90 80 80)"
       />
-      <text x="80" y="78" textAnchor="middle" fontSize="30" fontWeight="700" fill="var(--fg)">
+      <text x="80" y="78" textAnchor="middle" fontSize="30" fontWeight="700" fill="var(--foreground)">
         {value}%
       </text>
-      <text x="80" y="98" textAnchor="middle" fontSize="11" fill="var(--muted)">
+      <text x="80" y="98" textAnchor="middle" fontSize="11" fill="var(--muted-foreground)">
         素点正答率
       </text>
     </svg>
@@ -85,12 +85,12 @@ export default async function MockResultPage({ params }: { params: Promise<{ id:
             <p className="eyebrow">RAW SCORE</p>
             <p className="mono mt-1 text-3xl font-semibold">
               {result.correct}
-              <span className="text-lg font-normal text-muted"> / {result.total}</span>
+              <span className="text-lg font-normal text-muted-foreground"> / {result.total}</span>
             </p>
-            <p className="mt-1 text-sm text-muted">
+            <p className="mt-1 text-sm text-muted-foreground">
               解答 {result.answered} 問 · 未解答 {result.unanswered} 問
             </p>
-            <p className="mt-1 text-sm text-muted">
+            <p className="mt-1 text-sm text-muted-foreground">
               所要 {formatDuration(result.totalElapsedMs / 1000)} · 1問平均{" "}
               {Math.round(result.averageElapsedMs / 1000)}秒
             </p>
@@ -110,14 +110,14 @@ export default async function MockResultPage({ params }: { params: Promise<{ id:
                 <div key={row.topicId}>
                   <div className="flex items-center justify-between gap-3 text-[0.7rem]">
                     <span className="truncate">{topic?.title ?? row.topicId}</span>
-                    <span className="mono shrink-0 text-muted">
+                    <span className="mono shrink-0 text-muted-foreground">
                       {row.correct}/{row.total} · {row.accuracy}%
                     </span>
                   </div>
                   <ProgressBar
                     value={row.accuracy}
                     height={4}
-                    tone={row.accuracy < 60 ? "var(--error)" : row.accuracy < 80 ? "var(--warning)" : "var(--success)"}
+                    tone={row.accuracy < 60 ? "var(--destructive-foreground)" : row.accuracy < 80 ? "var(--warning-foreground)" : "var(--success-foreground)"}
                     className="mt-1"
                   />
                 </div>
@@ -135,7 +135,7 @@ export default async function MockResultPage({ params }: { params: Promise<{ id:
               <span className="mono text-lg font-semibold">{result.byPart[part].accuracy}%</span>
             </div>
             <ProgressBar value={result.byPart[part].accuracy} className="mt-2" height={6} />
-            <p className="mt-1.5 text-[0.65rem] text-muted">
+            <p className="mt-1.5 text-[0.65rem] text-muted-foreground">
               {result.byPart[part].correct}/{result.byPart[part].total}問
             </p>
           </div>
@@ -145,7 +145,7 @@ export default async function MockResultPage({ params }: { params: Promise<{ id:
           <div className="mt-2 space-y-1.5">
             {result.byDifficulty.map((row) => (
               <div key={row.difficulty} className="flex items-center justify-between text-[0.7rem]">
-                <span className="text-muted">{DIFFICULTY_LABEL[row.difficulty] ?? row.difficulty}</span>
+                <span className="text-muted-foreground">{DIFFICULTY_LABEL[row.difficulty] ?? row.difficulty}</span>
                 <span className="mono">{row.accuracy}%</span>
               </div>
             ))}
@@ -155,8 +155,8 @@ export default async function MockResultPage({ params }: { params: Promise<{ id:
 
       <section className="card mt-5 p-5">
         <div className="flex items-start gap-2 rounded-lg border border-warning/30 bg-warning/5 p-3">
-          <AlertTriangle className="mt-0.5 size-4 shrink-0 text-warning" />
-          <p className="text-[0.7rem] leading-5 text-muted">
+          <AlertTriangle className="mt-0.5 size-4 shrink-0 text-warning-foreground" />
+          <p className="text-[0.7rem] leading-5 text-muted-foreground">
             この結果は学習用の素点です。IPA は IRT により評価点を算出し、総合600点/1000点で判定します。本サイトは公式の採点モデルを持たないため、合格可能性を断定しません。
           </p>
         </div>
@@ -165,7 +165,7 @@ export default async function MockResultPage({ params }: { params: Promise<{ id:
             <h2 className="mt-5 text-xs font-semibold">優先して復習する分野</h2>
             <div className="mt-2 flex flex-wrap gap-1.5">
               {weakTopics.map((topic) => (
-                <Link key={topic?.id} href={`/practice/${topic?.id}`} className="chip border-warning/30 bg-warning/10 text-warning hover:border-warning">
+                <Link key={topic?.id} href={`/practice/${topic?.id}`} className="chip border-warning/30 bg-warning/10 text-warning-foreground hover:border-warning">
                   {topic?.title}
                 </Link>
               ))}
@@ -180,10 +180,10 @@ export default async function MockResultPage({ params }: { params: Promise<{ id:
                 <Link
                   key={lesson.id}
                   href={`/learn/${lesson.id}`}
-                  className="flex items-center justify-between rounded-lg border border-border px-3 py-2 text-xs hover:border-accent/50"
+                  className="flex items-center justify-between rounded-lg border border-border px-3 py-2 text-xs hover:border-ring/50"
                 >
                   <span className="truncate">{lesson.title}</span>
-                  <ArrowRight className="size-3.5 shrink-0 text-muted" />
+                  <ArrowRight className="size-3.5 shrink-0 text-muted-foreground" />
                 </Link>
               ))}
             </div>
@@ -192,9 +192,9 @@ export default async function MockResultPage({ params }: { params: Promise<{ id:
       </section>
 
       <section className="card mt-5 overflow-hidden">
-        <div className="flex items-center justify-between border-b border-border bg-surface-2/60 px-4 py-2.5">
+        <div className="flex items-center justify-between border-b border-border bg-muted/60 px-4 py-2.5">
           <h2 className="text-xs font-semibold">問題別レビュー</h2>
-          <span className="text-[0.65rem] text-muted">正答率の低い順ではありません</span>
+          <span className="text-[0.65rem] text-muted-foreground">正答率の低い順ではありません</span>
         </div>
         <ul className="divide-y divide-border">
           {result.questions.map((detail, index) => {
@@ -204,13 +204,13 @@ export default async function MockResultPage({ params }: { params: Promise<{ id:
               <li key={detail.questionId} className="flex items-start gap-3 px-4 py-3">
                 <span
                   className={`mono mt-0.5 grid size-5 shrink-0 place-items-center rounded-full text-[0.6rem] text-white ${
-                    detail.correct ? "bg-success" : "bg-error"
+                    detail.correct ? "bg-success" : "bg-destructive"
                   }`}
                 >
                   {detail.correct ? <Check className="size-3" /> : <X className="size-3" />}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="text-[0.62rem] text-muted">
+                  <p className="text-[0.62rem] text-muted-foreground">
                     問{index + 1} · {PART_LABEL[question.part]} ·{" "}
                     {question.source.kind === "official"
                       ? `IPA ${question.source.year} 問${question.source.questionNo}`
@@ -218,11 +218,11 @@ export default async function MockResultPage({ params }: { params: Promise<{ id:
                     · {formatDuration(detail.elapsedMs / 1000)}
                   </p>
                   <p className="mt-0.5 line-clamp-2 text-xs leading-5">{question.stem}</p>
-                  <p className="mt-0.5 text-[0.65rem] text-muted">
+                  <p className="mt-0.5 text-[0.65rem] text-muted-foreground">
                     選択: {detail.selected ? optionLabel(detail.selected) : "未解答"} / 正答: {optionLabel(detail.correctOptionId)}
                   </p>
                 </div>
-                <Link href={`/practice/question/${question.id}`} className="shrink-0 text-[0.7rem] font-semibold text-accent hover:underline">
+                <Link href={`/practice/question/${question.id}`} className="shrink-0 text-[0.7rem] font-semibold text-info-foreground hover:underline">
                   解説
                 </Link>
               </li>

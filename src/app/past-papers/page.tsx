@@ -39,10 +39,10 @@ export default function PastPapersPage() {
         }
       />
 
-      <div className="mb-6 rounded-xl border border-border bg-surface-2 p-4">
+      <div className="mb-6 rounded-xl border border-border bg-muted p-4">
         <div className="flex items-start gap-2">
-          <Info className="mt-0.5 size-4 shrink-0 text-accent" />
-          <div className="text-[0.72rem] leading-6 text-muted">
+          <Info className="mt-0.5 size-4 shrink-0 text-info-foreground" />
+          <div className="text-[0.72rem] leading-6 text-muted-foreground">
             <p>
               出典：独立行政法人情報処理推進機構（IPA）情報セキュリティマネジメント試験 公開問題。
               IPA の公表資料は、法令の特別な定めがある場合を除き、許諾や使用料なく利用できます。本サイトは出典と問題番号を明記しています。
@@ -56,9 +56,9 @@ export default function PastPapersPage() {
 
       {OFFICIAL_PAPERS.length === 0 ? (
         <div className="card p-8 text-center">
-          <FileText className="mx-auto size-6 text-muted" />
+          <FileText className="mx-auto size-6 text-muted-foreground" />
           <h2 className="mt-3 font-semibold">公式問題を読み込み中</h2>
-          <p className="mx-auto mt-1 max-w-md text-sm leading-6 text-muted">
+          <p className="mx-auto mt-1 max-w-md text-sm leading-6 text-muted-foreground">
             年度別の公開問題データを準備しています。IPA の公式ページから原本を確認できます。
           </p>
         </div>
@@ -68,25 +68,25 @@ export default function PastPapersPage() {
             <Link
               key={paper.year}
               href={`/past-papers/${paper.year}`}
-              className="card group overflow-hidden transition-colors hover:border-accent/50"
+              className="card group overflow-hidden transition-colors hover:border-ring/50"
             >
               <div className="flex items-start gap-4 p-5">
-                <span className="mono grid size-12 shrink-0 place-items-center rounded-xl border border-border bg-surface-2 text-sm font-semibold">
+                <span className="mono grid size-12 shrink-0 place-items-center rounded-xl border border-border bg-muted text-sm font-semibold">
                   {paper.year}
                 </span>
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-baseline gap-2">
-                    <h2 className="font-semibold group-hover:text-accent">{paper.label}</h2>
+                    <h2 className="font-semibold group-hover:text-info-foreground">{paper.label}</h2>
                     <Badge tone="accent">{paper.questions.length}問収録</Badge>
                   </div>
-                  <p className="mt-1 text-xs leading-5 text-muted">{paper.note}</p>
-                  <p className="mt-2 text-[0.62rem] text-muted">
+                  <p className="mt-1 text-xs leading-5 text-muted-foreground">{paper.note}</p>
+                  <p className="mt-2 text-[0.62rem] text-muted-foreground">
                     公開日 {paper.publishedAt} · 実際の試験は {paper.actualCount} 問
                   </p>
                 </div>
-                <ArrowRight className="mt-1 size-4 shrink-0 text-border-strong group-hover:text-accent" />
+                <ArrowRight className="mt-1 size-4 shrink-0 text-muted-foreground group-hover:text-info-foreground" />
               </div>
-              <div className="flex items-center justify-between border-t border-border bg-surface-2/50 px-5 py-2 text-[0.62rem] text-muted">
+              <div className="flex items-center justify-between border-t border-border bg-muted/50 px-5 py-2 text-[0.62rem] text-muted-foreground">
                 <span>出典: IPA 公開問題</span>
                 <span>{paper.questions.filter((q) => q.part === "A").length} A / {paper.questions.filter((q) => q.part === "B").length} B</span>
               </div>
@@ -101,7 +101,7 @@ export default function PastPapersPage() {
             <p className="eyebrow">Archive</p>
             <h2 className="display mt-1 text-2xl font-semibold">筆記試験の完全な過去問（2016–2019）</h2>
           </div>
-          <p className="max-w-lg text-[0.65rem] leading-5 text-muted">
+          <p className="max-w-lg text-[0.65rem] leading-5 text-muted-foreground">
             2016〜2019年度は午前50問・午後3問の筆記試験でした。原本は画像ベースのPDFでテキスト層がないため、アプリ内出題はせず、問題冊子と解答例へ直接リンクしています。
           </p>
         </div>
@@ -113,21 +113,21 @@ export default function PastPapersPage() {
                 <h3 className="text-xs font-semibold">{paper.label}</h3>
                 <Badge className="ml-auto">午前50 / 午後3</Badge>
               </div>
-              <p className="mt-1 text-[0.62rem] leading-5 text-muted">{paper.note}</p>
+              <p className="mt-1 text-[0.62rem] leading-5 text-muted-foreground">{paper.note}</p>
               <div className="mt-2 flex flex-wrap gap-3 text-[0.65rem]">
-                <a href={paper.morning.booklet} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-accent hover:underline">
+                <a href={paper.morning.booklet} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-info-foreground hover:underline">
                   午前 問題冊子
                   <ExternalLink className="size-3" />
                 </a>
-                <a href={paper.morning.answers} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-accent hover:underline">
+                <a href={paper.morning.answers} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-info-foreground hover:underline">
                   午前 解答例
                   <ExternalLink className="size-3" />
                 </a>
-                <a href={paper.afternoon.booklet} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-accent hover:underline">
+                <a href={paper.afternoon.booklet} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-info-foreground hover:underline">
                   午後 問題冊子
                   <ExternalLink className="size-3" />
                 </a>
-                <a href={paper.afternoon.answers} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-accent hover:underline">
+                <a href={paper.afternoon.answers} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-info-foreground hover:underline">
                   午後 解答例
                   <ExternalLink className="size-3" />
                 </a>
@@ -135,7 +135,7 @@ export default function PastPapersPage() {
             </article>
           ))}
         </div>
-        <p className="mt-2 text-[0.65rem] leading-5 text-muted">
+        <p className="mt-2 text-[0.65rem] leading-5 text-muted-foreground">
           2020〜2022年度の CBT 問題は非公開のため掲載されていません。2023年度以降の公開問題のみ、アプリ内で出題できます。
         </p>
       </section>
@@ -144,7 +144,7 @@ export default function PastPapersPage() {
         <div className="mb-3">
           <p className="eyebrow">Recurring themes</p>
           <h2 className="display mt-1 text-2xl font-semibold">年度をまたぐ頻出テーマ</h2>
-          <p className="mt-1 text-[0.68rem] leading-5 text-muted">
+          <p className="mt-1 text-[0.68rem] leading-5 text-muted-foreground">
             2023〜2026年度の公開問題60問をトピック別に集計したものです。公開された一部の問題に基づく傾向であり、出題頻度の公式統計ではありません。
           </p>
         </div>
@@ -156,16 +156,16 @@ export default function PastPapersPage() {
               <Link
                 key={topicId}
                 href={`/practice/${topicId}`}
-                className="card group flex items-start gap-3 p-3.5 hover:border-accent/50"
+                className="card group flex items-start gap-3 p-3.5 hover:border-ring/50"
               >
-                <span className="mono grid size-8 shrink-0 place-items-center rounded-lg bg-bg-soft text-xs font-semibold text-accent">
+                <span className="mono grid size-8 shrink-0 place-items-center rounded-lg bg-muted text-xs font-semibold text-info-foreground">
                   {count}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs font-semibold leading-5 group-hover:text-accent">{topic.title}</p>
-                  <p className="mt-0.5 text-[0.6rem] text-muted">{years.join(" / ")} 年度</p>
+                  <p className="text-xs font-semibold leading-5 group-hover:text-info-foreground">{topic.title}</p>
+                  <p className="mt-0.5 text-[0.6rem] text-muted-foreground">{years.join(" / ")} 年度</p>
                 </div>
-                <ArrowRight className="mt-1 size-3.5 text-muted" />
+                <ArrowRight className="mt-1 size-3.5 text-muted-foreground" />
               </Link>
             );
           })}
@@ -180,9 +180,9 @@ export default function PastPapersPage() {
             { title: "2. 出典を確認する", text: "各問題の解説ページから IPA の原本 PDF と問題番号を確認できます。" },
             { title: "3. テーマで横断する", text: "同じ論点が年度をまたいで繰り返されます。タグとトピックから復習します。" },
           ].map((item) => (
-            <div key={item.title} className="rounded-lg border border-border bg-surface-2 p-3">
+            <div key={item.title} className="rounded-lg border border-border bg-muted p-3">
               <p className="text-xs font-semibold">{item.title}</p>
-              <p className="mt-1 text-[0.68rem] leading-5 text-muted">{item.text}</p>
+              <p className="mt-1 text-[0.68rem] leading-5 text-muted-foreground">{item.text}</p>
             </div>
           ))}
         </div>

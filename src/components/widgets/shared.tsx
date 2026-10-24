@@ -44,14 +44,14 @@ export function Field({
   return (
     <div className={cn("min-w-0 space-y-1", className)}>
       <div className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-0.5">
-        <label htmlFor={htmlFor} className="text-xs font-semibold text-fg">
+        <label htmlFor={htmlFor} className="text-xs font-semibold text-foreground">
           {label}
         </label>
-        {hint ? <span className="text-[0.65rem] font-medium text-muted">{hint}</span> : null}
+        {hint ? <span className="text-[0.65rem] font-medium text-muted-foreground">{hint}</span> : null}
       </div>
       {children}
       {error ? (
-        <p id={`${htmlFor}-error`} role="alert" className="text-[0.7rem] font-medium leading-5 text-error">
+        <p id={`${htmlFor}-error`} role="alert" className="text-[0.7rem] font-medium leading-5 text-destructive-foreground">
           {error}
         </p>
       ) : null}
@@ -60,11 +60,11 @@ export function Field({
 }
 
 const METRIC_TONES = {
-  default: "text-fg",
-  accent: "text-accent",
-  success: "text-success",
-  warning: "text-warning",
-  error: "text-error",
+  default: "text-foreground",
+  accent: "text-info-foreground",
+  success: "text-success-foreground",
+  warning: "text-warning-foreground",
+  error: "text-destructive-foreground",
 } as const;
 
 export function Metric({
@@ -81,16 +81,16 @@ export function Metric({
   className?: string;
 }) {
   return (
-    <div className={cn("min-w-0 rounded-lg border border-border bg-surface-2 px-3 py-2", className)}>
-      <p className="text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-muted">{label}</p>
+    <div className={cn("min-w-0 rounded-lg border border-border bg-muted px-3 py-2", className)}>
+      <p className="text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-muted-foreground">{label}</p>
       <p className={cn("mono mt-0.5 break-words text-base font-semibold leading-6", METRIC_TONES[tone])}>{value}</p>
-      {sub ? <p className="text-[0.68rem] leading-5 text-muted">{sub}</p> : null}
+      {sub ? <p className="text-[0.68rem] leading-5 text-muted-foreground">{sub}</p> : null}
     </div>
   );
 }
 
 const NOTE_TONES = {
-  info: "border-accent/45 bg-bg-soft",
+  info: "border-ring/45 bg-muted",
   tip: "border-success/45 bg-success/10",
   warn: "border-warning/50 bg-warning/10",
 } as const;
@@ -105,7 +105,7 @@ export function Note({
   className?: string;
 }) {
   return (
-    <div className={cn("rounded-lg border-l-2 px-3 py-2 text-[0.74rem] leading-6 text-fg", NOTE_TONES[tone], className)}>
+    <div className={cn("rounded-lg border-l-2 px-3 py-2 text-[0.74rem] leading-6 text-foreground", NOTE_TONES[tone], className)}>
       {children}
     </div>
   );
@@ -116,7 +116,7 @@ export function Verdict({ ok, children }: { ok: boolean; children: ReactNode }) 
     <div
       className={cn(
         "flex items-start gap-1.5 rounded-md px-2 py-1.5 text-[0.74rem] font-semibold leading-5",
-        ok ? "bg-success/10 text-success" : "bg-error/10 text-error",
+        ok ? "bg-success/10 text-success-foreground" : "bg-destructive/10 text-destructive-foreground",
       )}
     >
       {ok ? (

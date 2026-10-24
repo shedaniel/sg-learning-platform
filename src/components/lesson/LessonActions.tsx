@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Bookmark, CheckCircle2, Circle, Play } from "lucide-react";
+import { Button } from "@coss/ui/components/button";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -54,30 +55,31 @@ export function LessonActions({
 
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <button
-        type="button"
+      <Button
+        variant={isCompleted ? "secondary" : "outline"}
         onClick={() => void toggleComplete()}
-        disabled={pending}
-        className={cn("btn", isCompleted && "border-success/40 bg-success/10 text-success")}
+        loading={pending}
         aria-pressed={isCompleted}
+        className={isCompleted ? "text-success-foreground" : undefined}
       >
-        {isCompleted ? <CheckCircle2 className="size-4" /> : <Circle className="size-4" />}
+        {isCompleted ? <CheckCircle2 /> : <Circle />}
         {isCompleted ? "読了済み" : "読了にする"}
-      </button>
-      <Link href={quizHref} className="btn btn-primary">
-        <Play className="size-4" />
+      </Button>
+      <Button render={<Link href={quizHref} />}>
+        <Play />
         確認クイズ
-      </Link>
-      <button
-        type="button"
+      </Button>
+      <Button
+        variant="ghost"
+        size="icon"
         onClick={() => void toggleBookmark()}
-        className={cn("btn btn-ghost size-9 rounded-full p-0", isBookmarked && "text-accent")}
         aria-label={isBookmarked ? "ブックマーク解除" : "ブックマーク"}
         aria-pressed={isBookmarked}
         title="ブックマーク"
+        className={isBookmarked ? "text-info-foreground" : undefined}
       >
-        <Bookmark className={cn("size-4", isBookmarked && "fill-current")} />
-      </button>
+        <Bookmark className={isBookmarked ? "fill-current" : undefined} />
+      </Button>
     </div>
   );
 }

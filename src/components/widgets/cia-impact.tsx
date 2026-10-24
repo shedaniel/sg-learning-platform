@@ -216,17 +216,17 @@ function ImpactBar({
   return (
     <div>
       <div className="flex flex-wrap items-baseline justify-between gap-x-2">
-        <span className="text-[0.7rem] font-semibold text-fg">
-          <span className="mono mr-1 text-muted">{short}</span>
+        <span className="text-[0.7rem] font-semibold text-foreground">
+          <span className="mono mr-1 text-muted-foreground">{short}</span>
           {label}
-          <span className="ml-1 text-[0.6rem] font-normal text-muted">{hint}</span>
+          <span className="ml-1 text-[0.6rem] font-normal text-muted-foreground">{hint}</span>
         </span>
-        <span className="mono text-[0.68rem] text-muted">
+        <span className="mono text-[0.68rem] text-muted-foreground">
           {LEVEL_LABELS[level]}（{level}/3）
         </span>
       </div>
       <div
-        className="mt-1 h-2.5 overflow-hidden rounded-full bg-bg-soft"
+        className="mt-1 h-2.5 overflow-hidden rounded-full bg-muted"
         role="progressbar"
         aria-label={`${label}への影響`}
         aria-valuemin={0}
@@ -266,7 +266,7 @@ export function CiaImpact({ props }: { props?: WidgetProps }) {
     <WidgetBody>
       <div>
         <p className="eyebrow">CIA impact</p>
-        <h3 className="text-sm font-semibold text-fg">同じ事故でも、システムで影響は変わる</h3>
+        <h3 className="text-sm font-semibold text-foreground">同じ事故でも、システムで影響は変わる</h3>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2">
@@ -300,11 +300,11 @@ export function CiaImpact({ props }: { props?: WidgetProps }) {
         </Field>
       </div>
 
-      <p className="text-[0.72rem] leading-5 text-muted">{incident.description}</p>
+      <p className="text-[0.72rem] leading-5 text-muted-foreground">{incident.description}</p>
 
-      <div className="rounded-lg border border-border bg-surface-2 p-3">
+      <div className="rounded-lg border border-border bg-muted p-3">
         <div className="mb-2 flex flex-wrap items-baseline justify-between gap-1">
-          <p className="text-xs font-semibold text-fg">{system.label}</p>
+          <p className="text-xs font-semibold text-foreground">{system.label}</p>
           <span className="chip">{incident.label}</span>
         </div>
 
@@ -322,7 +322,7 @@ export function CiaImpact({ props }: { props?: WidgetProps }) {
         </div>
 
         <p
-          className="mt-3 rounded-md bg-surface px-2.5 py-2 text-[0.74rem] leading-6 text-fg"
+          className="mt-3 rounded-md bg-card px-2.5 py-2 text-[0.74rem] leading-6 text-foreground"
           aria-live="polite"
         >
           <span className="font-semibold">

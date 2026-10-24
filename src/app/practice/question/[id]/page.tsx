@@ -54,7 +54,7 @@ export default async function QuestionPage({ params }: { params: Promise<{ id: s
             {question.topicIds.map((topicId) => {
               const topic = TOPIC_BY_SLUG.get(topicId);
               return topic ? (
-                <Link key={topicId} href={`/practice/${topicId}`} className="chip hover:border-accent/50">
+                <Link key={topicId} href={`/practice/${topicId}`} className="chip hover:border-ring/50">
                   {topic.title}
                 </Link>
               ) : null;
@@ -67,7 +67,7 @@ export default async function QuestionPage({ params }: { params: Promise<{ id: s
                 <Link
                   key={lessonId}
                   href={`/learn/${lesson.id}`}
-                  className="block text-xs text-accent hover:underline"
+                  className="block text-xs text-info-foreground hover:underline"
                 >
                   関連レッスン: {lesson.title} →
                 </Link>
@@ -75,20 +75,20 @@ export default async function QuestionPage({ params }: { params: Promise<{ id: s
             })}
           </div>
           <div className="mt-4 border-t border-border pt-3">
-            <p className="text-[0.7rem] leading-5 text-muted">{question.source.attribution}</p>
+            <p className="text-[0.7rem] leading-5 text-muted-foreground">{question.source.attribution}</p>
             {question.source.url ? (
               <a
                 href={question.source.url}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-1 inline-flex items-center gap-1 text-[0.7rem] text-accent hover:underline"
+                className="mt-1 inline-flex items-center gap-1 text-[0.7rem] text-info-foreground hover:underline"
               >
                 公式PDF・出題年度ページ
                 <ExternalLink className="size-3" />
               </a>
             ) : null}
             {question.source.note ? (
-              <p className="mt-1 text-[0.65rem] text-muted">{question.source.note}</p>
+              <p className="mt-1 text-[0.65rem] text-muted-foreground">{question.source.note}</p>
             ) : null}
             <div className="mt-2 flex flex-wrap gap-1.5">
               {question.tags.map((tag) => (

@@ -203,8 +203,8 @@ export function MockRunner({
   const progress = (answeredCount / questions.length) * 100;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-bg">
-      <header className="sticky top-0 z-10 border-b border-border bg-bg">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-background">
+      <header className="sticky top-0 z-10 border-b border-border bg-background">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-3 px-4 py-2.5">
           <Link href="/mock" className="btn btn-ghost h-8 px-2 text-xs" aria-label="模擬試験を中断">
             <ChevronLeft className="size-4" />
@@ -212,10 +212,10 @@ export function MockRunner({
           </Link>
           <div className="min-w-0">
             <p className="truncate text-xs font-semibold">SG 模擬試験 · 60問 / 120分</p>
-            <p className="text-[0.65rem] text-muted">科目A 48問 + 科目B 12問 · 非公式の練習用</p>
+            <p className="text-[0.65rem] text-muted-foreground">科目A 48問 + 科目B 12問 · 非公式の練習用</p>
           </div>
           <div className="ml-auto flex items-center gap-2">
-            <span className="hidden text-[0.65rem] text-muted sm:block">
+            <span className="hidden text-[0.65rem] text-muted-foreground sm:block">
               {saving ? "保存中…" : savedAt ? "自動保存済み" : "自動保存有効"}
             </span>
             <button
@@ -230,7 +230,7 @@ export function MockRunner({
             <div
               className={cn(
                 "mono flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-semibold tabular-nums",
-                urgent ? "border-error/40 bg-error/10 text-error" : "border-border bg-surface",
+                urgent ? "border-destructive/40 bg-destructive/10 text-destructive-foreground" : "border-border bg-card",
               )}
               aria-live={urgent ? "polite" : "off"}
             >
@@ -248,8 +248,8 @@ export function MockRunner({
             </button>
           </div>
         </div>
-        <div className="h-1 w-full bg-bg-soft">
-          <div className="h-full bg-accent" style={{ width: `${progress}%` }} />
+        <div className="h-1 w-full bg-muted">
+          <div className="h-full bg-primary" style={{ width: `${progress}%` }} />
         </div>
       </header>
 
@@ -264,9 +264,9 @@ export function MockRunner({
               {question.difficulty === "easy" ? "基礎" : question.difficulty === "medium" ? "標準" : "応用"}
             </span>
             {flags.includes(question.id) ? (
-              <span className="chip border-warning/40 bg-warning/10 text-warning">後で見直す</span>
+              <span className="chip border-warning/40 bg-warning/10 text-warning-foreground">後で見直す</span>
             ) : null}
-            <span className="ml-auto text-[0.65rem] text-muted">選択すると自動保存</span>
+            <span className="ml-auto text-[0.65rem] text-muted-foreground">選択すると自動保存</span>
           </div>
 
           <p className="jp whitespace-pre-line text-[0.98rem] font-medium leading-8">
@@ -288,16 +288,16 @@ export function MockRunner({
                   className={cn(
                     "flex w-full items-start gap-3 rounded-xl border px-3.5 py-3 text-left transition-colors",
                     isSelected
-                      ? "border-accent bg-bg-soft"
-                      : "border-border bg-surface hover:border-accent/50 hover:bg-surface-2",
+                      ? "border-ring bg-muted"
+                      : "border-border bg-card hover:border-ring/50 hover:bg-muted",
                   )}
                 >
                   <span
                     className={cn(
                       "mono mt-0.5 grid size-6 shrink-0 place-items-center rounded-full border text-xs font-semibold",
                       isSelected
-                        ? "border-accent bg-accent text-accent-fg"
-                        : "border-border-strong text-muted",
+                        ? "border-ring bg-primary text-primary-foreground"
+                        : "border-input text-muted-foreground",
                     )}
                   >
                     {OPTION_LABEL[option.id]}
@@ -310,7 +310,7 @@ export function MockRunner({
             })}
           </div>
 
-          {error ? <p className="mt-3 text-sm text-error">{error}</p> : null}
+          {error ? <p className="mt-3 text-sm text-destructive-foreground">{error}</p> : null}
 
           <div className="mt-6 flex flex-wrap items-center gap-2 border-t border-border pt-4">
             <button type="button" className="btn" onClick={() => goTo(index - 1)} disabled={index === 0}>
@@ -328,7 +328,7 @@ export function MockRunner({
             </button>
             <button
               type="button"
-              className={cn("btn ml-auto", flags.includes(question.id) && "border-warning/50 text-warning")}
+              className={cn("btn ml-auto", flags.includes(question.id) && "border-warning/50 text-warning-foreground")}
               onClick={toggleFlag}
             >
               <Flag className="size-4" />
@@ -341,7 +341,7 @@ export function MockRunner({
           <div className="card p-4">
             <div className="flex items-center justify-between">
               <p className="text-xs font-semibold">解答状況</p>
-              <span className="mono text-[0.65rem] text-muted">
+              <span className="mono text-[0.65rem] text-muted-foreground">
                 {answeredCount}/{questions.length}
               </span>
             </div>
@@ -359,10 +359,10 @@ export function MockRunner({
                     className={cn(
                       "mono relative grid h-8 place-items-center rounded-md border text-[0.65rem] transition-colors",
                       itemIndex === index
-                        ? "border-accent bg-accent text-accent-fg"
+                        ? "border-ring bg-primary text-primary-foreground"
                         : answered
-                          ? "border-accent/30 bg-bg-soft text-accent"
-                          : "border-border bg-surface text-muted hover:border-accent/50",
+                          ? "border-ring/30 bg-muted text-info-foreground"
+                          : "border-border bg-card text-muted-foreground hover:border-ring/50",
                     )}
                   >
                     {itemIndex + 1}
@@ -373,13 +373,13 @@ export function MockRunner({
                 );
               })}
             </div>
-            <div className="mt-3 flex flex-wrap gap-2 text-[0.62rem] text-muted">
+            <div className="mt-3 flex flex-wrap gap-2 text-[0.62rem] text-muted-foreground">
               <span className="flex items-center gap-1">
-                <span className="size-2 rounded-sm bg-accent" />
+                <span className="size-2 rounded-sm bg-primary" />
                 現在
               </span>
               <span className="flex items-center gap-1">
-                <span className="size-2 rounded-sm bg-bg-soft" />
+                <span className="size-2 rounded-sm bg-muted" />
                 解答済み
               </span>
               <span className="flex items-center gap-1">
@@ -389,8 +389,8 @@ export function MockRunner({
             </div>
           </div>
 
-          <div className="card space-y-2 p-4 text-xs leading-5 text-muted">
-            <p className="font-semibold text-fg">本番との違い</p>
+          <div className="card space-y-2 p-4 text-xs leading-5 text-muted-foreground">
+            <p className="font-semibold text-foreground">本番との違い</p>
             <p>本番は CBT で 60 問・120 分。本模擬は問題バンクから抽出した非公式の練習です。</p>
             <p>IPA の IRT 評価点や合否判定とは異なります。素点と分野別傾向のみ表示します。</p>
             <p>残り時間が 0 になると自動提出されます。回答は 15 秒ごとに保存されます。</p>
@@ -408,9 +408,9 @@ export function MockRunner({
         </aside>
       </main>
       {remaining === 0 && submitting ? (
-        <div className="fixed inset-0 z-50 grid place-items-center bg-bg">
+        <div className="fixed inset-0 z-50 grid place-items-center bg-background">
           <div className="card flex items-center gap-3 px-5 py-4 text-sm">
-            <Loader2 className="size-4 animate-spin text-accent" />
+            <Loader2 className="size-4 animate-spin text-info-foreground" />
             時間終了。自動採点しています…
           </div>
         </div>

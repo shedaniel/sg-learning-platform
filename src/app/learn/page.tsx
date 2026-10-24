@@ -62,10 +62,10 @@ export default async function LearnPage() {
         <div className="grid gap-6 p-5 md:grid-cols-[1.1fr_0.9fr] md:p-7">
           <div>
             <div className="flex items-center gap-2">
-              <span className="grid size-8 place-items-center rounded-full bg-bg-soft text-accent">
+              <span className="grid size-8 place-items-center rounded-full bg-muted text-info-foreground">
                 <Compass className="size-4" />
               </span>
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
                 Your route
               </p>
             </div>
@@ -74,7 +74,7 @@ export default async function LearnPage() {
             </h2>
             {nextLesson ? (
               <>
-                <p className="jp mt-2 max-w-xl text-sm leading-7 text-muted">
+                <p className="jp mt-2 max-w-xl text-sm leading-7 text-muted-foreground">
                   {nextLesson.summary}
                 </p>
                 <div className="mt-4 flex flex-wrap items-center gap-2">
@@ -93,34 +93,34 @@ export default async function LearnPage() {
                 </div>
               </>
             ) : (
-              <p className="mt-3 text-sm text-muted">コンテンツを読み込んでいます。</p>
+              <p className="mt-3 text-sm text-muted-foreground">コンテンツを読み込んでいます。</p>
             )}
           </div>
-          <div className="rounded-xl border border-border bg-surface-2 p-4">
+          <div className="rounded-xl border border-border bg-muted p-4">
             <div className="flex items-end justify-between">
               <div>
                 <p className="eyebrow">Syllabus progress</p>
                 <p className="mono mt-1 text-3xl font-semibold">{snapshot.lessonPercent}%</p>
               </div>
-              <p className="text-xs text-muted">
+              <p className="text-xs text-muted-foreground">
                 {snapshot.completedLessons} / {snapshot.lessonCount} レッスン
               </p>
             </div>
             <ProgressBar value={snapshot.lessonPercent} className="mt-3" height={8} />
             <div className="mt-4 grid grid-cols-2 gap-3 text-xs">
-              <div className="rounded-lg border border-border bg-surface p-3">
-                <p className="text-muted">演習問題</p>
+              <div className="rounded-lg border border-border bg-card p-3">
+                <p className="text-muted-foreground">演習問題</p>
                 <p className="mono mt-0.5 text-lg font-semibold">
                   {snapshot.uniqueQuestionsAttempted}
-                  <span className="text-xs font-normal text-muted"> / {snapshot.questionCount}</span>
+                  <span className="text-xs font-normal text-muted-foreground"> / {snapshot.questionCount}</span>
                 </p>
               </div>
-              <div className="rounded-lg border border-border bg-surface p-3">
-                <p className="text-muted">直近の正答率</p>
+              <div className="rounded-lg border border-border bg-card p-3">
+                <p className="text-muted-foreground">直近の正答率</p>
                 <p className="mono mt-0.5 text-lg font-semibold">{snapshot.recentAccuracy}%</p>
               </div>
             </div>
-            <div className="mt-4 flex items-center justify-between text-[0.7rem] text-muted">
+            <div className="mt-4 flex items-center justify-between text-[0.7rem] text-muted-foreground">
               <span>シラバスカバレッジ</span>
               <span className="mono">
                 {coverage.complete}/{coverage.total} topics
@@ -128,7 +128,7 @@ export default async function LearnPage() {
             </div>
             <ProgressBar
               value={(coverage.complete / Math.max(1, coverage.total)) * 100}
-              tone="var(--success)"
+              tone="var(--success-foreground)"
               height={5}
               className="mt-1.5"
             />
@@ -141,7 +141,7 @@ export default async function LearnPage() {
           <p className="eyebrow">8 areas · {ALL_LESSONS.length} lessons</p>
           <h2 className="display mt-1 text-2xl font-semibold">学習マップ</h2>
         </div>
-        <Link href="/coverage" className="hidden text-xs font-semibold text-accent hover:underline sm:block">
+        <Link href="/coverage" className="hidden text-xs font-semibold text-info-foreground hover:underline sm:block">
           公式シラバスとの対応を見る
         </Link>
       </div>
@@ -154,7 +154,7 @@ export default async function LearnPage() {
           return (
             <article
               key={area.id}
-              className="card group overflow-hidden transition-colors hover:border-border-strong"
+              className="card group overflow-hidden transition-colors hover:border-input"
             >
               <div className="flex items-start gap-4 p-5">
                 <span
@@ -166,25 +166,25 @@ export default async function LearnPage() {
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-baseline gap-x-2">
                     <h3 className="font-semibold leading-6">
-                      <Link href={`/learn/${area.id}`} className="hover:text-accent">
+                      <Link href={`/learn/${area.id}`} className="hover:text-info-foreground">
                         {area.title}
                       </Link>
                     </h3>
-                    <span className="text-[0.65rem] uppercase tracking-wider text-muted">
+                    <span className="text-[0.65rem] uppercase tracking-wider text-muted-foreground">
                       {area.titleEn}
                     </span>
                   </div>
-                  <p className="mt-1 line-clamp-2 text-xs leading-5 text-muted">{area.description}</p>
+                  <p className="mt-1 line-clamp-2 text-xs leading-5 text-muted-foreground">{area.description}</p>
                   <div className="mt-3 flex items-center gap-2">
                     <ProgressBar value={progress?.percent ?? 0} tone={area.color} height={5} />
-                    <span className="mono w-9 shrink-0 text-right text-[0.65rem] text-muted">
+                    <span className="mono w-9 shrink-0 text-right text-[0.65rem] text-muted-foreground">
                       {progress?.percent ?? 0}%
                     </span>
                   </div>
                 </div>
               </div>
 
-              <ul className="border-t border-border bg-surface-2/50 px-3 py-2">
+              <ul className="border-t border-border bg-muted/50 px-3 py-2">
                 {area.lessons.length > 0 ? (
                   area.lessons.map((lesson) => {
                     const status = getLessonStatus(lesson, snapshot);
@@ -193,31 +193,31 @@ export default async function LearnPage() {
                       <li key={lesson.id}>
                         <Link
                           href={`/learn/${lesson.id}`}
-                          className="flex items-center gap-2.5 rounded-lg px-2 py-2 text-xs transition-colors hover:bg-surface"
+                          className="flex items-center gap-2.5 rounded-lg px-2 py-2 text-xs transition-colors hover:bg-card"
                         >
                           <Icon
                             className={cn(
                               "size-3.5 shrink-0",
                               status === "completed"
-                                ? "text-success"
+                                ? "text-success-foreground"
                                 : status === "started"
-                                  ? "text-accent"
-                                  : "text-border-strong",
+                                  ? "text-info-foreground"
+                                  : "text-muted-foreground",
                             )}
                           />
-                          <span className={cn("flex-1 truncate", status === "completed" && "text-muted")}>
+                          <span className={cn("flex-1 truncate", status === "completed" && "text-muted-foreground")}>
                             {lesson.title}
                           </span>
-                          <span className="text-[0.6rem] text-muted">{lesson.readingMinutes}分</span>
+                          <span className="text-[0.6rem] text-muted-foreground">{lesson.readingMinutes}分</span>
                         </Link>
                       </li>
                     );
                   })
                 ) : (
-                  <li className="px-2 py-3 text-xs text-muted">コンテンツを準備中です。</li>
+                  <li className="px-2 py-3 text-xs text-muted-foreground">コンテンツを準備中です。</li>
                 )}
               </ul>
-              <div className="flex items-center justify-between border-t border-border px-5 py-2 text-[0.65rem] text-muted">
+              <div className="flex items-center justify-between border-t border-border px-5 py-2 text-[0.65rem] text-muted-foreground">
                 <span>
                   {progress?.completedLessons ?? 0}/{progress?.totalLessons ?? 0} 完了 · 習得{" "}
                   {mastered}/{topicRows.length}
@@ -250,15 +250,15 @@ export default async function LearnPage() {
           },
         ].map((item) => (
           <div key={item.title} className="card p-5">
-            <item.icon className="size-5 text-accent" />
+            <item.icon className="size-5 text-info-foreground" />
             <h3 className="mt-3 text-sm font-semibold">{item.title}</h3>
-            <p className="mt-1.5 text-xs leading-6 text-muted">{item.text}</p>
+            <p className="mt-1.5 text-xs leading-6 text-muted-foreground">{item.text}</p>
           </div>
         ))}
       </section>
 
       {snapshot.topics.some((topic) => topic.mastery !== "not-started") ? (
-        <p className="mt-8 text-xs leading-6 text-muted">
+        <p className="mt-8 text-xs leading-6 text-muted-foreground">
           現在の習得状況:{" "}
           {snapshot.topics
             .filter((topic) => topic.mastery !== "not-started")

@@ -2,13 +2,13 @@ import type { ReactNode } from "react";
 
 /** 図の配色は CSS 変数だけを使い、ライト・ダークの両テーマに追従させる。 */
 export const COLORS = {
-  neutral: "var(--border-strong)",
-  fg: "var(--fg)",
-  muted: "var(--muted)",
-  accent: "var(--accent)",
-  success: "var(--success)",
-  warning: "var(--warning)",
-  error: "var(--error)",
+  neutral: "var(--input)",
+  fg: "var(--foreground)",
+  muted: "var(--muted-foreground)",
+  accent: "var(--chart-2)",
+  success: "var(--success-foreground)",
+  warning: "var(--warning-foreground)",
+  error: "var(--destructive-foreground)",
   c1: "var(--c1)",
   c2: "var(--c2)",
   c3: "var(--c3)",
@@ -75,7 +75,7 @@ export function DiagramSvg({
     <svg viewBox={viewBox} className="h-auto w-full" role="img" preserveAspectRatio="xMidYMid meet">
       <title>{title}</title>
       <desc>{desc}</desc>
-      <g fontFamily="inherit" fontSize={13} fill="var(--fg)">
+      <g fontFamily="inherit" fontSize={13} fill="var(--foreground)">
         {children}
       </g>
     </svg>
@@ -146,17 +146,17 @@ export function Node({
         width={w}
         height={h}
         rx={rx}
-        fill={tone === "neutral" ? "var(--surface-2)" : stroke}
+        fill={tone === "neutral" ? "var(--muted)" : stroke}
         fillOpacity={tone === "neutral" ? 0.65 : 0.1}
         stroke={stroke}
         strokeWidth={1.5}
         strokeDasharray={dashed ? "5 4" : undefined}
       />
-      <text x={cx} y={titleY} textAnchor="middle" fontSize={titleSize} fontWeight={600} fill="var(--fg)">
+      <text x={cx} y={titleY} textAnchor="middle" fontSize={titleSize} fontWeight={600} fill="var(--foreground)">
         {title}
       </text>
       {sub ? (
-        <text x={cx} y={subY} textAnchor="middle" fontSize={13} fill="var(--muted)">
+        <text x={cx} y={subY} textAnchor="middle" fontSize={13} fill="var(--muted-foreground)">
           {sub}
         </text>
       ) : null}
@@ -200,19 +200,19 @@ export function Panel({
         width={w}
         height={h}
         rx={rx}
-        fill={tone === "neutral" ? "var(--surface-2)" : COLORS[tone]}
+        fill={tone === "neutral" ? "var(--muted)" : COLORS[tone]}
         fillOpacity={tone === "neutral" ? 0.55 : 0.07}
         stroke={tone === "neutral" ? "var(--border)" : COLORS[tone]}
         strokeWidth={1.5}
         strokeDasharray={dashed ? "6 5" : undefined}
       />
       {title ? (
-        <text x={x + 16} y={y + 24} fontSize={titleSize} fontWeight={600} fill="var(--fg)">
+        <text x={x + 16} y={y + 24} fontSize={titleSize} fontWeight={600} fill="var(--foreground)">
           {title}
         </text>
       ) : null}
       {sub ? (
-        <text x={x + 16} y={y + 44} fontSize={13} fill="var(--muted)">
+        <text x={x + 16} y={y + 44} fontSize={13} fill="var(--muted-foreground)">
           {sub}
         </text>
       ) : null}

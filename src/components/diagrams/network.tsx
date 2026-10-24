@@ -15,8 +15,8 @@ export function TlsHandshake() {
       <Node x={40} y={32} w={160} h={44} title="クライアント" tone="c5" />
       <Node x={560} y={32} w={160} h={44} title="サーバ" tone="c1" />
 
-      <line x1="120" y1="80" x2="120" y2="384" stroke="var(--border-strong)" strokeWidth="1.5" strokeDasharray="5 5" />
-      <line x1="640" y1="80" x2="640" y2="384" stroke="var(--border-strong)" strokeWidth="1.5" strokeDasharray="5 5" />
+      <line x1="120" y1="80" x2="120" y2="384" stroke="var(--input)" strokeWidth="1.5" strokeDasharray="5 5" />
+      <line x1="640" y1="80" x2="640" y2="384" stroke="var(--input)" strokeWidth="1.5" strokeDasharray="5 5" />
 
       <Txt x={380} y={106}>
         ① ClientHello：対応バージョン・暗号スイート・乱数
@@ -74,9 +74,9 @@ export function PkiChain() {
         width="222"
         height="104"
         rx="16"
-        fill="var(--accent)"
+        fill="var(--chart-2)"
         fillOpacity="0.05"
-        stroke="var(--accent)"
+        stroke="var(--chart-2)"
         strokeWidth="1.5"
         strokeDasharray="6 5"
       />

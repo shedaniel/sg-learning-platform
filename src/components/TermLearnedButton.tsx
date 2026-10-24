@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Check } from "lucide-react";
+import { Button } from "@coss/ui/components/button";
 import { cn } from "@/lib/utils";
 
 export function TermLearnedButton({
@@ -31,14 +32,15 @@ export function TermLearnedButton({
   }
 
   return (
-    <button
-      type="button"
+    <Button
+      variant={learned ? "secondary" : "outline"}
+      size="sm"
       onClick={() => void toggle()}
-      className={cn("btn text-xs", learned && "border-success/40 bg-success/10 text-success")}
       aria-pressed={learned}
+      className={learned ? "text-success-foreground" : undefined}
     >
-      <Check className="size-4" />
+      <Check />
       {learned ? "覚えた" : "覚えたことにする"}
-    </button>
+    </Button>
   );
 }

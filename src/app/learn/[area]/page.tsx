@@ -46,12 +46,12 @@ export default async function AreaPage({ params }: { params: Promise<{ area: str
         <div className="flex-1">
           <div className="flex items-center justify-between text-xs">
             <span className="font-semibold">エリア進捗</span>
-            <span className="mono text-muted">
+            <span className="mono text-muted-foreground">
               {completed}/{area.lessons.length} レッスン · {percent}%
             </span>
           </div>
           <ProgressBar value={percent} tone={area.color} className="mt-2" height={8} />
-          <div className="mt-4 flex flex-wrap gap-2 text-[0.7rem] text-muted">
+          <div className="mt-4 flex flex-wrap gap-2 text-[0.7rem] text-muted-foreground">
             <span className="chip">{topics.length} トピック</span>
             <span className="chip">{questionCount} 問</span>
             <span className="chip">
@@ -66,9 +66,9 @@ export default async function AreaPage({ params }: { params: Promise<{ area: str
             </span>
           </div>
         </div>
-        <div className="w-full shrink-0 rounded-xl border border-border bg-surface-2 p-4 md:w-64">
+        <div className="w-full shrink-0 rounded-xl border border-border bg-muted p-4 md:w-64">
           <p className="text-xs font-semibold">このエリアの狙い</p>
-          <p className="mt-1 text-[0.7rem] leading-5 text-muted">{area.description}</p>
+          <p className="mt-1 text-[0.7rem] leading-5 text-muted-foreground">{area.description}</p>
         </div>
       </section>
 
@@ -76,7 +76,7 @@ export default async function AreaPage({ params }: { params: Promise<{ area: str
         <div className="space-y-3">
           <h2 className="text-sm font-semibold">レッスン</h2>
           {area.lessons.length === 0 ? (
-            <div className="card p-6 text-sm text-muted">コンテンツを準備中です。</div>
+            <div className="card p-6 text-sm text-muted-foreground">コンテンツを準備中です。</div>
           ) : (
             area.lessons.map((lesson, index) => {
               const status = getLessonStatus(lesson, snapshot);
@@ -84,16 +84,16 @@ export default async function AreaPage({ params }: { params: Promise<{ area: str
                 <Link
                   key={lesson.id}
                   href={`/learn/${lesson.id}`}
-                  className="card group flex items-start gap-4 p-4 transition-colors hover:border-accent/50 md:p-5"
+                  className="card group flex items-start gap-4 p-4 transition-colors hover:border-ring/50 md:p-5"
                 >
                   <span
                     className={cn(
                       "mono mt-0.5 grid size-8 shrink-0 place-items-center rounded-full border text-[0.65rem] font-semibold",
                       status === "completed"
-                        ? "border-success/40 bg-success/10 text-success"
+                        ? "border-success/40 bg-success/10 text-success-foreground"
                         : status === "started"
-                          ? "border-accent/40 bg-bg-soft text-accent"
-                          : "border-border text-muted",
+                          ? "border-ring/40 bg-muted text-info-foreground"
+                          : "border-border text-muted-foreground",
                     )}
                   >
                     {status === "completed" ? (
@@ -106,10 +106,10 @@ export default async function AreaPage({ params }: { params: Promise<{ area: str
                   </span>
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-baseline gap-x-2">
-                      <h3 className="font-semibold leading-6 group-hover:text-accent">{lesson.title}</h3>
-                      <span className="text-[0.62rem] text-muted">{lesson.titleEn}</span>
+                      <h3 className="font-semibold leading-6 group-hover:text-info-foreground">{lesson.title}</h3>
+                      <span className="text-[0.62rem] text-muted-foreground">{lesson.titleEn}</span>
                     </div>
-                    <p className="mt-1 text-xs leading-5 text-muted">{lesson.summary}</p>
+                    <p className="mt-1 text-xs leading-5 text-muted-foreground">{lesson.summary}</p>
                     <div className="mt-2 flex flex-wrap items-center gap-2">
                       <Badge>{lesson.readingMinutes}分</Badge>
                       <Badge>{lesson.sections.length}セクション</Badge>
@@ -117,13 +117,13 @@ export default async function AreaPage({ params }: { params: Promise<{ area: str
                         {lesson.difficulty === "easy" ? "基礎" : lesson.difficulty === "medium" ? "標準" : "応用"}
                       </Badge>
                       {lesson.topicIds.map((topicId) => (
-                        <span key={topicId} className="text-[0.62rem] text-muted">
+                        <span key={topicId} className="text-[0.62rem] text-muted-foreground">
                           #{topics.find((topic) => topic.id === topicId)?.title ?? topicId}
                         </span>
                       ))}
                     </div>
                   </div>
-                  <ArrowRight className="mt-1 size-4 shrink-0 text-border-strong group-hover:text-accent" />
+                  <ArrowRight className="mt-1 size-4 shrink-0 text-muted-foreground group-hover:text-info-foreground" />
                 </Link>
               );
             })
@@ -133,16 +133,16 @@ export default async function AreaPage({ params }: { params: Promise<{ area: str
         <aside className="space-y-4">
           <div className="card p-4">
             <div className="flex items-center gap-2">
-              <Layers className="size-4 text-accent" />
+              <Layers className="size-4 text-info-foreground" />
               <h2 className="text-xs font-semibold">対応するシラバストピック</h2>
             </div>
             <ul className="mt-3 space-y-2">
               {topics.map((topic) => {
                 const stat = areaTopics.find((item) => item.topic.id === topic.id);
                 return (
-                  <li key={topic.id} className="rounded-lg border border-border bg-surface-2 p-2.5">
+                  <li key={topic.id} className="rounded-lg border border-border bg-muted p-2.5">
                     <p className="text-xs font-medium leading-5">{topic.title}</p>
-                    <div className="mt-1 flex items-center justify-between text-[0.62rem] text-muted">
+                    <div className="mt-1 flex items-center justify-between text-[0.62rem] text-muted-foreground">
                       <span>{topic.reference.replace("Ver.4.1 ", "")}</span>
                       <span className="mono">
                         {stat?.attempts ? `${stat.accuracy}%` : "未演習"}
@@ -156,10 +156,10 @@ export default async function AreaPage({ params }: { params: Promise<{ area: str
 
           <div className="card p-4">
             <div className="flex items-center gap-2 text-xs font-semibold">
-              <Clock className="size-4 text-accent" />
+              <Clock className="size-4 text-info-foreground" />
               学習の目安
             </div>
-            <p className="mt-2 text-[0.7rem] leading-6 text-muted">
+            <p className="mt-2 text-[0.7rem] leading-6 text-muted-foreground">
               読解 {area.lessons.reduce((total, lesson) => total + lesson.readingMinutes, 0)} 分 + 演習
               約 {area.lessons.length * 10} 分。1日1〜2レッスンが無理のないペースです。
             </p>

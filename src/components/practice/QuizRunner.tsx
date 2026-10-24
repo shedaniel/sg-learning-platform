@@ -40,7 +40,7 @@ export function InlineLite({ text }: { text: string }) {
         }
         if (part.startsWith("`") && part.endsWith("`")) {
           return (
-            <code key={index} className="rounded bg-bg-soft px-1 py-0.5 font-mono text-[0.85em]">
+            <code key={index} className="rounded bg-muted px-1 py-0.5 font-mono text-[0.85em]">
               {part.slice(1, -1)}
             </code>
           );
@@ -48,7 +48,7 @@ export function InlineLite({ text }: { text: string }) {
         if (part.startsWith("{{term:")) {
           const label = part.slice(7, -2).split("|")[1] ?? part.slice(7, -2);
           return (
-            <span key={index} className="font-semibold text-accent">
+            <span key={index} className="font-semibold text-info-foreground">
               {label}
             </span>
           );
@@ -69,14 +69,14 @@ export function Presentation({ question }: { question: Question }) {
             <div key={index} className="overflow-x-auto rounded-lg border border-border">
               <table className="w-full min-w-[440px] border-collapse text-left text-xs">
                 {block.caption ? (
-                  <caption className="border-b border-border bg-surface-2 px-3 py-2 text-left font-semibold text-muted">
+                  <caption className="border-b border-border bg-muted px-3 py-2 text-left font-semibold text-muted-foreground">
                     {block.caption}
                   </caption>
                 ) : null}
                 <thead>
-                  <tr className="border-b border-border bg-surface-2/70">
+                  <tr className="border-b border-border bg-muted/70">
                     {block.headers.map((header, cellIndex) => (
-                      <th key={cellIndex} className="px-3 py-2 font-semibold text-muted">
+                      <th key={cellIndex} className="px-3 py-2 font-semibold text-muted-foreground">
                         <InlineLite text={header} />
                       </th>
                     ))}
@@ -99,7 +99,7 @@ export function Presentation({ question }: { question: Question }) {
         }
         if (block.type === "list") {
           return (
-            <ul key={index} className="list-disc space-y-1 pl-5 text-xs leading-6 text-muted">
+            <ul key={index} className="list-disc space-y-1 pl-5 text-xs leading-6 text-muted-foreground">
               {block.items.map((item, itemIndex) => (
                 <li key={itemIndex}>
                   <InlineLite text={item} />
@@ -110,7 +110,7 @@ export function Presentation({ question }: { question: Question }) {
         }
         if (block.type === "steps") {
           return (
-            <ol key={index} className="list-decimal space-y-1 pl-5 text-xs leading-6 text-muted">
+            <ol key={index} className="list-decimal space-y-1 pl-5 text-xs leading-6 text-muted-foreground">
               {block.items.map((item, itemIndex) => (
                 <li key={itemIndex}>
                   <span className="font-semibold">{item.title}: </span>
@@ -122,9 +122,9 @@ export function Presentation({ question }: { question: Question }) {
         }
         if (block.type === "callout") {
           return (
-            <div key={index} className="rounded-lg border border-border bg-surface-2 p-3 text-xs leading-6">
+            <div key={index} className="rounded-lg border border-border bg-muted p-3 text-xs leading-6">
               <p className="font-semibold">{block.title}</p>
-              <p className="text-muted">
+              <p className="text-muted-foreground">
                 <InlineLite text={block.text} />
               </p>
             </div>
@@ -132,7 +132,7 @@ export function Presentation({ question }: { question: Question }) {
         }
         if (block.type === "p" || block.type === "lead") {
           return (
-            <p key={index} className="text-sm leading-7 text-muted">
+            <p key={index} className="text-sm leading-7 text-muted-foreground">
               <InlineLite text={block.text} />
             </p>
           );
@@ -155,7 +155,7 @@ function ScoreRing({ value }: { value: number }) {
         cy="70"
         r={radius}
         fill="none"
-        stroke="var(--accent)"
+        stroke="var(--chart-2)"
         strokeWidth="10"
         strokeLinecap="round"
         strokeDasharray={circumference}
@@ -168,7 +168,7 @@ function ScoreRing({ value }: { value: number }) {
         textAnchor="middle"
         fontSize="26"
         fontWeight="700"
-        fill="var(--fg)"
+        fill="var(--foreground)"
       >
         {value}%
       </text>
@@ -321,8 +321,8 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
 
   if (loading) {
     return (
-      <div className="card flex min-h-64 flex-col items-center justify-center gap-3 p-8 text-sm text-muted">
-        <Loader2 className="size-6 animate-spin text-accent" />
+      <div className="card flex min-h-64 flex-col items-center justify-center gap-3 p-8 text-sm text-muted-foreground">
+        <Loader2 className="size-6 animate-spin text-info-foreground" />
         問題を準備しています…
       </div>
     );
@@ -331,9 +331,9 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
   if (error) {
     return (
       <div className="card flex min-h-64 flex-col items-center justify-center gap-3 p-8 text-center">
-        <CircleAlert className="size-6 text-warning" />
+        <CircleAlert className="size-6 text-warning-foreground" />
         <p className="font-semibold">クイズを開始できませんでした</p>
-        <p className="max-w-md text-sm text-muted">{error}</p>
+        <p className="max-w-md text-sm text-muted-foreground">{error}</p>
         <button type="button" className="btn" onClick={() => void load()}>
           再試行
         </button>
@@ -346,7 +346,7 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
     return (
       <div className="space-y-5">
         <div className="card overflow-hidden">
-          <div className="border-b border-border bg-surface-2 px-5 py-3 text-xs font-semibold text-muted">
+          <div className="border-b border-border bg-muted px-5 py-3 text-xs font-semibold text-muted-foreground">
             {title} · 結果
           </div>
           <div className="flex flex-col items-center gap-6 p-6 md:flex-row md:items-center md:p-8">
@@ -356,7 +356,7 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
               <h2 className="display mt-1 text-2xl font-semibold">
                 {correctCount} / {questions.length} 問正解
               </h2>
-              <p className="mt-2 text-sm text-muted">
+              <p className="mt-2 text-sm text-muted-foreground">
                 所要時間 {formatClock(elapsed)}。誤答は自動的に復習キューへ追加されました。
               </p>
               <div className="mt-4 flex flex-wrap justify-center gap-2 md:justify-start">
@@ -383,18 +383,18 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
               return (
                 <div
                   key={item.id}
-                  className="flex flex-wrap items-start gap-3 rounded-lg border border-border bg-surface-2 px-3 py-2.5"
+                  className="flex flex-wrap items-start gap-3 rounded-lg border border-border bg-muted px-3 py-2.5"
                 >
                   <span
                     className={cn(
                       "mono mt-0.5 grid size-5 shrink-0 place-items-center rounded-full text-[0.6rem] text-white",
-                      record?.correct ? "bg-success" : "bg-error",
+                      record?.correct ? "bg-success" : "bg-destructive",
                     )}
                   >
                     {record?.correct ? <Check className="size-3" /> : <X className="size-3" />}
                   </span>
                   <div className="min-w-0 flex-1">
-                    <p className="text-xs leading-5 text-muted">
+                    <p className="text-xs leading-5 text-muted-foreground">
                       問{itemIndex + 1} · {item.part === "B" ? "科目B" : "科目A"} ·{" "}
                       {item.source.kind === "official" ? "IPA公開問題" : "独自問題"}
                     </p>
@@ -404,7 +404,7 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
                   </div>
                   <Link
                     href={`/practice/question/${item.id}`}
-                    className="text-xs font-semibold text-accent hover:underline"
+                    className="text-xs font-semibold text-info-foreground hover:underline"
                   >
                     解説
                   </Link>
@@ -413,7 +413,7 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
             })}
           </div>
           {weak.length > 0 ? (
-            <p className="mt-4 rounded-lg bg-warning/10 px-3 py-2 text-xs leading-5 text-warning">
+            <p className="mt-4 rounded-lg bg-warning/10 px-3 py-2 text-xs leading-5 text-warning-foreground">
               誤答 {weak.length} 問。解説を読み、翌日にもう一度解いてください。同じ問題を連続で見直すより、間隔を空けた復習の方が定着します。
             </p>
           ) : null}
@@ -426,8 +426,8 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center gap-3 text-xs text-muted">
-        <span className="font-semibold text-fg">{title}</span>
+      <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+        <span className="font-semibold text-foreground">{title}</span>
         <span className="chip">
           問 {index + 1} / {questions.length}
         </span>
@@ -471,18 +471,18 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
                 aria-pressed={isSelected}
                 className={cn(
                   "group flex w-full items-start gap-3 rounded-xl border px-3.5 py-3 text-left transition-colors",
-                  !revealed && "border-border bg-surface hover:border-accent/60 hover:bg-surface-2",
+                  !revealed && "border-border bg-card hover:border-ring/60 hover:bg-muted",
                   showCorrect && "border-success/60 bg-success/10",
-                  showWrong && "border-error/60 bg-error/10",
-                  revealed && !showCorrect && !showWrong && "border-border bg-surface opacity-65",
+                  showWrong && "border-destructive/60 bg-destructive/10",
+                  revealed && !showCorrect && !showWrong && "border-border bg-card opacity-65",
                 )}
               >
                 <span
                   className={cn(
                     "mono mt-0.5 grid size-6 shrink-0 place-items-center rounded-full border text-xs font-semibold",
                     showCorrect && "border-success bg-success text-white",
-                    showWrong && "border-error bg-error text-white",
-                    !showCorrect && !showWrong && "border-border-strong text-muted",
+                    showWrong && "border-destructive bg-destructive text-white",
+                    !showCorrect && !showWrong && "border-input text-muted-foreground",
                   )}
                 >
                   {OPTION_LABEL[option.id]}
@@ -502,22 +502,22 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
                 "rounded-xl border px-4 py-3",
                 answer?.correct
                   ? "border-success/30 bg-success/10"
-                  : "border-error/30 bg-error/10",
+                  : "border-destructive/30 bg-destructive/10",
               )}
             >
-              <p className={cn("text-sm font-semibold", answer?.correct ? "text-success" : "text-error")}>
+              <p className={cn("text-sm font-semibold", answer?.correct ? "text-success-foreground" : "text-destructive-foreground")}>
                 {answer?.correct ? "正解" : "不正解"} · 正答は {OPTION_LABEL[question.correctOptionId]}
               </p>
               <p className="jp mt-1 text-sm leading-7">
                 <InlineLite text={question.explanation.correct} />
               </p>
             </div>
-            <div className="rounded-xl border border-border bg-surface-2 px-4 py-3">
-              <p className="text-xs font-semibold text-muted">なぜそうなるか</p>
+            <div className="rounded-xl border border-border bg-muted px-4 py-3">
+              <p className="text-xs font-semibold text-muted-foreground">なぜそうなるか</p>
               <ul className="mt-1.5 space-y-1">
                 {question.explanation.why.map((item, itemIndex) => (
                   <li key={itemIndex} className="jp flex gap-2 text-sm leading-6">
-                    <span className="mt-2 size-1 shrink-0 rounded-full bg-accent" />
+                    <span className="mt-2 size-1 shrink-0 rounded-full bg-primary" />
                     <InlineLite text={item} />
                   </li>
                 ))}
@@ -529,9 +529,9 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
                 .map((option) => (
                   <div
                     key={option.id}
-                    className="rounded-lg border border-border px-3 py-2 text-xs leading-5 text-muted"
+                    className="rounded-lg border border-border px-3 py-2 text-xs leading-5 text-muted-foreground"
                   >
-                    <span className="mono mr-1.5 font-semibold text-fg">
+                    <span className="mono mr-1.5 font-semibold text-foreground">
                       {OPTION_LABEL[option.id]}
                     </span>
                     {question.explanation.optionNotes[option.id] ? (
@@ -545,7 +545,7 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
             {question.lessonIds[0] ? (
               <Link
                 href={`/learn/${question.lessonIds[0]}`}
-                className="inline-flex text-xs font-semibold text-accent hover:underline"
+                className="inline-flex text-xs font-semibold text-info-foreground hover:underline"
               >
                 関連レッスンを読み直す →
               </Link>
@@ -568,7 +568,7 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
           次へ
           <ArrowRight className="size-4" />
         </button>
-        <span className="ml-auto text-xs text-muted">
+        <span className="ml-auto text-xs text-muted-foreground">
           解答済み {answeredCount} / {questions.length}
         </span>
         <button
@@ -594,14 +594,14 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
                 className={cn(
                   "mono size-7 rounded-md border text-[0.65rem] transition-colors",
                   itemIndex === index
-                    ? "border-accent bg-accent text-accent-fg"
+                    ? "border-ring bg-primary text-primary-foreground"
                     : record
                       ? feedback === "instant"
                         ? record.correct
-                          ? "border-success/40 bg-success/10 text-success"
-                          : "border-error/40 bg-error/10 text-error"
-                        : "border-accent/40 bg-bg-soft text-accent"
-                      : "border-border bg-surface text-muted hover:border-accent/50",
+                          ? "border-success/40 bg-success/10 text-success-foreground"
+                          : "border-destructive/40 bg-destructive/10 text-destructive-foreground"
+                        : "border-ring/40 bg-muted text-info-foreground"
+                      : "border-border bg-card text-muted-foreground hover:border-ring/50",
                 )}
               >
                 {itemIndex + 1}

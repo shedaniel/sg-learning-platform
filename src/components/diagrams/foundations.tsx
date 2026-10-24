@@ -15,7 +15,7 @@ export function CiaTriad() {
         height="352"
         rx="20"
         fill="none"
-        stroke="var(--muted)"
+        stroke="var(--muted-foreground)"
         strokeOpacity="0.45"
         strokeDasharray="6 5"
       />
@@ -47,11 +47,11 @@ export function CiaTriad() {
       </Txt>
 
       <g>
-        <rect x="316" y="202" width="128" height="58" rx="12" fill="var(--surface)" stroke="var(--accent)" strokeWidth="1.5" />
+        <rect x="316" y="202" width="128" height="58" rx="12" fill="var(--card)" stroke="var(--chart-2)" strokeWidth="1.5" />
         <text x="380" y="227" textAnchor="middle" fontSize="15" fontWeight="600">
           情報資産
         </text>
-        <text x="380" y="246" textAnchor="middle" fontSize="13" fill="var(--muted)">
+        <text x="380" y="246" textAnchor="middle" fontSize="13" fill="var(--muted-foreground)">
           保護対象
         </text>
       </g>
@@ -113,7 +113,7 @@ export function RiskMatrix() {
       {rows.map((probability, rowIndex) =>
         cols.map((impact, colIndex) => {
           const score = probability * impact;
-          const tone = score >= 15 ? "var(--error)" : score >= 9 ? "var(--warning)" : "var(--success)";
+          const tone = score >= 15 ? "var(--destructive-foreground)" : score >= 9 ? "var(--warning-foreground)" : "var(--success-foreground)";
           const x = MATRIX_X + colIndex * CELL;
           const y = MATRIX_Y + rowIndex * CELL;
           return (
@@ -128,7 +128,7 @@ export function RiskMatrix() {
                 stroke="var(--border)"
                 strokeWidth="1"
               />
-              <text x={x + CELL / 2} y={y + 31} textAnchor="middle" fontSize="13" fill="var(--muted)">
+              <text x={x + CELL / 2} y={y + 31} textAnchor="middle" fontSize="13" fill="var(--muted-foreground)">
                 {score}
               </text>
             </g>
@@ -143,7 +143,7 @@ export function RiskMatrix() {
           y={46}
           textAnchor="middle"
           fontSize="13"
-          fill="var(--muted)"
+          fill="var(--muted-foreground)"
         >
           {impact}
         </text>
@@ -155,16 +155,16 @@ export function RiskMatrix() {
           y={MATRIX_Y + index * CELL + 31}
           textAnchor="end"
           fontSize="13"
-          fill="var(--muted)"
+          fill="var(--muted-foreground)"
         >
           {probability}
         </text>
       ))}
 
-      <text x="310" y="344" textAnchor="middle" fontSize="13" fill="var(--muted)">
+      <text x="310" y="344" textAnchor="middle" fontSize="13" fill="var(--muted-foreground)">
         影響度（小 → 大）
       </text>
-      <text x="104" y="186" textAnchor="middle" fontSize="13" fill="var(--muted)" transform="rotate(-90 104 186)">
+      <text x="104" y="186" textAnchor="middle" fontSize="13" fill="var(--muted-foreground)" transform="rotate(-90 104 186)">
         発生可能性（小 → 大）
       </text>
 
@@ -195,14 +195,14 @@ export function Pdca() {
       <Node x={285} y={272} w={190} h={62} title="Check（評価）" sub="内部監査・レビュー" tone="c2" titleSize={15} />
       <Node x={25} y={140} w={190} h={62} title="Act（改善）" sub="是正処置と見直し" tone="c6" titleSize={15} />
 
-      <circle cx="380" cy="172" r="72" fill="var(--accent)" fillOpacity="0.08" stroke="var(--accent)" strokeWidth="1.5" strokeDasharray="5 4" />
-      <text x="380" y="152" textAnchor="middle" fontSize="13" fill="var(--muted)">
+      <circle cx="380" cy="172" r="72" fill="var(--chart-2)" fillOpacity="0.08" stroke="var(--chart-2)" strokeWidth="1.5" strokeDasharray="5 4" />
+      <text x="380" y="152" textAnchor="middle" fontSize="13" fill="var(--muted-foreground)">
         ISMS
       </text>
       <text x="380" y="176" textAnchor="middle" fontSize="15" fontWeight="600">
         継続的改善
       </text>
-      <text x="380" y="198" textAnchor="middle" fontSize="13" fill="var(--muted)">
+      <text x="380" y="198" textAnchor="middle" fontSize="13" fill="var(--muted-foreground)">
         PDCA を回す
       </text>
 

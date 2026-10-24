@@ -26,7 +26,7 @@ export function AuditFlow() {
             y1="146"
             x2={phase.x + 66}
             y2="162"
-            stroke="var(--border-strong)"
+            stroke="var(--input)"
             strokeWidth="1.5"
             strokeDasharray="4 3"
           />

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { fontMono, fontSans } from "@coss/ui/fonts";
 import { AppShell } from "@/components/AppShell";
 
 export const metadata: Metadata = {
@@ -23,8 +24,8 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f6f4ee" },
-    { media: "(prefers-color-scheme: dark)", color: "#111411" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
   ],
 };
 
@@ -40,8 +41,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="jp antialiased">
-        <AppShell>{children}</AppShell>
+      <body className={`${fontSans.variable} ${fontMono.variable} jp font-sans antialiased`}>
+        <div className="isolate relative flex min-h-svh flex-col">
+          <AppShell>{children}</AppShell>
+        </div>
       </body>
     </html>
   );

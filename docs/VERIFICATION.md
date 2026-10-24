@@ -63,7 +63,7 @@ Validated: unique IDs, topic/lesson/term references, four-option original questi
 ## Manual/visual checks
 
 - Desktop 1440px light and dark; mobile 390px.
-- Simplified visual system: system sans headings, no fade/stagger animations, no serif display face, neutral cards/callouts, green reserved for actions and data accents.
+- coss ui visual system: Cal Sans 2.010 + Paper Mono, coss tokens, neutral primary actions, coss Button/Badge/Card/Progress/Empty/Kbd primitives, no green panels or decorative animations.
 - Sidebar, header, search, theme toggle, mobile menu.
 - Lesson rendering, sticky TOC, terms, callouts, tables.
 - SVG diagrams (22) and interactive widgets (8): risk matrix, backup planner, hash demo, subnet calculator exercised in browser; widget renderer maps all IDs.

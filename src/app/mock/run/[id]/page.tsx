@@ -19,7 +19,7 @@ export default async function MockRunPage({ params }: { params: Promise<{ id: st
     return (
       <div className="py-20 text-center">
         <h1 className="display text-2xl font-semibold">問題データを読み込めません</h1>
-        <p className="mt-2 text-sm text-muted">模擬試験をやり直してください。</p>
+        <p className="mt-2 text-sm text-muted-foreground">模擬試験をやり直してください。</p>
       </div>
     );
   }
