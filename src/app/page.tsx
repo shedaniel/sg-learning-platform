@@ -322,7 +322,7 @@ export default async function DashboardPage() {
       </div>
 
       <p className="mt-14 text-[0.8125rem] text-muted-foreground">
-        学習履歴はこのブラウザの匿名プロフィールに保存されます。
+        学習履歴は同期コードごとに保存されます。同じコードを入力すれば別の端末でも続きから学べます。
         <Link href="/about" className="ml-1 text-info-foreground hover:underline">
           データと出典について
         </Link>

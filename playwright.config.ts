@@ -18,6 +18,8 @@ export default defineConfig({
     command: "npm run dev -- --hostname 127.0.0.1 --port 3000",
     url: "http://127.0.0.1:3000",
     reuseExistingServer: true,
+    // Tests get their own database so they never touch data/sg.db.
+    env: { SG_DB_URL: "file:test-results/e2e.db" },
     timeout: 120_000,
   },
 });

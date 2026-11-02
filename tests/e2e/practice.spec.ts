@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./fixtures";
 
 test("topic quiz gives feedback and saves attempts", async ({ page }) => {
   await page.goto("/practice/run?count=5&feedback=instant");

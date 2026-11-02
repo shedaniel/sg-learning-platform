@@ -102,7 +102,7 @@ export default function AboutPage() {
         <section className="card p-5 md:p-6">
           <h2 className="text-sm font-semibold">データとプライバシー</h2>
           <ul className="mt-2 space-y-1.5 text-[0.8125rem] leading-6 text-muted-foreground">
-            <li>・学習履歴は、初回訪問時に発行する匿名の HttpOnly Cookie に紐づけてローカル SQLite に保存します。</li>
+            <li>・学習履歴は、利用者が入力する「同期コード」に紐づけて libSQL（SQLite / Turso）に保存します。Cookie はこの端末で選んだコードを覚えるためだけに使います。</li>
             <li>・氏名・メールアドレス・アカウント登録は不要です。外部の解析サービスや広告は使用していません。</li>
             <li>・教材と問題はバージョン管理されたコードとして保持し、LLM がその場で生成する構成ではありません。</li>
             <li>・有料 AI サービスなしで全機能が動作します。</li>

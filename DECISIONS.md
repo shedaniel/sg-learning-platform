@@ -11,7 +11,7 @@
 
 - Next.js 16 App Router, React 19, TypeScript 5.9, Tailwind CSS 4.
 - ~~SQLite via `node:sqlite`~~ — superseded by the libSQL decision below. Explicit SQL migrations and no ORM remain.
-- Progress is server-persisted in `data/sg.db` keyed by an anonymous HttpOnly cookie (`sg_profile`), set in middleware. No account, email, or third-party analytics.
+- Progress is server-persisted, keyed by a learner-chosen sync code (see the sync-code decision below). No account, email, or third-party analytics.
 - Content is version-controlled TypeScript modules, validated by `scripts/validate-content.ts`, not generated at request time. No paid AI service is required.
 - Diagrams are hand-authored inline SVG React components using theme CSS variables. No Mermaid runtime dependency, so diagrams render on the server with no client bundle or hydration cost.
 - Charts are small custom SVG components. Recharts was optional in the plan; custom SVG keeps the client bundle lean and theme-aware.
@@ -46,7 +46,7 @@
 ## Deliberate limits
 
 - No AI tutor/chat. PLAN.md allows optional AI, but the core must work without paid AI; adding an ungrounded tutor would weaken trust.
-- No user login/multi-device sync in this version. The anonymous profile is local to the deployment.
+- No accounts or passwords. Multi-device continuity comes from sync codes, which are identity without a secret.
 - Official question diagrams are not pixel-identical; they are semantically equivalent tables/text. The IPA PDF link is shown on each source card.
 - Raw mock scores are not converted into IPA evaluation points or pass probability.
 
@@ -59,3 +59,12 @@
 - `getProgressSnapshot` issues its independent reads concurrently, and `ensureProfile` is memoised per server process, to keep per-request latency to roughly one round trip against a remote database.
 - `question_attempts` queries now break `attempted_at` ties by `rowid`; two answers recorded in the same millisecond previously had undefined order, which affects the "last answer was wrong" logic.
 - Tests use temporary file databases, not `:memory:`, because libSQL transactions can open a second connection and an in-memory database would not be shared.
+
+## Sync codes instead of anonymous sessions (2026-11-02)
+
+- Identity is now a sync code the learner types (3-40 chars, `a-z 0-9 _ -`, case-insensitive), not a UUID minted per browser. Entering the same code anywhere opens the same progress. This replaces the anonymous-cookie model and removes the "progress is stuck in one browser" limitation.
+- A cookie is still needed because HTTP is stateless, but it only remembers the chosen code on this device. It never creates an identity, so merely visiting the site no longer writes profile rows (previously every cookie-less visit, including health checks and bots, created one).
+- `src/proxy.ts` gates everything: pages redirect to `/profile?next=…`, APIs return 401. `next` is restricted to same-site paths. `/profile` and `/api/profile` are exempt.
+- Codes are not secrets and there is no rate limiting. That is acceptable only because the deployment sits behind Vercel Deployment Protection; a public deployment would need real accounts. This is the explicit trade-off for the "no accounts" requirement.
+- Unknown codes require confirmation before a profile is created, to stop typos from silently starting empty profiles. Old UUID cookies remain valid codes.
+- `scripts/import-profile.ts` copies one learner between databases, renaming the profile ID. E2E tests get a unique code per test via a Playwright fixture and run on their own database, because the suite had been writing hundreds of junk profiles into `data/sg.db`.

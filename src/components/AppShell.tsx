@@ -16,6 +16,7 @@ import {
   Search,
   Target,
   Timer,
+  UserRound,
   X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -70,7 +71,7 @@ function NavLink({
   );
 }
 
-function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
+function SidebarContent({ onNavigate, profileCode }: { onNavigate?: () => void; profileCode: string | null }) {
   return (
     <div className="flex h-full flex-col gap-6 px-4 py-5">
       <Link href="/" className="flex items-center gap-3 px-2" onClick={onNavigate}>
@@ -101,14 +102,26 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
         ))}
       </nav>
 
-      <div className="mt-auto rounded-xl border border-border bg-muted p-3">
-        <div className="flex items-center gap-2 text-[0.8125rem] font-semibold">
-          <GraduationCap className="size-4 text-info-foreground" />
-          IPA SG シラバス Ver.4.1
+      <div className="mt-auto space-y-4">
+        <Link
+          href="/profile"
+          onClick={onNavigate}
+          className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-[0.8125rem] transition-colors hover:bg-muted"
+          aria-label={profileCode ? `プロフィール ${profileCode}。切り替える` : "プロフィールを選ぶ"}
+        >
+          <UserRound className="size-4 shrink-0 text-muted-foreground" aria-hidden />
+          <span className="min-w-0 flex-1">
+            <span className="block truncate text-[0.9375rem] font-medium leading-5">{profileCode ?? "—"}</span>
+            <span className="block text-xs text-muted-foreground">コードを切り替える</span>
+          </span>
+        </Link>
+        <div className="px-3">
+          <p className="flex items-center gap-2 text-[0.8125rem] font-medium">
+            <GraduationCap className="size-4 text-muted-foreground" />
+            IPA SG シラバス Ver.4.1
+          </p>
+          <p className="mt-1 text-xs leading-5 text-muted-foreground">2027年度改定案は別途表示します。</p>
         </div>
-        <p className="mt-1.5 text-[0.8125rem] leading-5 text-muted-foreground">
-          2027年度改定案は別途表示します。
-        </p>
       </div>
     </div>
   );
@@ -116,8 +129,23 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [profileCode, setProfileCode] = useState<string | null>(null);
   const pathname = usePathname();
   const searchRef = useRef<HTMLInputElement>(null);
+  const bare = pathname === "/profile";
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/profile", { cache: "no-store" })
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data: { code?: string | null } | null) => {
+        if (!cancelled) setProfileCode(data?.code ?? null);
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, [bare]);
 
   useEffect(() => {
     setMobileOpen(false);
@@ -140,6 +168,16 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  if (bare) {
+    return (
+      <div className="min-h-dvh">
+        <main id="main-content" className="mx-auto max-w-6xl px-4 md:px-8">
+          {children}
+        </main>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-dvh">
       <a
@@ -150,7 +188,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </a>
 
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-[264px] border-r border-border bg-card lg:block">
-        <SidebarContent />
+        <SidebarContent profileCode={profileCode} />
       </aside>
 
       {mobileOpen ? (
@@ -170,7 +208,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             >
               <X className="size-5" />
             </button>
-            <SidebarContent onNavigate={() => setMobileOpen(false)} />
+            <SidebarContent onNavigate={() => setMobileOpen(false)} profileCode={profileCode} />
           </div>
         </div>
       ) : null}

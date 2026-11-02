@@ -13,7 +13,7 @@ A Japanese-first, interactive study platform for the IPA **情報セキュリテ
 - **Topic quizzes** — configurable range, count, part, difficulty, instant or end-of-quiz feedback, automatic mistake capture and SRS scheduling.
 - **Official past papers** — year pages for 2023–2026, 15 public questions per year, clearly labelled as partial (actual exam: 60 questions), with links to the original IPA booklet and answer key.
 - **Mock exam** — 48 科目A + 12 科目B, 120 minutes, timer, flags, unanswered indicators, full-screen mode, autosave every 15 seconds, refresh recovery, confirmation before submission, auto-submit on expiry, raw-score results, part/topic/difficulty breakdown, time per question, and revision suggestions.
-- **Progress and adaptation** — server-persisted anonymous profile, lesson/term completion, attempt history, recency-weighted accuracy, topic mastery based on multiple attempts, review queue, bookmarks, a factual 14-day activity log, and a clearly labelled unofficial readiness estimate. There are no streaks, daily quotas, or paced plans; learners choose their own order and pace.
+- **Progress and adaptation** — server-persisted profile chosen by a sync code, lesson/term completion, attempt history, recency-weighted accuracy, topic mastery based on multiple attempts, review queue, bookmarks, a factual 14-day activity log, and a clearly labelled unofficial readiness estimate. There are no streaks, daily quotas, or paced plans; learners choose their own order and pace.
 - **Spaced repetition** — SM-2-style intervals with lapse handling; wrong answers are scheduled immediately, correct review answers expand intervals, capped at 180 days.
 - **Global search** — Japanese, English, abbreviations, lessons, terms, questions, and syllabus topics.
 - **Glossary** — 363 terms with reading, English equivalent, Japanese/English explanations, exam usage, related terms, linked lessons and questions.
@@ -73,6 +73,17 @@ By default the database is the local file `data/sg.db` (gitignored). Point the a
 | `SG_DB_AUTH_TOKEN` | Auth token for a remote database. |
 | `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN` | Accepted as aliases, so Turso's Vercel integration works unchanged. |
 | `SG_DB_PATH` | Local file path. Kept for backwards compatibility. |
+
+### Moving progress between databases
+
+Progress is keyed by profile ID, so one learner can be copied from one database to another (for example from your local `data/sg.db` to Turso), renaming it to a readable sync code on the way:
+
+```bash
+SG_DB_URL=libsql://… SG_DB_AUTH_TOKEN=… \
+  npm run db:import-profile -- --profile <id-in-source> --as <sync-code> [--from data/sg.db] [--dry-run]
+```
+
+It is idempotent (existing rows are left alone) and prints per-table counts. `npm run test:e2e` uses its own throwaway database (`test-results/e2e.db`), never `data/sg.db`.
 
 ### Deploying with Turso
 
@@ -136,7 +147,7 @@ Rules enforced by validation include:
 
 `profiles`, `lesson_progress`, `term_progress`, `quiz_attempts`, `question_attempts`, `mock_attempts`, `bookmarks`, `review_items`, `study_sessions`, `content_meta`. Migrations are explicit and versioned in `src/lib/db/migrations.ts`.
 
-Learning history is keyed to an anonymous HttpOnly cookie (`sg_profile`) set by `src/proxy.ts`. There is no account system, email collection, third-party analytics, or ad tracking.
+Learning history is keyed to a **sync code** that the learner types (for example `taro-sg`); there are no accounts, passwords or emails. Entering the same code in any browser opens the same history, so progress follows you between devices. The `sg_profile` cookie only remembers which code was chosen on this device, and `src/proxy.ts` sends visitors without one to `/profile` (APIs answer 401). An unknown code is created only after an explicit confirmation, so a typo doesn't silently start an empty profile. There is no third-party analytics or ad tracking.
 
 ## Known limitations
 
@@ -145,7 +156,7 @@ Learning history is keyed to an anonymous HttpOnly cookie (`sg_profile`) set by 
 - Mock scoring is raw accuracy, not IPA IRT evaluation points. Readiness is an unofficial weighted heuristic, not a pass prediction.
 - The 2027 syllabus proposal is informational only.
 - Content is Japanese-primary with English terminology support, not full bilingual translation.
-- No multi-device sync: the anonymous profile cookie is per browser, even when the database is shared.
+- A sync code is not a password: anyone who knows it can open that history. It is meant for a private deployment (for example behind Vercel Deployment Protection), so choose a code that is hard to guess.
 
 ## Attribution
 

@@ -239,7 +239,7 @@ export default async function ReviewPage() {
 
       <p className="mt-14 text-[0.8125rem] leading-6 text-muted-foreground">
         最終更新: {snapshot.recentAttempts[0] ? formatDateTime(snapshot.recentAttempts[0].attemptedAt) : "—"}。
-        復習の期限はこのブラウザの匿名プロフィールに保存されます。
+        復習の期限は同期コードのプロフィールに保存されます。
       </p>
     </div>
   );
