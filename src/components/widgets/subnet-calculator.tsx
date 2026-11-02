@@ -62,13 +62,13 @@ function BitRow({ label, octet, networkBits }: { label: string; octet: number; n
   const bits = octet.toString(2).padStart(8, "0");
   return (
     <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-      <span className="w-24 shrink-0 text-[0.64rem] leading-4 text-muted-foreground">{label}</span>
+      <span className="w-24 shrink-0 text-[0.8125rem] leading-4 text-muted-foreground">{label}</span>
       <span className="mono flex gap-[2px]" aria-label={`${label}: ${bits}`}>
         {Array.from(bits).map((bit, index) => (
           <span
             key={index}
             className={cn(
-              "rounded-[2px] px-1 py-0.5 text-[0.66rem] leading-4",
+              "rounded-[2px] px-1 py-0.5 text-[0.8125rem] leading-4",
               index < networkBits ? "bg-muted font-semibold text-info-foreground" : "bg-muted text-muted-foreground",
             )}
           >
@@ -122,7 +122,6 @@ export function SubnetCalculator({ props }: { props?: WidgetProps }) {
     <WidgetBody>
       <div className="flex items-start justify-between gap-2">
         <div>
-          <p className="eyebrow">Subnet calculator</p>
           <h3 className="text-sm font-semibold text-foreground">IPv4 のネットワークを計算する</h3>
         </div>
         <ResetButton
@@ -224,7 +223,7 @@ export function SubnetCalculator({ props }: { props?: WidgetProps }) {
           <div className="rounded-lg border border-border bg-muted p-3">
             <div className="flex flex-wrap items-baseline justify-between gap-1">
               <p className="text-xs font-semibold text-foreground">第4オクテットの2進数</p>
-              <span className="text-[0.62rem] text-muted-foreground">左から {result.networkBitsInLastOctet} ビットがネットワーク部</span>
+              <span className="text-xs text-muted-foreground">左から {result.networkBitsInLastOctet} ビットがネットワーク部</span>
             </div>
             <div className="mt-2 space-y-1.5">
               <BitRow label="入力アドレス" octet={ip.octets[3]} networkBits={result.networkBitsInLastOctet} />
@@ -239,7 +238,7 @@ export function SubnetCalculator({ props }: { props?: WidgetProps }) {
                 networkBits={result.networkBitsInLastOctet}
               />
             </div>
-            <p className="mt-2 text-[0.64rem] leading-5 text-muted-foreground">
+            <p className="mt-2 text-[0.8125rem] leading-5 text-muted-foreground">
               <span className="mr-2 inline-block rounded-[2px] bg-muted px-1 font-semibold text-info-foreground">1</span>
               ネットワーク部（アクセント色）
               <span className="ml-3 mr-2 inline-block rounded-[2px] bg-card px-1 text-muted-foreground">0</span>
@@ -247,7 +246,7 @@ export function SubnetCalculator({ props }: { props?: WidgetProps }) {
             </p>
           </div>
 
-          <p className="text-[0.68rem] leading-5 text-muted-foreground">
+          <p className="text-[0.8125rem] leading-5 text-muted-foreground">
             {intToIp(ip.value)} を /{mask.prefix} で分割すると、ネットワークアドレスは {intToIp(result.network)}、利用可能ホストは{" "}
             {formatInt(result.usable)} 台である。
           </p>

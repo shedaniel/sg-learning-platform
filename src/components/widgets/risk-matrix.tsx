@@ -77,7 +77,6 @@ export function RiskMatrix({ props }: { props?: WidgetProps }) {
     <WidgetBody>
       <div className="flex items-start justify-between gap-2">
         <div>
-          <p className="eyebrow">Risk assessment</p>
           <h3 className="text-sm font-semibold text-foreground">発生確率 × 影響度でリスクを評価する</h3>
         </div>
         <ResetButton
@@ -102,7 +101,7 @@ export function RiskMatrix({ props }: { props?: WidgetProps }) {
             className="h-6 w-full"
             style={{ accentColor: "var(--chart-2)" }}
           />
-          <p className="text-[0.68rem] text-muted-foreground">{PROBABILITY_LABELS[probability - 1]}</p>
+          <p className="text-[0.8125rem] text-muted-foreground">{PROBABILITY_LABELS[probability - 1]}</p>
         </Field>
         <Field label="影響度" htmlFor={`${groupId}-impact`} hint={`${impact} / 5`}>
           <input
@@ -117,7 +116,7 @@ export function RiskMatrix({ props }: { props?: WidgetProps }) {
             className="h-6 w-full"
             style={{ accentColor: "var(--chart-2)" }}
           />
-          <p className="text-[0.68rem] text-muted-foreground">{IMPACT_LABELS[impact - 1]}</p>
+          <p className="text-[0.8125rem] text-muted-foreground">{IMPACT_LABELS[impact - 1]}</p>
         </Field>
       </div>
 
@@ -130,13 +129,13 @@ export function RiskMatrix({ props }: { props?: WidgetProps }) {
           >
             <span aria-hidden />
             {LEVELS.map((level) => (
-              <span key={`p-${level}`} className="text-center text-[0.6rem] font-medium text-muted-foreground">
+              <span key={`p-${level}`} className="text-center text-xs font-medium text-muted-foreground">
                 {level}
               </span>
             ))}
             {[5, 4, 3, 2, 1].map((impactLevel) => (
               <Fragment key={`row-${impactLevel}`}>
-                <span className="flex items-center justify-center text-[0.6rem] font-medium text-muted-foreground">{impactLevel}</span>
+                <span className="flex items-center justify-center text-xs font-medium text-muted-foreground">{impactLevel}</span>
                 {LEVELS.map((probabilityLevel) => {
                   const cellScore = probabilityLevel * impactLevel;
                   const cellZone = zoneFor(cellScore);
@@ -152,7 +151,7 @@ export function RiskMatrix({ props }: { props?: WidgetProps }) {
                         setImpact(impactLevel);
                       }}
                       className={cn(
-                        "flex aspect-square cursor-pointer items-center justify-center rounded-[6px] border text-[0.68rem] font-semibold transition-colors",
+                        "flex aspect-square cursor-pointer items-center justify-center rounded-[6px] border text-[0.8125rem] font-semibold transition-colors",
                         selected ? "border-2 border-ring ring-1 ring-accent/40" : "border-transparent hover:border-input",
                       )}
                       style={{
@@ -167,7 +166,7 @@ export function RiskMatrix({ props }: { props?: WidgetProps }) {
               </Fragment>
             ))}
           </div>
-          <p className="mt-2 text-[0.65rem] leading-5 text-muted-foreground">
+          <p className="mt-2 text-[0.8125rem] leading-5 text-muted-foreground">
             横軸: 発生確率（1→5）／縦軸: 影響度（1→5）。セルを押すと両方の値が変わります。
           </p>
         </div>
@@ -175,12 +174,11 @@ export function RiskMatrix({ props }: { props?: WidgetProps }) {
         <div className="flex flex-col justify-between gap-3">
           <div className="flex items-end justify-between gap-2">
             <div>
-              <p className="eyebrow">リスクスコア</p>
               <p className="mono text-3xl font-semibold leading-none text-foreground" aria-live="polite">
                 {score}
                 <span className="ml-1 text-sm font-medium text-muted-foreground">/ 25</span>
               </p>
-              <p className="mt-1 text-[0.7rem] text-muted-foreground">
+              <p className="mt-1 text-[0.8125rem] text-muted-foreground">
                 確率 {probability} × 影響度 {impact}
               </p>
             </div>
@@ -193,10 +191,10 @@ export function RiskMatrix({ props }: { props?: WidgetProps }) {
             <p className="text-xs font-semibold text-foreground">
               {zone.summary}（{zone.label}）
             </p>
-            <p className="mt-1 text-[0.75rem] leading-6 text-muted-foreground">{zone.description}</p>
+            <p className="mt-1 text-[0.8125rem] leading-6 text-muted-foreground">{zone.description}</p>
             <ul className="mt-1.5 space-y-0.5">
               {zone.points.map((point) => (
-                <li key={point} className="flex gap-1.5 text-[0.7rem] leading-5 text-muted-foreground">
+                <li key={point} className="flex gap-1.5 text-[0.8125rem] leading-5 text-muted-foreground">
                   <span aria-hidden className="mt-2 size-1 shrink-0 rounded-full bg-primary/70" />
                   {point}
                 </li>
@@ -218,7 +216,7 @@ export function RiskMatrix({ props }: { props?: WidgetProps }) {
         ))}
       </div>
 
-      <p className="text-[0.68rem] leading-5 text-muted-foreground">
+      <p className="text-[0.8125rem] leading-5 text-muted-foreground">
         スコア帯は学習用の目安である。実際の対応は、リスク基準・法的義務・対応コストを踏まえて決める。低減と移転を組み合わせることも多い。
       </p>
     </WidgetBody>

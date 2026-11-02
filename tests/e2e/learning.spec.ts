@@ -2,11 +2,11 @@ import { test, expect } from "@playwright/test";
 
 test("dashboard and learning map render", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("学習状況と、次の一歩");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("学習状況");
   await expect(page.getByRole("link", { name: "学習", exact: true })).toBeVisible();
   await page.getByRole("link", { name: "学習", exact: true }).click();
   await expect(page.getByRole("heading", { name: "学習マップ" })).toBeVisible();
-  await expect(page.getByText("シラバスを、一本の道に。")).toBeVisible();
+  await expect(page.getByText("どの順番で読んでも構いません")).toBeVisible();
 });
 
 test("lesson reading, completion and persistence", async ({ page }) => {

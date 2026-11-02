@@ -10,7 +10,6 @@ export default function AboutPage() {
   return (
     <div className="">
       <PageHeader
-        eyebrow="About"
         title="このサイトについて"
         description="SG の日本語教材・演習・公式過去問・模擬試験を一つにした、非公式の学習プラットフォームです。"
       />
@@ -29,19 +28,19 @@ export default function AboutPage() {
           <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
             <div className="rounded-lg border border-border bg-muted p-3 text-center">
               <p className="mono text-xl font-semibold">{ALL_LESSONS.length}</p>
-              <p className="text-[0.6rem] text-muted-foreground">レッスン</p>
+              <p className="text-xs text-muted-foreground">レッスン</p>
             </div>
             <div className="rounded-lg border border-border bg-muted p-3 text-center">
               <p className="mono text-xl font-semibold">{ALL_TERMS.length}</p>
-              <p className="text-[0.6rem] text-muted-foreground">用語</p>
+              <p className="text-xs text-muted-foreground">用語</p>
             </div>
             <div className="rounded-lg border border-border bg-muted p-3 text-center">
               <p className="mono text-xl font-semibold">{ALL_QUESTIONS.length}</p>
-              <p className="text-[0.6rem] text-muted-foreground">問題</p>
+              <p className="text-xs text-muted-foreground">問題</p>
             </div>
             <div className="rounded-lg border border-border bg-muted p-3 text-center">
               <p className="mono text-xl font-semibold">{OFFICIAL_QUESTIONS.length}</p>
-              <p className="text-[0.6rem] text-muted-foreground">公式公開問題</p>
+              <p className="text-xs text-muted-foreground">公式公開問題</p>
             </div>
           </div>
         </section>
@@ -82,7 +81,7 @@ export default function AboutPage() {
             問題文・選択肢は原文に基づき、図表は等価な表・箇条書きとして再構成しています。解説は本サイト独自のものです。
             2016〜2019年度の筆記試験は完全な問題冊子・解答例へのリンクをアーカイブしていますが、原本が画像PDFのためアプリ内出題はしていません。
           </p>
-          <p className="mt-2 text-[0.7rem] leading-6 text-muted-foreground">
+          <p className="mt-2 text-[0.8125rem] leading-6 text-muted-foreground">
             IPA の公表資料は、法令の特別な定めがある場合を除き、許諾や使用料なく利用できます。出典・年度・問題番号・PDF URL を各問に表示しています。
           </p>
           <div className="mt-2 flex flex-wrap gap-3">
@@ -102,7 +101,7 @@ export default function AboutPage() {
 
         <section className="card p-5 md:p-6">
           <h2 className="text-sm font-semibold">データとプライバシー</h2>
-          <ul className="mt-2 space-y-1.5 text-[0.78rem] leading-6 text-muted-foreground">
+          <ul className="mt-2 space-y-1.5 text-[0.8125rem] leading-6 text-muted-foreground">
             <li>・学習履歴は、初回訪問時に発行する匿名の HttpOnly Cookie に紐づけてローカル SQLite に保存します。</li>
             <li>・氏名・メールアドレス・アカウント登録は不要です。外部の解析サービスや広告は使用していません。</li>
             <li>・教材と問題はバージョン管理されたコードとして保持し、LLM がその場で生成する構成ではありません。</li>
@@ -117,13 +116,13 @@ export default function AboutPage() {
             インタラクティブ例は React コンポーネントです。コンテンツは IPA シラバスに基づき独自執筆し、
             検証スクリプトで参照整合性・選択肢・カバレッジを検査しています。
           </p>
-          <p className="mt-2 text-[0.7rem] leading-6 text-muted-foreground">
+          <p className="mt-2 text-[0.8125rem] leading-6 text-muted-foreground">
             既知の制約: 公式問題の図表はテキスト/表に再構成しており、原本の図形と完全に同一ではありません。
             2027年度改定案の項目は現行シラバスの出題範囲として扱っていません。科目Bの採点は素点です。
           </p>
         </section>
 
-        <p className="text-center text-[0.65rem] leading-5 text-muted-foreground">
+        <p className="text-center text-[0.8125rem] leading-5 text-muted-foreground">
           本サイトは IPA の公式サイトではありません。情報セキュリティマネジメント試験の名称は説明目的で使用しています。
         </p>
       </div>

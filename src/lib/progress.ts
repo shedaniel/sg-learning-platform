@@ -28,6 +28,16 @@ import { percent } from "@/lib/utils";
 
 export type MasteryLevel = "not-started" | "learning" | "developing" | "proficient" | "mastered";
 
+export const MODE_LABEL: Record<string, string> = {
+  custom: "カスタム演習",
+  topic: "分野別",
+  lesson: "レッスン確認",
+  review: "復習",
+  mock: "模擬試験",
+  weak: "弱点",
+  official: "公式問題",
+};
+
 export const MASTERY_LABEL: Record<MasteryLevel, string> = {
   "not-started": "未着手",
   learning: "学習中",
@@ -205,7 +215,7 @@ export function getProgressSnapshot(profileId: string): ProgressSnapshot {
   const coverage = completedLessonIds.length / Math.max(1, ALL_LESSONS.length);
   const readiness = estimatedReadiness({
     lessonCoverage: coverage,
-    recentAccuracy,
+    recentAccuracy: recentAccuracy / 100,
     topicBreadth,
     mockAccuracy: lastMockAccuracy / 100,
     totalAttempts: attempts.length,

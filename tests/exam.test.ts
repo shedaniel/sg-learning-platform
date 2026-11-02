@@ -92,6 +92,24 @@ describe("estimatedReadiness", () => {
     expect(result.score).toBe(100);
     expect(result.confidence).toBe("high");
   });
+  it("treats accuracy as a 0-1 fraction and never exceeds 100", () => {
+    const onlyAccuracy = estimatedReadiness({
+      lessonCoverage: 0,
+      recentAccuracy: 1,
+      topicBreadth: 0,
+      mockAccuracy: 0,
+      totalAttempts: 1,
+    });
+    expect(onlyAccuracy.score).toBe(35);
+    const overscaled = estimatedReadiness({
+      lessonCoverage: 0,
+      recentAccuracy: 100,
+      topicBreadth: 0,
+      mockAccuracy: 0,
+      totalAttempts: 1,
+    });
+    expect(overscaled.score).toBe(100);
+  });
   it("keeps a low confidence with little data", () => {
     expect(
       estimatedReadiness({

@@ -61,7 +61,7 @@ export default async function MockResultPage({ params }: { params: Promise<{ id:
   return (
     <div className="">
       <PageHeader
-        eyebrow={`Mock result · ${formatDateTime(attempt.submittedAt)}`}
+        meta={`Mock result · ${formatDateTime(attempt.submittedAt)}`}
         title="模擬試験の結果"
         description="素点と分野別の傾向です。IPA の IRT 評価点・合否判定ではありません。誤答は自動的に復習キューへ登録されました。"
         actions={
@@ -82,7 +82,6 @@ export default async function MockResultPage({ params }: { params: Promise<{ id:
         <section className="card flex flex-col items-center gap-5 p-6 text-center md:flex-row md:text-left">
           <ResultRing value={result.accuracy} />
           <div>
-            <p className="eyebrow">RAW SCORE</p>
             <p className="mono mt-1 text-3xl font-semibold">
               {result.correct}
               <span className="text-lg font-normal text-muted-foreground"> / {result.total}</span>
@@ -108,7 +107,7 @@ export default async function MockResultPage({ params }: { params: Promise<{ id:
               const topic = TOPIC_BY_SLUG.get(row.topicId);
               return (
                 <div key={row.topicId}>
-                  <div className="flex items-center justify-between gap-3 text-[0.7rem]">
+                  <div className="flex items-center justify-between gap-3 text-[0.8125rem]">
                     <span className="truncate">{topic?.title ?? row.topicId}</span>
                     <span className="mono shrink-0 text-muted-foreground">
                       {row.correct}/{row.total} · {row.accuracy}%
@@ -135,7 +134,7 @@ export default async function MockResultPage({ params }: { params: Promise<{ id:
               <span className="mono text-lg font-semibold">{result.byPart[part].accuracy}%</span>
             </div>
             <ProgressBar value={result.byPart[part].accuracy} className="mt-2" height={6} />
-            <p className="mt-1.5 text-[0.65rem] text-muted-foreground">
+            <p className="mt-1.5 text-[0.8125rem] text-muted-foreground">
               {result.byPart[part].correct}/{result.byPart[part].total}問
             </p>
           </div>
@@ -144,7 +143,7 @@ export default async function MockResultPage({ params }: { params: Promise<{ id:
           <p className="text-xs font-semibold">難易度別</p>
           <div className="mt-2 space-y-1.5">
             {result.byDifficulty.map((row) => (
-              <div key={row.difficulty} className="flex items-center justify-between text-[0.7rem]">
+              <div key={row.difficulty} className="flex items-center justify-between text-[0.8125rem]">
                 <span className="text-muted-foreground">{DIFFICULTY_LABEL[row.difficulty] ?? row.difficulty}</span>
                 <span className="mono">{row.accuracy}%</span>
               </div>
@@ -156,7 +155,7 @@ export default async function MockResultPage({ params }: { params: Promise<{ id:
       <section className="card mt-5 p-5">
         <div className="flex items-start gap-2 rounded-lg border border-warning/30 bg-warning/5 p-3">
           <AlertTriangle className="mt-0.5 size-4 shrink-0 text-warning-foreground" />
-          <p className="text-[0.7rem] leading-5 text-muted-foreground">
+          <p className="text-[0.8125rem] leading-5 text-muted-foreground">
             この結果は学習用の素点です。IPA は IRT により評価点を算出し、総合600点/1000点で判定します。本サイトは公式の採点モデルを持たないため、合格可能性を断定しません。
           </p>
         </div>
@@ -194,7 +193,7 @@ export default async function MockResultPage({ params }: { params: Promise<{ id:
       <section className="card mt-5 overflow-hidden">
         <div className="flex items-center justify-between border-b border-border bg-muted/60 px-4 py-2.5">
           <h2 className="text-xs font-semibold">問題別レビュー</h2>
-          <span className="text-[0.65rem] text-muted-foreground">正答率の低い順ではありません</span>
+          <span className="text-[0.8125rem] text-muted-foreground">正答率の低い順ではありません</span>
         </div>
         <ul className="divide-y divide-border">
           {result.questions.map((detail, index) => {
@@ -203,14 +202,14 @@ export default async function MockResultPage({ params }: { params: Promise<{ id:
             return (
               <li key={detail.questionId} className="flex items-start gap-3 px-4 py-3">
                 <span
-                  className={`mono mt-0.5 grid size-5 shrink-0 place-items-center rounded-full text-[0.6rem] text-white ${
+                  className={`mono mt-0.5 grid size-5 shrink-0 place-items-center rounded-full text-xs text-white ${
                     detail.correct ? "bg-success" : "bg-destructive"
                   }`}
                 >
                   {detail.correct ? <Check className="size-3" /> : <X className="size-3" />}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="text-[0.62rem] text-muted-foreground">
+                  <p className="text-xs text-muted-foreground">
                     問{index + 1} · {PART_LABEL[question.part]} ·{" "}
                     {question.source.kind === "official"
                       ? `IPA ${question.source.year} 問${question.source.questionNo}`
@@ -218,11 +217,11 @@ export default async function MockResultPage({ params }: { params: Promise<{ id:
                     · {formatDuration(detail.elapsedMs / 1000)}
                   </p>
                   <p className="mt-0.5 line-clamp-2 text-xs leading-5">{question.stem}</p>
-                  <p className="mt-0.5 text-[0.65rem] text-muted-foreground">
+                  <p className="mt-0.5 text-[0.8125rem] text-muted-foreground">
                     選択: {detail.selected ? optionLabel(detail.selected) : "未解答"} / 正答: {optionLabel(detail.correctOptionId)}
                   </p>
                 </div>
-                <Link href={`/practice/question/${question.id}`} className="shrink-0 text-[0.7rem] font-semibold text-info-foreground hover:underline">
+                <Link href={`/practice/question/${question.id}`} className="shrink-0 text-[0.8125rem] font-semibold text-info-foreground hover:underline">
                   解説
                 </Link>
               </li>

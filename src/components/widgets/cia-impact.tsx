@@ -216,12 +216,12 @@ function ImpactBar({
   return (
     <div>
       <div className="flex flex-wrap items-baseline justify-between gap-x-2">
-        <span className="text-[0.7rem] font-semibold text-foreground">
+        <span className="text-[0.8125rem] font-semibold text-foreground">
           <span className="mono mr-1 text-muted-foreground">{short}</span>
           {label}
-          <span className="ml-1 text-[0.6rem] font-normal text-muted-foreground">{hint}</span>
+          <span className="ml-1 text-xs font-normal text-muted-foreground">{hint}</span>
         </span>
-        <span className="mono text-[0.68rem] text-muted-foreground">
+        <span className="mono text-[0.8125rem] text-muted-foreground">
           {LEVEL_LABELS[level]}（{level}/3）
         </span>
       </div>
@@ -265,7 +265,6 @@ export function CiaImpact({ props }: { props?: WidgetProps }) {
   return (
     <WidgetBody>
       <div>
-        <p className="eyebrow">CIA impact</p>
         <h3 className="text-sm font-semibold text-foreground">同じ事故でも、システムで影響は変わる</h3>
       </div>
 
@@ -300,7 +299,7 @@ export function CiaImpact({ props }: { props?: WidgetProps }) {
         </Field>
       </div>
 
-      <p className="text-[0.72rem] leading-5 text-muted-foreground">{incident.description}</p>
+      <p className="text-[0.8125rem] leading-5 text-muted-foreground">{incident.description}</p>
 
       <div className="rounded-lg border border-border bg-muted p-3">
         <div className="mb-2 flex flex-wrap items-baseline justify-between gap-1">
@@ -322,7 +321,7 @@ export function CiaImpact({ props }: { props?: WidgetProps }) {
         </div>
 
         <p
-          className="mt-3 rounded-md bg-card px-2.5 py-2 text-[0.74rem] leading-6 text-foreground"
+          className="mt-3 rounded-md bg-card px-2.5 py-2 text-[0.8125rem] leading-6 text-foreground"
           aria-live="polite"
         >
           <span className="font-semibold">

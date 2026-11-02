@@ -44,7 +44,7 @@ export function MockStartButton({ disabled = false }: { disabled?: boolean }) {
       {disabled ? (
         <p className="mt-2 text-xs text-muted-foreground">問題バンクが60問未満のため開始できません。</p>
       ) : null}
-      <p className="mt-2 flex items-center gap-1 text-[0.65rem] text-muted-foreground">
+      <p className="mt-2 flex items-center gap-1 text-[0.8125rem] text-muted-foreground">
         <Timer className="size-3" />
         開始するとタイマーが動きます。途中保存・再開できます。
       </p>

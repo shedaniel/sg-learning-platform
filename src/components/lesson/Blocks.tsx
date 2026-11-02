@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FileText, Info, Lightbulb, TriangleAlert } from "lucide-react";
 import type { ReactNode } from "react";
 import { TERM_BY_ID } from "@/content";
 import type { Block } from "@/lib/content/types";
@@ -57,9 +58,9 @@ export function TermsBlock({ termIds }: { termIds: readonly string[] }) {
             <div className="flex flex-wrap items-baseline gap-x-2">
               <span className="font-semibold text-foreground group-hover:text-info-foreground">{term.ja}</span>
               {term.reading ? (
-                <span className="text-[0.7rem] text-muted-foreground">（{term.reading}）</span>
+                <span className="text-[0.8125rem] text-muted-foreground">（{term.reading}）</span>
               ) : null}
-              <span className="text-[0.7rem] text-muted-foreground">{term.en}</span>
+              <span className="text-[0.8125rem] text-muted-foreground">{term.en}</span>
             </div>
             <p className="mt-1 text-xs leading-5 text-muted-foreground">{term.shortJa}</p>
           </Link>
@@ -71,24 +72,28 @@ export function TermsBlock({ termIds }: { termIds: readonly string[] }) {
 
 const calloutStyles = {
   tip: {
-    wrap: "border-border border-l-2 border-l-accent bg-muted",
+    wrap: "border-info/25 bg-info/6",
     label: "試験のヒント",
-    icon: "◎",
+    Icon: Lightbulb,
+    tone: "text-info-foreground",
   },
   trap: {
     wrap: "border-warning/30 bg-warning/8",
     label: "ひっかけ注意",
-    icon: "△",
+    Icon: TriangleAlert,
+    tone: "text-warning-foreground",
   },
   info: {
-    wrap: "border-border bg-muted",
+    wrap: "border-border bg-muted/70",
     label: "補足",
-    icon: "i",
+    Icon: Info,
+    tone: "text-muted-foreground",
   },
   example: {
-    wrap: "border-c3/25 bg-c3/6",
+    wrap: "border-border bg-muted/70",
     label: "事例",
-    icon: "▸",
+    Icon: FileText,
+    tone: "text-muted-foreground",
   },
 } as const;
 
@@ -103,17 +108,13 @@ export function CalloutBlock({
 }) {
   const style = calloutStyles[tone];
   return (
-    <aside className={cn("my-5 rounded-xl border px-4 py-3.5", style.wrap)}>
-      <p className="mb-1 flex items-center gap-2 text-xs font-semibold">
-        <span className="mono grid size-5 place-items-center rounded-full border border-current text-[0.6rem] opacity-70">
-          {style.icon}
-        </span>
+    <aside className={cn("my-6 rounded-xl border px-4 py-4 md:px-5", style.wrap)}>
+      <p className="mb-1.5 flex items-center gap-2 text-[0.9375rem] font-semibold">
+        <style.Icon className={cn("size-4 shrink-0", style.tone)} aria-hidden />
+        <span className="sr-only">{style.label}: </span>
         {title}
-        <span className="ml-auto text-[0.6rem] font-normal uppercase tracking-wider opacity-60">
-          {style.label}
-        </span>
       </p>
-      <p className="jp text-sm leading-7 text-foreground/90">
+      <p className="jp text-[0.9375rem] leading-7 text-foreground/90">
         <InlineText text={text} />
       </p>
     </aside>
@@ -198,7 +199,7 @@ export function BlockRenderer({ block }: { block: Block }) {
             </table>
           </div>
           {block.note ? (
-            <figcaption className="mt-2 px-1 text-[0.7rem] leading-5 text-muted-foreground">
+            <figcaption className="mt-2 px-1 text-[0.8125rem] leading-5 text-muted-foreground">
               {block.note}
             </figcaption>
           ) : null}
@@ -229,7 +230,7 @@ export function BlockRenderer({ block }: { block: Block }) {
             <span className="text-xs font-semibold text-info-foreground">
               {block.title ?? "インタラクティブ"}
             </span>
-            <span className="ml-auto text-[0.62rem] uppercase tracking-wider text-muted-foreground">
+            <span className="ml-auto text-xs text-muted-foreground">
               Try it
             </span>
           </div>

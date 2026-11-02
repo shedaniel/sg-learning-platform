@@ -65,7 +65,7 @@ export function Badge({
 
 export function ProgressBar({
   value,
-  tone = "var(--primary)",
+  tone = "var(--info)",
   height = 6,
   label,
   className,
@@ -91,26 +91,26 @@ export function ProgressBar({
 }
 
 export function PageHeader({
-  eyebrow,
+  meta,
   title,
   description,
   actions,
 }: {
-  eyebrow?: string;
+  meta?: string;
   title: string;
   description?: string;
   actions?: ReactNode;
 }) {
   return (
-    <header className="mb-8 flex flex-col gap-5 md:mb-10 md:flex-row md:items-end md:justify-between">
-      <div className="max-w-3xl">
-        {eyebrow ? <p className="eyebrow mb-2">{eyebrow}</p> : null}
-        <h1 className="display text-3xl md:text-[2.5rem]">{title}</h1>
+    <header className="mb-8 flex flex-col gap-4 md:mb-10 md:flex-row md:items-end md:justify-between">
+      <div className="max-w-3xl md:max-w-2xl lg:max-w-3xl">
+        <h1 className="display text-2xl md:text-[1.875rem]">{title}</h1>
         {description ? (
-          <p className="jp mt-3 max-w-2xl text-sm leading-7 text-muted-foreground md:text-[0.95rem]">
+          <p className="jp mt-2 max-w-3xl text-pretty text-[0.9375rem] leading-7 text-muted-foreground">
             {description}
           </p>
         ) : null}
+        {meta ? <p className="mt-2 text-[0.8125rem] text-muted-foreground">{meta}</p> : null}
       </div>
       {actions ? <div className="flex shrink-0 flex-wrap gap-2">{actions}</div> : null}
     </header>
@@ -130,9 +130,7 @@ export function Stat({
 }) {
   return (
     <div className="card px-4 py-4 md:px-5">
-      <p className="text-[0.7rem] font-medium uppercase tracking-[0.1em] text-muted-foreground">
-        {label}
-      </p>
+      <p className="label">{label}</p>
       <p className="mono mt-1 text-2xl font-semibold tracking-tight" style={{ color: tone }}>
         {value}
       </p>

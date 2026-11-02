@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { BookMarked, Search } from "lucide-react";
+import { Check, Search } from "lucide-react";
 import { ALL_TERMS, AREAS } from "@/content";
 import { getLearner } from "@/lib/session";
 import { getProgressSnapshot } from "@/lib/progress";
-import { PageHeader, Badge, ProgressBar } from "@/components/ui/primitives";
+import { PageHeader, ProgressBar } from "@/components/ui/primitives";
 import { normalizeJapanese } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
@@ -26,10 +26,9 @@ export default async function GlossaryPage({
   });
 
   return (
-    <div className="">
+    <div>
       <PageHeader
-        eyebrow="Glossary"
-        title="日本語のまま、理解する。"
+        title="用語集"
         description="SG の重要用語を、日本語・読み・英語・試験での使われ方で整理しています。本文中の下線付き用語からも開けます。"
         actions={
           <form action="/glossary" className="flex items-center gap-2">
@@ -40,17 +39,17 @@ export default async function GlossaryPage({
                 name="q"
                 defaultValue={q}
                 placeholder="用語・英語・略語で検索"
-                className="field h-9 w-56 pl-9 text-sm"
+                className="field h-10 w-60 pl-9 text-[0.9375rem]"
                 aria-label="用語を検索"
               />
             </div>
-            <button type="submit" className="btn h-9 text-xs">検索</button>
+            <button type="submit" className="btn h-10 px-4">検索</button>
           </form>
         }
       />
 
-      <div className="mb-5 flex flex-wrap items-center gap-2">
-        <Link href="/glossary" className={`chip ${!area ? "border-ring bg-card text-info-foreground" : ""}`}>
+      <div className="mb-4 flex flex-wrap items-center gap-2">
+        <Link href="/glossary" className={`chip h-8 px-3 text-[0.8125rem] ${!area ? "border-info/40 bg-info/10 text-info-foreground" : "hover:bg-muted"}`}>
           すべて（{ALL_TERMS.length}）
         </Link>
         {AREAS.map((item) => {
@@ -59,54 +58,55 @@ export default async function GlossaryPage({
             <Link
               key={item.id}
               href={`/glossary?area=${item.id}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
-              className={`chip ${area === item.id ? "border-ring bg-card text-info-foreground" : ""}`}
+              className={`chip h-8 px-3 text-[0.8125rem] ${area === item.id ? "border-info/40 bg-info/10 text-info-foreground" : "hover:bg-muted"}`}
             >
               {item.shortTitle}（{count}）
             </Link>
           );
         })}
-        <span className="ml-auto text-[0.65rem] text-muted-foreground">
+        <span className="ml-auto text-[0.8125rem] text-muted-foreground">
           覚えた {snapshot.learnedTermIds.length}/{ALL_TERMS.length}
         </span>
       </div>
       <ProgressBar value={snapshot.termPercent} height={4} className="mb-6" label="用語の学習進捗" />
 
       {filtered.length === 0 ? (
-        <div className="card p-8 text-center text-sm text-muted-foreground">該当する用語がありません。</div>
+        <p className="py-10 text-[0.9375rem] text-muted-foreground">該当する用語がありません。</p>
       ) : (
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="divide-y divide-border border-y border-border">
           {filtered.map((term) => {
             const learned = snapshot.learnedTermIds.includes(term.id);
             const areaInfo = AREAS.find((item) => term.lessonIds.some((lessonId) => lessonId.startsWith(`${item.id}/`)));
             return (
-              <Link
-                key={term.id}
-                href={`/glossary/${term.id}`}
-                className="card group p-4 transition-colors hover:border-ring/50"
-              >
-                <div className="flex items-start justify-between gap-2">
-                  <div>
-                    <p className="font-semibold leading-6 group-hover:text-info-foreground">
+              <li key={term.id}>
+                <Link
+                  href={`/glossary/${term.id}`}
+                  className="group -mx-2 grid gap-x-6 gap-y-0.5 rounded-lg px-2 py-3 transition-colors hover:bg-muted md:grid-cols-[minmax(0,15rem)_minmax(0,1fr)_auto] md:items-baseline"
+                >
+                  <span className="min-w-0">
+                    <span className="block text-[0.9375rem] font-semibold leading-6 group-hover:text-info-foreground">
                       {term.ja}
                       {term.reading ? (
-                        <span className="ml-1.5 text-[0.65rem] font-normal text-muted-foreground">（{term.reading}）</span>
+                        <span className="ml-1.5 text-[0.8125rem] font-normal text-muted-foreground">（{term.reading}）</span>
                       ) : null}
-                    </p>
-                    <p className="mt-0.5 text-[0.65rem] uppercase tracking-wider text-muted-foreground">
-                      {term.abbr ? `${term.abbr} · ` : ""}{term.en}
-                    </p>
-                  </div>
-                  {learned ? <BookMarked className="size-3.5 shrink-0 text-success-foreground" /> : null}
-                </div>
-                <p className="mt-2 line-clamp-2 text-[0.7rem] leading-5 text-muted-foreground">{term.shortJa}</p>
-                <div className="mt-2 flex items-center gap-1">
-                  <Badge>{areaInfo?.shortTitle ?? "用語"}</Badge>
-                  {term.tags.slice(0, 1).map((tag) => <Badge key={tag}>{tag}</Badge>)}
-                </div>
-              </Link>
+                    </span>
+                    <span className="block text-[0.8125rem] text-muted-foreground">
+                      {term.abbr ? `${term.abbr} · ` : ""}
+                      {term.en}
+                    </span>
+                  </span>
+                  <span className="line-clamp-2 text-[0.9375rem] leading-6 text-muted-foreground">{term.shortJa}</span>
+                  <span className="flex items-center gap-2 text-[0.8125rem] text-muted-foreground md:justify-end">
+                    {areaInfo?.shortTitle ?? "用語"}
+                    {learned ? (
+                      <Check className="size-4 text-success-foreground" aria-label="覚えた" />
+                    ) : null}
+                  </span>
+                </Link>
+              </li>
             );
           })}
-        </div>
+        </ul>
       )}
     </div>
   );

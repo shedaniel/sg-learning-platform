@@ -35,7 +35,7 @@ export default async function TopicPracticePage({
         ]}
       />
       <PageHeader
-        eyebrow={`${topic.reference} · ${topic.examPart === "both" ? "科目A/B" : `科目${topic.examPart}`}`}
+        meta={`${topic.reference} · ${topic.examPart === "both" ? "科目A/B" : `科目${topic.examPart}`}`}
         title={topic.title}
         description={topic.summary}
         actions={
@@ -50,15 +50,15 @@ export default async function TopicPracticePage({
         <div className="space-y-4">
           <div className="card grid grid-cols-3 divide-x divide-border">
             <div className="p-4">
-              <p className="text-[0.65rem] text-muted-foreground">問題数</p>
+              <p className="text-[0.8125rem] text-muted-foreground">問題数</p>
               <p className="mono mt-1 text-xl font-semibold">{questions.length}</p>
             </div>
             <div className="p-4">
-              <p className="text-[0.65rem] text-muted-foreground">解答回数</p>
+              <p className="text-[0.8125rem] text-muted-foreground">解答回数</p>
               <p className="mono mt-1 text-xl font-semibold">{stat?.attempts ?? 0}</p>
             </div>
             <div className="p-4">
-              <p className="text-[0.65rem] text-muted-foreground">正答率</p>
+              <p className="text-[0.8125rem] text-muted-foreground">正答率</p>
               <p className="mono mt-1 text-xl font-semibold">{stat?.attempts ? `${stat.accuracy}%` : "—"}</p>
             </div>
           </div>
@@ -77,10 +77,10 @@ export default async function TopicPracticePage({
                       href={`/practice/question/${question.id}`}
                       className="group flex items-start gap-3 px-4 py-3 transition-colors hover:bg-muted"
                     >
-                      <span className="mono mt-0.5 text-[0.65rem] text-muted-foreground">{String(index + 1).padStart(2, "0")}</span>
+                      <span className="mono mt-0.5 text-[0.8125rem] text-muted-foreground">{String(index + 1).padStart(2, "0")}</span>
                       <div className="min-w-0 flex-1">
                         <p className="line-clamp-2 text-xs leading-5 group-hover:text-info-foreground">{question.stem}</p>
-                        <div className="mt-1 flex flex-wrap gap-1.5 text-[0.6rem] text-muted-foreground">
+                        <div className="mt-1 flex flex-wrap gap-1.5 text-xs text-muted-foreground">
                           <span>{PART_LABEL[question.part]}</span>
                           <span>·</span>
                           <span>{question.source.kind === "official" ? `IPA ${question.source.year} 問${question.source.questionNo}` : "独自問題"}</span>
@@ -109,7 +109,7 @@ export default async function TopicPracticePage({
               <Target className="size-4 text-info-foreground" />
               <p className="text-xs font-semibold">習得状況</p>
             </div>
-            <p className="mt-1 text-[0.7rem] text-muted-foreground">
+            <p className="mt-1 text-[0.8125rem] text-muted-foreground">
               {stat?.mastery === "mastered"
                 ? "複数回の演習で安定しています。科目Bの事例でも使えるか確認しましょう。"
                 : stat?.attempts
@@ -117,7 +117,7 @@ export default async function TopicPracticePage({
                   : "未演習です。まず5〜10問で現在地を確認しましょう。"}
             </p>
             <ProgressBar value={stat?.accuracy ?? 0} className="mt-3" height={6} />
-            <p className="mt-1.5 text-[0.65rem] text-muted-foreground">
+            <p className="mt-1.5 text-[0.8125rem] text-muted-foreground">
               {stat?.uniqueAttempted ?? 0} / {questions.length} 問に解答
             </p>
           </div>

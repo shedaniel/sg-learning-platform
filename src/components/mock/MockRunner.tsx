@@ -212,10 +212,10 @@ export function MockRunner({
           </Link>
           <div className="min-w-0">
             <p className="truncate text-xs font-semibold">SG 模擬試験 · 60問 / 120分</p>
-            <p className="text-[0.65rem] text-muted-foreground">科目A 48問 + 科目B 12問 · 非公式の練習用</p>
+            <p className="text-[0.8125rem] text-muted-foreground">科目A 48問 + 科目B 12問 · 非公式の練習用</p>
           </div>
           <div className="ml-auto flex items-center gap-2">
-            <span className="hidden text-[0.65rem] text-muted-foreground sm:block">
+            <span className="hidden text-[0.8125rem] text-muted-foreground sm:block">
               {saving ? "保存中…" : savedAt ? "自動保存済み" : "自動保存有効"}
             </span>
             <button
@@ -266,7 +266,7 @@ export function MockRunner({
             {flags.includes(question.id) ? (
               <span className="chip border-warning/40 bg-warning/10 text-warning-foreground">後で見直す</span>
             ) : null}
-            <span className="ml-auto text-[0.65rem] text-muted-foreground">選択すると自動保存</span>
+            <span className="ml-auto text-[0.8125rem] text-muted-foreground">選択すると自動保存</span>
           </div>
 
           <p className="jp whitespace-pre-line text-[0.98rem] font-medium leading-8">
@@ -341,7 +341,7 @@ export function MockRunner({
           <div className="card p-4">
             <div className="flex items-center justify-between">
               <p className="text-xs font-semibold">解答状況</p>
-              <span className="mono text-[0.65rem] text-muted-foreground">
+              <span className="mono text-[0.8125rem] text-muted-foreground">
                 {answeredCount}/{questions.length}
               </span>
             </div>
@@ -357,7 +357,7 @@ export function MockRunner({
                     aria-label={`問${itemIndex + 1}${answered ? " 解答済み" : " 未解答"}${flagged ? " フラグ" : ""}`}
                     aria-current={itemIndex === index ? "true" : undefined}
                     className={cn(
-                      "mono relative grid h-8 place-items-center rounded-md border text-[0.65rem] transition-colors",
+                      "mono relative grid h-8 place-items-center rounded-md border text-[0.8125rem] transition-colors",
                       itemIndex === index
                         ? "border-ring bg-primary text-primary-foreground"
                         : answered
@@ -373,7 +373,7 @@ export function MockRunner({
                 );
               })}
             </div>
-            <div className="mt-3 flex flex-wrap gap-2 text-[0.62rem] text-muted-foreground">
+            <div className="mt-3 flex flex-wrap gap-2 text-xs text-muted-foreground">
               <span className="flex items-center gap-1">
                 <span className="size-2 rounded-sm bg-primary" />
                 現在

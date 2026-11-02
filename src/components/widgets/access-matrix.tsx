@@ -114,13 +114,12 @@ export function AccessMatrix() {
     <WidgetBody>
       <div className="flex items-start justify-between gap-2">
         <div>
-          <p className="eyebrow">Least privilege</p>
           <h3 className="text-sm font-semibold text-foreground">役割 × データの権限を点検する</h3>
         </div>
         <ResetButton onClick={() => setSelected(new Set())} label="全解除" />
       </div>
 
-      <p className="text-[0.76rem] leading-6 text-muted-foreground">
+      <p className="text-[0.8125rem] leading-6 text-muted-foreground">
         5つの役割に、3種類のデータへの閲覧権限を与える。チェックした組合せを「最小権限の原則」と職務分離の観点で判定する。ここでは常時付与する権限を点検し、作業単位・期間単位の一時付与は別に設計する。
       </p>
 
@@ -141,7 +140,7 @@ export function AccessMatrix() {
                   className="border border-border bg-muted px-1.5 py-2 text-center font-semibold"
                 >
                   <span className="block">{resource.label}</span>
-                  <span className="mt-0.5 block text-[0.55rem] font-normal leading-4 text-muted-foreground">{resource.note}</span>
+                  <span className="mt-0.5 block text-xs font-normal leading-4 text-muted-foreground">{resource.note}</span>
                 </th>
               ))}
             </tr>
@@ -150,8 +149,8 @@ export function AccessMatrix() {
             {ROLES.map((role) => (
               <tr key={role.id}>
                 <th scope="row" className="border border-border px-2 py-1.5 text-left font-medium">
-                  <span className="block text-[0.72rem] text-foreground">{role.label}</span>
-                  <span className="block text-[0.55rem] font-normal leading-4 text-muted-foreground">{role.note}</span>
+                  <span className="block text-[0.8125rem] text-foreground">{role.label}</span>
+                  <span className="block text-xs font-normal leading-4 text-muted-foreground">{role.note}</span>
                 </th>
                 {RESOURCES.map((resource) => {
                   const key = cellKey(role.id, resource.id);
@@ -196,7 +195,7 @@ export function AccessMatrix() {
         <span className="chip" style={{ color: "var(--destructive-foreground)", borderColor: "var(--destructive-foreground)" }}>
           違反 {violations.length}
         </span>
-        <span className="ml-auto text-[0.6rem] leading-4 text-muted-foreground">
+        <span className="ml-auto text-xs leading-4 text-muted-foreground">
           推奨ベースライン: 営業=顧客／人事=人事・給与／経理=財務・請求／システム管理者・委託先=なし
         </span>
       </div>
@@ -234,11 +233,11 @@ export function AccessMatrix() {
                     >
                       重大度 {violation.severity}
                     </span>
-                    <span className="text-[0.72rem] font-semibold text-foreground">
+                    <span className="text-[0.8125rem] font-semibold text-foreground">
                       {violation.role.label} × {violation.resource.label}
                     </span>
                   </div>
-                  <p className="mt-1 text-[0.7rem] leading-5 text-muted-foreground">{violation.reason}</p>
+                  <p className="mt-1 text-[0.8125rem] leading-5 text-muted-foreground">{violation.reason}</p>
                 </li>
               ))}
             </ul>
@@ -246,7 +245,7 @@ export function AccessMatrix() {
         )}
       </div>
 
-      <p className="text-[0.68rem] leading-5 text-muted-foreground">
+      <p className="text-[0.8125rem] leading-5 text-muted-foreground">
         外部委託先には、自社の従業員と同じ権限を与えない。委託先のアカウントは作業単位・期間単位で発行し、契約終了時に確実に失効させる。システム管理者には業務データの閲覧ではなく、アカウント管理に必要な権限だけを与える。
       </p>
     </WidgetBody>

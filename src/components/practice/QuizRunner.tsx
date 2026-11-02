@@ -132,7 +132,7 @@ export function Presentation({ question }: { question: Question }) {
         }
         if (block.type === "p" || block.type === "lead") {
           return (
-            <p key={index} className="text-sm leading-7 text-muted-foreground">
+            <p key={index} className="text-[0.9375rem] leading-7 text-muted-foreground">
               <InlineLite text={block.text} />
             </p>
           );
@@ -352,7 +352,6 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
           <div className="flex flex-col items-center gap-6 p-6 md:flex-row md:items-center md:p-8">
             <ScoreRing value={accuracy} />
             <div className="flex-1 text-center md:text-left">
-              <p className="eyebrow">RESULT</p>
               <h2 className="display mt-1 text-2xl font-semibold">
                 {correctCount} / {questions.length} 問正解
               </h2>
@@ -387,24 +386,24 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
                 >
                   <span
                     className={cn(
-                      "mono mt-0.5 grid size-5 shrink-0 place-items-center rounded-full text-[0.6rem] text-white",
+                      "mono mt-0.5 grid size-5 shrink-0 place-items-center rounded-full text-xs text-white",
                       record?.correct ? "bg-success" : "bg-destructive",
                     )}
                   >
                     {record?.correct ? <Check className="size-3" /> : <X className="size-3" />}
                   </span>
                   <div className="min-w-0 flex-1">
-                    <p className="text-xs leading-5 text-muted-foreground">
+                    <p className="text-[0.8125rem] leading-5 text-muted-foreground">
                       問{itemIndex + 1} · {item.part === "B" ? "科目B" : "科目A"} ·{" "}
                       {item.source.kind === "official" ? "IPA公開問題" : "独自問題"}
                     </p>
-                    <p className="mt-0.5 line-clamp-2 text-sm">
+                    <p className="mt-0.5 line-clamp-2 text-[0.9375rem]">
                       <InlineLite text={item.stem} />
                     </p>
                   </div>
                   <Link
                     href={`/practice/question/${item.id}`}
-                    className="text-xs font-semibold text-info-foreground hover:underline"
+                    className="text-[0.9375rem] font-medium text-info-foreground hover:underline"
                   >
                     解説
                   </Link>
@@ -426,7 +425,7 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+      <div className="flex flex-wrap items-center gap-3 text-[0.8125rem] text-muted-foreground">
         <span className="font-semibold text-foreground">{title}</span>
         <span className="chip">
           問 {index + 1} / {questions.length}
@@ -440,7 +439,7 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
       <div className="card p-5 md:p-7">
         <div className="mb-4 flex flex-wrap items-start gap-4">
           <div className="flex-1">
-            <p className="jp whitespace-pre-line text-[0.98rem] font-medium leading-8">
+            <p className="jp whitespace-pre-line text-[1.0625rem] font-medium leading-8">
               <InlineLite text={question.stem} />
             </p>
           </div>
@@ -487,7 +486,7 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
                 >
                   {OPTION_LABEL[option.id]}
                 </span>
-                <span className="jp text-sm leading-6">
+                <span className="jp text-base leading-7">
                   <InlineLite text={option.text} />
                 </span>
               </button>
@@ -505,18 +504,18 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
                   : "border-destructive/30 bg-destructive/10",
               )}
             >
-              <p className={cn("text-sm font-semibold", answer?.correct ? "text-success-foreground" : "text-destructive-foreground")}>
+              <p className={cn("text-[0.9375rem] font-semibold", answer?.correct ? "text-success-foreground" : "text-destructive-foreground")}>
                 {answer?.correct ? "正解" : "不正解"} · 正答は {OPTION_LABEL[question.correctOptionId]}
               </p>
-              <p className="jp mt-1 text-sm leading-7">
+              <p className="jp mt-1 text-[0.9375rem] leading-7">
                 <InlineLite text={question.explanation.correct} />
               </p>
             </div>
             <div className="rounded-xl border border-border bg-muted px-4 py-3">
-              <p className="text-xs font-semibold text-muted-foreground">なぜそうなるか</p>
+              <p className="text-[0.8125rem] font-semibold text-muted-foreground">なぜそうなるか</p>
               <ul className="mt-1.5 space-y-1">
                 {question.explanation.why.map((item, itemIndex) => (
-                  <li key={itemIndex} className="jp flex gap-2 text-sm leading-6">
+                  <li key={itemIndex} className="jp flex gap-2 text-[0.9375rem] leading-7">
                     <span className="mt-2 size-1 shrink-0 rounded-full bg-primary" />
                     <InlineLite text={item} />
                   </li>
@@ -529,7 +528,7 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
                 .map((option) => (
                   <div
                     key={option.id}
-                    className="rounded-lg border border-border px-3 py-2 text-xs leading-5 text-muted-foreground"
+                    className="rounded-lg border border-border px-3 py-2 text-[0.8125rem] leading-6 text-muted-foreground"
                   >
                     <span className="mono mr-1.5 font-semibold text-foreground">
                       {OPTION_LABEL[option.id]}
@@ -545,7 +544,7 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
             {question.lessonIds[0] ? (
               <Link
                 href={`/learn/${question.lessonIds[0]}`}
-                className="inline-flex text-xs font-semibold text-info-foreground hover:underline"
+                className="inline-flex text-[0.9375rem] font-medium text-info-foreground hover:underline"
               >
                 関連レッスンを読み直す →
               </Link>
@@ -568,7 +567,7 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
           次へ
           <ArrowRight className="size-4" />
         </button>
-        <span className="ml-auto text-xs text-muted-foreground">
+        <span className="ml-auto text-[0.8125rem] text-muted-foreground">
           解答済み {answeredCount} / {questions.length}
         </span>
         <button
@@ -592,7 +591,7 @@ export function QuizRunner({ config, title, feedback = "instant" }: QuizRunnerPr
                 onClick={() => goTo(itemIndex)}
                 aria-label={`問${itemIndex + 1}へ`}
                 className={cn(
-                  "mono size-7 rounded-md border text-[0.65rem] transition-colors",
+                  "mono size-7 rounded-md border text-[0.8125rem] transition-colors",
                   itemIndex === index
                     ? "border-ring bg-primary text-primary-foreground"
                     : record

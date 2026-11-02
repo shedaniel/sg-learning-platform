@@ -81,7 +81,6 @@ export function ControlMatcher() {
     <WidgetBody>
       <div className="flex items-start justify-between gap-2">
         <div>
-          <p className="eyebrow">Control matching</p>
           <h3 className="text-sm font-semibold text-foreground">脅威に効く管理策を選ぶ</h3>
         </div>
         <ResetButton
@@ -92,7 +91,7 @@ export function ControlMatcher() {
         />
       </div>
 
-      <p className="text-[0.76rem] leading-6 text-muted-foreground">
+      <p className="text-[0.8125rem] leading-6 text-muted-foreground">
         5つの脅威それぞれに、最も直接的に効く管理策を1つ選ぶ。同じ管理策を複数の脅威に割り当ててもよい。
       </p>
 
@@ -104,12 +103,12 @@ export function ControlMatcher() {
           return (
             <div key={threat.id} className="rounded-lg border border-border bg-muted p-3">
               <div className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-0.5">
-                <p className="text-[0.76rem] font-semibold text-foreground">
+                <p className="text-[0.8125rem] font-semibold text-foreground">
                   {index + 1}. {threat.label}
                 </p>
-                <span className="text-[0.62rem] font-medium text-muted-foreground">脅威</span>
+                <span className="text-xs font-medium text-muted-foreground">脅威</span>
               </div>
-              <p className="mt-0.5 text-[0.7rem] leading-5 text-muted-foreground">{threat.detail}</p>
+              <p className="mt-0.5 text-[0.8125rem] leading-5 text-muted-foreground">{threat.detail}</p>
               <div className="mt-2">
                 <Field label={`${threat.label}への対策`} htmlFor={`${groupId}-${threat.id}`}>
                   <select
@@ -137,7 +136,7 @@ export function ControlMatcher() {
                   <Verdict ok={correct}>
                     {correct ? "正解" : `不正解（正解は「${control?.label ?? ""}」）`}
                   </Verdict>
-                  <p className="jp text-[0.72rem] leading-6 text-muted-foreground">{control?.rationale}</p>
+                  <p className="jp text-[0.8125rem] leading-6 text-muted-foreground">{control?.rationale}</p>
                 </div>
               ) : null}
             </div>
@@ -150,7 +149,7 @@ export function ControlMatcher() {
           {graded ? "採点済み" : "答え合わせ"}
         </button>
         {!allAnswered ? (
-          <span className="text-[0.68rem] text-muted-foreground">未選択の脅威は不正解として採点される</span>
+          <span className="text-[0.8125rem] text-muted-foreground">未選択の脅威は不正解として採点される</span>
         ) : null}
       </div>
 

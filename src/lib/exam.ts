@@ -206,11 +206,17 @@ export function estimatedReadiness(input: {
   mockAccuracy: number;
   totalAttempts: number;
 }): { score: number; confidence: "low" | "medium" | "high"; note: string } {
-  const score = Math.round(
-    input.lessonCoverage * 25 +
-      input.recentAccuracy * 35 +
-      input.topicBreadth * 20 +
-      input.mockAccuracy * 20,
+  const score = Math.min(
+    100,
+    Math.max(
+      0,
+      Math.round(
+        input.lessonCoverage * 25 +
+          input.recentAccuracy * 35 +
+          input.topicBreadth * 20 +
+          input.mockAccuracy * 20,
+      ),
+    ),
   );
   const confidence =
     input.totalAttempts >= 120 && input.mockAccuracy > 0

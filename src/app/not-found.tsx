@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <div className="mx-auto flex max-w-xl flex-col items-start gap-5 py-20">
-      <p className="eyebrow">404</p>
+      <p className="mono text-sm text-muted-foreground">404</p>
       <h1 className="display text-4xl font-semibold">ページが見つかりません</h1>
       <p className="text-sm leading-7 text-muted-foreground">
         リンクが変更されたか、コンテンツがまだ公開されていない可能性があります。

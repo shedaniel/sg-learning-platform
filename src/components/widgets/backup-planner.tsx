@@ -99,7 +99,6 @@ export function BackupPlanner({ props }: { props?: WidgetProps }) {
     <WidgetBody>
       <div className="flex items-start justify-between gap-2">
         <div>
-          <p className="eyebrow">Backup planning</p>
           <h3 className="text-sm font-semibold text-foreground">バックアップ計画から RPO と復旧時間を試算する</h3>
         </div>
         <ResetButton
@@ -277,18 +276,18 @@ export function BackupPlanner({ props }: { props?: WidgetProps }) {
                         : "rounded-md border border-border bg-muted px-1 py-1.5 text-center"
                     }
                   >
-                    <span className="block text-[0.65rem] font-medium text-muted-foreground">{DAY_LABELS[day]}</span>
-                    <span className="mono mt-0.5 block text-[0.7rem] font-semibold text-foreground">
+                    <span className="block text-[0.8125rem] font-medium text-muted-foreground">{DAY_LABELS[day]}</span>
+                    <span className="mono mt-0.5 block text-[0.8125rem] font-semibold text-foreground">
                       {isFull ? "F" : "—"}
                     </span>
-                    <span className="mono block text-[0.6rem] leading-4 text-muted-foreground">
+                    <span className="mono block text-xs leading-4 text-muted-foreground">
                       {increments > 0 ? `I×${increments}` : "I×0"}
                     </span>
                   </li>
                 );
               })}
             </ol>
-            <p className="mt-1.5 text-[0.65rem] leading-5 text-muted-foreground">
+            <p className="mt-1.5 text-[0.8125rem] leading-5 text-muted-foreground">
               F = フルバックアップ、I = 増分バックアップ。曜日は日曜始まり。増分はフル開始の{computed.interval}時間後から{computed.interval}時間ごとに走り、7日周期で繰り返す。
             </p>
           </div>
@@ -311,7 +310,7 @@ export function BackupPlanner({ props }: { props?: WidgetProps }) {
       <div>
         <div className="mb-1.5 flex items-center justify-between gap-2">
           <p className="text-xs font-semibold text-foreground">3-2-1 チェックリスト</p>
-          <span className="mono text-[0.7rem] text-muted-foreground">{checkedCount} / {CHECKLIST.length}</span>
+          <span className="mono text-[0.8125rem] text-muted-foreground">{checkedCount} / {CHECKLIST.length}</span>
         </div>
         <div
           className="mb-2 h-1.5 overflow-hidden rounded-full bg-muted"
@@ -329,7 +328,7 @@ export function BackupPlanner({ props }: { props?: WidgetProps }) {
         <ul className="space-y-1.5">
           {CHECKLIST.map((item, index) => (
             <li key={item}>
-              <label className="flex cursor-pointer items-start gap-2 rounded-md px-1 py-1 text-[0.76rem] leading-5 text-foreground hover:bg-muted">
+              <label className="flex cursor-pointer items-start gap-2 rounded-md px-1 py-1 text-[0.8125rem] leading-5 text-foreground hover:bg-muted">
                 <input
                   type="checkbox"
                   className="mt-0.5 size-4 shrink-0"
@@ -347,7 +346,7 @@ export function BackupPlanner({ props }: { props?: WidgetProps }) {
             </li>
           ))}
         </ul>
-        <p className="mt-1.5 text-[0.65rem] leading-5 text-muted-foreground">
+        <p className="mt-1.5 text-[0.8125rem] leading-5 text-muted-foreground">
           3-2-1 は最低線であり、暗号化・イミュータブル保存・復元訓練まで含めて初めて実効性が上がる。
         </p>
       </div>

@@ -48,7 +48,7 @@ export function PracticeSetup({
       </div>
       <div className="mt-4 space-y-3">
         <label className="block">
-          <span className="text-[0.7rem] font-semibold text-muted-foreground">出題範囲</span>
+          <span className="text-[0.8125rem] font-semibold text-muted-foreground">出題範囲</span>
           <select
             value={topicId}
             onChange={(event) => setTopicId(event.target.value)}
@@ -65,7 +65,7 @@ export function PracticeSetup({
 
         <div className="grid grid-cols-2 gap-2">
           <label className="block">
-            <span className="text-[0.7rem] font-semibold text-muted-foreground">問題数</span>
+            <span className="text-[0.8125rem] font-semibold text-muted-foreground">問題数</span>
             <select
               value={count}
               onChange={(event) => setCount(Number(event.target.value))}
@@ -79,7 +79,7 @@ export function PracticeSetup({
             </select>
           </label>
           <label className="block">
-            <span className="text-[0.7rem] font-semibold text-muted-foreground">科目</span>
+            <span className="text-[0.8125rem] font-semibold text-muted-foreground">科目</span>
             <select
               value={part}
               onChange={(event) => setPart(event.target.value)}
@@ -91,7 +91,7 @@ export function PracticeSetup({
             </select>
           </label>
           <label className="block">
-            <span className="text-[0.7rem] font-semibold text-muted-foreground">難易度</span>
+            <span className="text-[0.8125rem] font-semibold text-muted-foreground">難易度</span>
             <select
               value={difficulty}
               onChange={(event) => setDifficulty(event.target.value)}
@@ -104,7 +104,7 @@ export function PracticeSetup({
             </select>
           </label>
           <label className="block">
-            <span className="text-[0.7rem] font-semibold text-muted-foreground">答え合わせ</span>
+            <span className="text-[0.8125rem] font-semibold text-muted-foreground">答え合わせ</span>
             <select
               value={feedback}
               onChange={(event) => setFeedback(event.target.value)}
@@ -121,7 +121,7 @@ export function PracticeSetup({
         </Button>
         {weakTopicIds.length > 0 ? (
           <div>
-            <p className="mb-1.5 text-[0.65rem] text-muted-foreground">直近の誤答が多い分野</p>
+            <p className="mb-1.5 text-[0.8125rem] text-muted-foreground">直近の誤答が多い分野</p>
             <div className="flex flex-wrap gap-1.5">
               {weakTopicIds.slice(0, 4).map((id) => {
                 const topic = topics.find((item) => item.id === id);
@@ -143,7 +143,7 @@ export function PracticeSetup({
             </div>
           </div>
         ) : null}
-        <p className="text-[0.65rem] leading-5 text-muted-foreground">
+        <p className="text-[0.8125rem] leading-5 text-muted-foreground">
           正答率と誤答履歴は保存されます。誤答は間隔反復の復習キューへ自動登録されます。
         </p>
       </div>

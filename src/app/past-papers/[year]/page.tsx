@@ -26,7 +26,7 @@ export default async function PaperPage({ params }: { params: Promise<{ year: st
     <div className="">
       <Breadcrumbs items={[{ label: "過去問", href: "/past-papers" }, { label: paper.label }]} />
       <PageHeader
-        eyebrow={`${paper.label} · IPA 公開問題`}
+        meta={`${paper.label} · IPA 公開問題`}
         title={`${paper.year}年度 公開問題`}
         description={`${paper.note} 収録 ${paper.questions.length} 問（実際の試験は ${paper.actualCount} 問）。出典と問題番号を各問に表示しています。`}
         actions={
@@ -66,19 +66,19 @@ export default async function PaperPage({ params }: { params: Promise<{ year: st
                 href={`/practice/question/${question.id}`}
                 className="group flex items-start gap-3 px-4 py-3.5 transition-colors hover:bg-muted"
               >
-                <span className="mono mt-0.5 grid size-7 shrink-0 place-items-center rounded-md border border-border bg-muted text-[0.62rem]">
+                <span className="mono mt-0.5 grid size-7 shrink-0 place-items-center rounded-md border border-border bg-muted text-xs">
                   {question.source.questionNo}
                 </span>
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-1.5">
-                    <span className="text-[0.62rem] font-semibold text-muted-foreground">{PART_LABEL[question.part]}</span>
-                    <span className="text-[0.62rem] text-muted-foreground">· {question.difficulty === "easy" ? "基礎" : question.difficulty === "medium" ? "標準" : "応用"}</span>
+                    <span className="text-xs font-semibold text-muted-foreground">{PART_LABEL[question.part]}</span>
+                    <span className="text-xs text-muted-foreground">· {question.difficulty === "easy" ? "基礎" : question.difficulty === "medium" ? "標準" : "応用"}</span>
                     {attempted.has(question.id) ? <Badge tone="success">解答済み</Badge> : null}
                   </div>
                   <p className="mt-0.5 line-clamp-2 text-xs leading-5 group-hover:text-info-foreground">
                     {question.stem}
                   </p>
-                  <p className="mt-0.5 text-[0.6rem] text-muted-foreground">
+                  <p className="mt-0.5 text-xs text-muted-foreground">
                     {question.source.attribution}
                   </p>
                 </div>
@@ -92,7 +92,7 @@ export default async function PaperPage({ params }: { params: Promise<{ year: st
         ) : null}
       </div>
 
-      <section className="mt-5 rounded-xl border border-border bg-muted p-4 text-[0.68rem] leading-6 text-muted-foreground">
+      <section className="mt-5 rounded-xl border border-border bg-muted p-4 text-[0.8125rem] leading-6 text-muted-foreground">
         <p>
           出典：IPA 情報セキュリティマネジメント試験 {paper.label}。問題文・選択肢は公式 PDF に基づき、図表は等価な表・箇条書きとして再構成しています。解説は本サイト独自のもので、IPA の見解ではありません。
         </p>

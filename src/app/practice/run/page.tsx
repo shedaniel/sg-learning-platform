@@ -66,7 +66,6 @@ export default async function PracticeRunPage({
         演習トップ
       </Link>
       <PageHeader
-        eyebrow="Quiz"
         title={title}
         description={`${parsed.count}問 · ${parsed.part === "both" ? "科目A+B" : `科目${parsed.part}`} · ${
           parsed.feedback === "instant" ? "1問ごとに解説" : "最後にまとめて解説"

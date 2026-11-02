@@ -71,7 +71,7 @@ export default async function TermPage({ params }: { params: Promise<{ termId: s
         <section className="mt-4 grid gap-4 md:grid-cols-2">
           <div className="card p-5">
             <div className="flex items-center gap-2">
-              <span className="mono text-[0.6rem] font-semibold text-info-foreground">JA</span>
+              <span className="mono text-xs font-semibold text-info-foreground">JA</span>
               <h2 className="text-xs font-semibold">日本語の説明</h2>
             </div>
             <p className="jp mt-2 text-sm leading-7">{term.explanationJa}</p>
@@ -86,7 +86,7 @@ export default async function TermPage({ params }: { params: Promise<{ termId: s
         </section>
 
         {term.examUsage ? (
-          <section className="mt-4 rounded-xl border border-border border-l-2 border-l-accent bg-muted p-5">
+          <section className="mt-4 rounded-xl bg-muted/70 p-5">
             <h2 className="text-xs font-semibold text-info-foreground">試験での使われ方</h2>
             <p className="jp mt-2 text-sm leading-7">{term.examUsage}</p>
           </section>
@@ -101,7 +101,7 @@ export default async function TermPage({ params }: { params: Promise<{ termId: s
                   <Link key={item.id} href={`/glossary/${item.id}`} className="card-flat group flex items-center justify-between p-3 hover:border-ring/50">
                     <div>
                       <p className="text-xs font-semibold group-hover:text-info-foreground">{item.ja}</p>
-                      <p className="text-[0.62rem] text-muted-foreground">{item.en}</p>
+                      <p className="text-xs text-muted-foreground">{item.en}</p>
                     </div>
                     <ArrowRight className="size-3.5 text-muted-foreground" />
                   </Link>
@@ -134,7 +134,7 @@ export default async function TermPage({ params }: { params: Promise<{ termId: s
               {questions.slice(0, 5).map((question) => (
                 <Link key={question.id} href={`/practice/question/${question.id}`} className="card-flat group block p-3 hover:border-ring/50">
                   <p className="line-clamp-2 text-xs leading-5 group-hover:text-info-foreground">{question.stem}</p>
-                  <p className="mt-1 text-[0.6rem] text-muted-foreground">
+                  <p className="mt-1 text-xs text-muted-foreground">
                     {question.source.kind === "official" ? `IPA ${question.source.year} 問${question.source.questionNo}` : "独自問題"}
                   </p>
                 </Link>
@@ -143,7 +143,7 @@ export default async function TermPage({ params }: { params: Promise<{ termId: s
           </section>
         ) : null}
 
-        <p className="mt-8 flex items-center gap-1.5 text-[0.65rem] text-muted-foreground">
+        <p className="mt-8 flex items-center gap-1.5 text-[0.8125rem] text-muted-foreground">
           <ExternalLink className="size-3" />
           用語の定義は本サイト独自の学習用要約です。公式規格・法令の原文を確認してください。
         </p>

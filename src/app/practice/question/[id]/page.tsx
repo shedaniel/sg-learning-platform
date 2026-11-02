@@ -27,7 +27,7 @@ export default async function QuestionPage({ params }: { params: Promise<{ id: s
         ]}
       />
       <PageHeader
-        eyebrow={`${PART_LABEL[question.part]} · ${DIFFICULTY_LABEL[question.difficulty]} · ${
+        meta={`${PART_LABEL[question.part]} · ${DIFFICULTY_LABEL[question.difficulty]} · ${
           question.source.kind === "official" ? "IPA公開問題" : "独自問題"
         }`}
         title="1問演習"
@@ -75,20 +75,20 @@ export default async function QuestionPage({ params }: { params: Promise<{ id: s
             })}
           </div>
           <div className="mt-4 border-t border-border pt-3">
-            <p className="text-[0.7rem] leading-5 text-muted-foreground">{question.source.attribution}</p>
+            <p className="text-[0.8125rem] leading-5 text-muted-foreground">{question.source.attribution}</p>
             {question.source.url ? (
               <a
                 href={question.source.url}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-1 inline-flex items-center gap-1 text-[0.7rem] text-info-foreground hover:underline"
+                className="mt-1 inline-flex items-center gap-1 text-[0.8125rem] text-info-foreground hover:underline"
               >
                 公式PDF・出題年度ページ
                 <ExternalLink className="size-3" />
               </a>
             ) : null}
             {question.source.note ? (
-              <p className="mt-1 text-[0.65rem] text-muted-foreground">{question.source.note}</p>
+              <p className="mt-1 text-[0.8125rem] text-muted-foreground">{question.source.note}</p>
             ) : null}
             <div className="mt-2 flex flex-wrap gap-1.5">
               {question.tags.map((tag) => (
