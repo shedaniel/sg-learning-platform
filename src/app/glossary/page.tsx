@@ -15,7 +15,7 @@ export default async function GlossaryPage({
 }) {
   const { q = "", area = "" } = await searchParams;
   const { id } = await getLearner();
-  const snapshot = getProgressSnapshot(id);
+  const snapshot = await getProgressSnapshot(id);
   const query = normalizeJapanese(q);
   const filtered = ALL_TERMS.filter((term) => {
     if (area && !term.lessonIds.some((lessonId) => lessonId.startsWith(`${area}/`))) return false;

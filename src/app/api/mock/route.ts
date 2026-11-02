@@ -24,7 +24,7 @@ export async function GET(request: Request) {
   const profileId = await getProfileId();
   const id = new URL(request.url).searchParams.get("id");
   if (!id) return NextResponse.json({ error: "id が必要です" }, { status: 400 });
-  const attempt = getMockAttempt(id, profileId);
+  const attempt = await getMockAttempt(id, profileId);
   if (!attempt) return NextResponse.json({ error: "模擬試験が見つかりません" }, { status: 404 });
   return NextResponse.json(attempt);
 }
@@ -42,7 +42,7 @@ export async function POST(request: Request) {
         { status: 409 },
       );
     }
-    const id = createMockAttempt({
+    const id = await createMockAttempt({
       profileId,
       questionIds: questions.map((question) => question.id),
       durationSec: MOCK_DURATION_SEC,
@@ -51,7 +51,7 @@ export async function POST(request: Request) {
   }
 
   if (!body.id) return NextResponse.json({ error: "id が必要です" }, { status: 400 });
-  const attempt = getMockAttempt(body.id, profileId);
+  const attempt = await getMockAttempt(body.id, profileId);
   if (!attempt) return NextResponse.json({ error: "模擬試験が見つかりません" }, { status: 404 });
 
   const answers = body.answers ?? {};
@@ -63,13 +63,13 @@ export async function POST(request: Request) {
   }
 
   if (body.action === "save") {
-    saveMockState(body.id, profileId, { answers, flags, currentIndex });
+    await saveMockState(body.id, profileId, { answers, flags, currentIndex });
     return NextResponse.json({ ok: true, savedAt: new Date().toISOString() });
   }
 
   if (body.action === "submit") {
     const result = scoreMock(attempt.questionIds, answers, QUESTION_BY_ID);
-    submitMockAttempt(body.id, profileId, {
+    await submitMockAttempt(body.id, profileId, {
       answers,
       flags,
       currentIndex,
@@ -88,7 +88,7 @@ export async function POST(request: Request) {
       1,
       Math.min(180, Math.round((Date.now() - new Date(attempt.startedAt).getTime()) / 60000)),
     );
-    recordStudySession({ profileId, minutes, source: "mock", startedAt: attempt.startedAt });
+    await recordStudySession({ profileId, minutes, source: "mock", startedAt: attempt.startedAt });
     return NextResponse.json({ submitted: true, result });
   }
 

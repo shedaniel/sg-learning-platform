@@ -20,7 +20,7 @@ export default async function PracticeRunPage({
   let topicIds = parsed.topicId ? [parsed.topicId] : undefined;
   if (parsed.weak) {
     const { id: profileId } = await getLearner();
-    const snapshot = getProgressSnapshot(profileId);
+    const snapshot = await getProgressSnapshot(profileId);
     topicIds = snapshot.weakTopics.slice(0, 5).map((topic) => topic.topic.id);
   }
   const config: QuizConfig & { mode: string } = {

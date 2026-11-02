@@ -10,7 +10,7 @@
 ## Stack
 
 - Next.js 16 App Router, React 19, TypeScript 5.9, Tailwind CSS 4.
-- SQLite via Node's built-in `node:sqlite` (`DatabaseSync`) instead of an external ORM/native module. Rationale: zero native build friction on Node 26, one dependency less, explicit SQL migrations. Drizzle/Turso was suggested in PLAN.md, not mandatory; the data model is portable.
+- ~~SQLite via `node:sqlite`~~ — superseded by the libSQL decision below. Explicit SQL migrations and no ORM remain.
 - Progress is server-persisted in `data/sg.db` keyed by an anonymous HttpOnly cookie (`sg_profile`), set in middleware. No account, email, or third-party analytics.
 - Content is version-controlled TypeScript modules, validated by `scripts/validate-content.ts`, not generated at request time. No paid AI service is required.
 - Diagrams are hand-authored inline SVG React components using theme CSS variables. No Mermaid runtime dependency, so diagrams render on the server with no client bundle or hydration cost.
@@ -49,3 +49,13 @@
 - No user login/multi-device sync in this version. The anonymous profile is local to the deployment.
 - Official question diagrams are not pixel-identical; they are semantically equivalent tables/text. The IPA PDF link is shown on each source card.
 - Raw mock scores are not converted into IPA evaluation points or pass probability.
+
+## libSQL / Turso (2026-11-02)
+
+- The database layer moved from synchronous `node:sqlite` to `@libsql/client` so the same code runs against a local file (development, tests) and a remote Turso database (serverless hosting). Selection is by `SG_DB_URL` (or `TURSO_DATABASE_URL`); `SG_DB_PATH` still works for local files.
+- The client is async, so every store function and `getProgressSnapshot` is async. No ORM was added: the SQL strings are unchanged behind a small `Db` facade (`all` / `get` / `run` / `batch`) in `src/lib/db/index.ts`.
+- Multi-statement writes (`submitMockAttempt`, `resetProgress`) use `batch`, which is atomic and one network round trip, instead of interactive transactions.
+- Migration versions moved from `PRAGMA user_version` (not reliable on remote databases) to a `schema_migrations` table. Existing local databases are adopted from `user_version` on first open. Migration statements are idempotent and the version row is written in the same batch, so concurrent cold starts racing on a fresh database are safe.
+- `getProgressSnapshot` issues its independent reads concurrently, and `ensureProfile` is memoised per server process, to keep per-request latency to roughly one round trip against a remote database.
+- `question_attempts` queries now break `attempted_at` ties by `rowid`; two answers recorded in the same millisecond previously had undefined order, which affects the "last answer was wrong" logic.
+- Tests use temporary file databases, not `:memory:`, because libSQL transactions can open a second connection and an in-memory database would not be shared.

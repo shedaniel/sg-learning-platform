@@ -50,10 +50,10 @@ function Trend({ points }: { points: Array<{ label: string; value: number; count
 
 export default async function StatisticsPage() {
   const { id } = await getLearner();
-  const snapshot = getProgressSnapshot(id);
+  const snapshot = await getProgressSnapshot(id);
   const areas = getAreaProgress(snapshot);
-  const attempts = getAllAttempts(id);
-  const mocks = getMockHistory(id);
+  const attempts = await getAllAttempts(id);
+  const mocks = await getMockHistory(id);
 
   const buckets = [];
   const size = 10;

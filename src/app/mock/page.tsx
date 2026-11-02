@@ -11,8 +11,8 @@ export const dynamic = "force-dynamic";
 
 export default async function MockPage() {
   const { id } = await getLearner();
-  const snapshot = getProgressSnapshot(id);
-  const history = getMockHistory(id);
+  const snapshot = await getProgressSnapshot(id);
+  const history = await getMockHistory(id);
   const latest = history[0];
 
   return (

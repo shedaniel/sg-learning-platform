@@ -11,6 +11,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "itemType と itemId が必要です" }, { status: 400 });
   }
   const grade = Math.max(0, Math.min(3, Math.round(body.grade ?? 2)));
-  const row = scheduleReview(profileId, body.itemType, body.itemId, grade as 0 | 1 | 2 | 3);
+  const row = await scheduleReview(profileId, body.itemType, body.itemId, grade as 0 | 1 | 2 | 3);
   return NextResponse.json({ dueAt: row.dueAt, intervalDays: row.intervalDays });
 }

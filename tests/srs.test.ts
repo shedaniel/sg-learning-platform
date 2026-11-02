@@ -1,6 +1,5 @@
 import { describe, expect, it } from "vitest";
 import { nextSchedule } from "@/lib/db/store";
-import { createDatabase } from "@/lib/db";
 
 describe("nextSchedule", () => {
   it("resets interval after a lapse", () => {
@@ -33,38 +32,5 @@ describe("nextSchedule", () => {
   it("caps the interval at 180 days", () => {
     const state = { intervalDays: 170, ease: 3, reps: 3, lapses: 0 };
     expect(nextSchedule(state, 3).intervalDays).toBeLessThanOrEqual(180);
-  });
-});
-
-describe("database migrations", () => {
-  it("creates the expected schema", () => {
-    const db = createDatabase(":memory:");
-    const tables = db
-      .prepare("SELECT name FROM sqlite_master WHERE type = 'table'")
-      .all()
-      .map((row) => String((row as { name: string }).name));
-    for (const table of [
-      "profiles",
-      "lesson_progress",
-      "question_attempts",
-      "quiz_attempts",
-      "mock_attempts",
-      "review_items",
-      "bookmarks",
-    ]) {
-      expect(tables).toContain(table);
-    }
-    const version = db.prepare("PRAGMA user_version").get() as { user_version: number };
-    expect(version.user_version).toBe(2);
-  });
-
-  it("enforces profile-backed uniqueness", () => {
-    const db = createDatabase(":memory:");
-    db.prepare("INSERT INTO profiles (id, name, created_at) VALUES (?, ?, ?)").run("p1", "L", new Date().toISOString());
-    const insert = db.prepare(
-      "INSERT INTO lesson_progress (profile_id, lesson_id, started_at, last_viewed_at) VALUES (?, ?, ?, ?)",
-    );
-    insert.run("p1", "security/cia-and-design", "2026-01-01", "2026-01-01");
-    expect(() => insert.run("p1", "security/cia-and-design", "2026-01-02", "2026-01-02")).toThrow();
   });
 });

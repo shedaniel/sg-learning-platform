@@ -11,9 +11,9 @@ export async function POST(request: Request) {
   if (!body?.termId || !TERM_BY_ID.has(body.termId)) {
     return NextResponse.json({ error: "用語が見つかりません" }, { status: 404 });
   }
-  markTermLearned(profileId, body.termId, body.learned ?? true);
+  await markTermLearned(profileId, body.termId, body.learned ?? true);
   if (body.learned !== false) {
-    scheduleReview(profileId, "term", body.termId, 2);
+    await scheduleReview(profileId, "term", body.termId, 2);
   }
   return NextResponse.json({ ok: true });
 }

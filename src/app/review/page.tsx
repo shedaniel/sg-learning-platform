@@ -13,7 +13,7 @@ const ROW =
 
 export default async function ReviewPage() {
   const { id } = await getLearner();
-  const snapshot = getProgressSnapshot(id);
+  const snapshot = await getProgressSnapshot(id);
   const dueQuestions = snapshot.dueReviews.filter((item) => item.itemType === "question");
   const dueQuestionIds = dueQuestions
     .map((item) => item.itemId)

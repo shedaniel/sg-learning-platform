@@ -35,7 +35,7 @@ export async function POST(request: Request) {
   if (selection.questions.length === 0) {
     return NextResponse.json({ error: "条件に合う問題がありません" }, { status: 404 });
   }
-  const attemptId = createQuizAttempt({
+  const attemptId = await createQuizAttempt({
     profileId,
     mode: body?.mode ?? "custom",
     topicId: body?.topicIds?.[0],

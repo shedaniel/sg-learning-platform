@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 export default async function MockRunPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const { id: profileId } = await getLearner();
-  const attempt = getMockAttempt(id, profileId);
+  const attempt = await getMockAttempt(id, profileId);
   if (!attempt) notFound();
   if (attempt.submittedAt) redirect(`/mock/results/${id}`);
   const questions = attempt.questionIds

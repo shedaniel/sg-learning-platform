@@ -34,7 +34,7 @@ Sources are recorded in `src/content/syllabus.ts` and shown in the UI. Official 
 
 - Next.js 16 (App Router), React 19, TypeScript 5.9, Tailwind CSS 4.
 - coss ui (Cal.com design system) components, tokens, Cal Sans 2.010, and Paper Mono, vendored under `src/coss/ui/`.
-- SQLite via Node's built-in `node:sqlite` (`DatabaseSync`) — no native module, no Docker required.
+- libSQL (`@libsql/client`): a local SQLite file in development, or a remote [Turso](https://turso.tech) database in production. Same code, one environment variable.
 - Vitest for unit/integration tests, Playwright for end-to-end tests.
 - coss ui components for shared primitives and actions; custom SVG for diagrams and charts, with no runtime Mermaid/Recharts dependency.
 - No paid AI service and no LLM generation at request time.
@@ -43,7 +43,7 @@ See `DECISIONS.md` for the reasoning and tradeoffs. coss ui components are vendo
 
 ## Run locally
 
-Requirements: **Node.js 24+** (Node 26 recommended; `node:sqlite` is required).
+Requirements: **Node.js 24+** (Node 26 recommended).
 
 ```bash
 npm install
@@ -65,7 +65,26 @@ npm run db:migrate   # apply migrations (also runs lazily on first request)
 npm run db:seed      # record content metadata
 ```
 
-The database lives at `data/sg.db` and is gitignored. Override with `SG_DB_PATH`.
+By default the database is the local file `data/sg.db` (gitignored). Point the app somewhere else with environment variables (see `.env.example`):
+
+| Variable | Meaning |
+|---|---|
+| `SG_DB_URL` | `libsql://…` (Turso), `https://…`, or `file:path/to.db`. Takes precedence. |
+| `SG_DB_AUTH_TOKEN` | Auth token for a remote database. |
+| `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN` | Accepted as aliases, so Turso's Vercel integration works unchanged. |
+| `SG_DB_PATH` | Local file path. Kept for backwards compatibility. |
+
+### Deploying with Turso
+
+```bash
+turso db create sg-learning
+turso db show sg-learning --url          # -> SG_DB_URL
+turso db tokens create sg-learning       # -> SG_DB_AUTH_TOKEN
+```
+
+Set those two variables on the host (for example Vercel), deploy, and the schema is created on the first request. `npm run db:migrate` runs the same migrations ahead of time, for example from CI. Because pages query the database on every request, create the Turso database in the region closest to your server functions.
+
+Migrations are tracked in a `schema_migrations` table. Databases created by earlier versions (which tracked the version in `PRAGMA user_version`) are adopted automatically without losing data.
 
 ## Verify
 
@@ -91,7 +110,7 @@ src/
     official/          2023–2026 IPA public questions with paper metadata
   lib/
     content/           content types, option labels
-    db/                migrations, node:sqlite connection, repositories
+    db/                migrations, libSQL connection, repositories
     exam.ts            mock composition and scoring
     progress.ts        mastery, readiness, recommendations
     search.ts          cross-content search
@@ -126,7 +145,7 @@ Learning history is keyed to an anonymous HttpOnly cookie (`sg_profile`) set by 
 - Mock scoring is raw accuracy, not IPA IRT evaluation points. Readiness is an unofficial weighted heuristic, not a pass prediction.
 - The 2027 syllabus proposal is informational only.
 - Content is Japanese-primary with English terminology support, not full bilingual translation.
-- No multi-device sync (the profile is local to the deployment).
+- No multi-device sync: the anonymous profile cookie is per browser, even when the database is shared.
 
 ## Attribution
 

@@ -20,7 +20,7 @@ export default async function TopicPracticePage({
   if (!topic) notFound();
   const questions = questionsForTopic(topicId);
   const { id } = await getLearner();
-  const snapshot = getProgressSnapshot(id);
+  const snapshot = await getProgressSnapshot(id);
   const stat = snapshot.topics.find((row) => row.topic.id === topicId);
   const attempted = new Set(
     snapshot.recentAttempts.filter((attempt) => questions.some((question) => question.id === attempt.questionId)).map((attempt) => attempt.questionId),

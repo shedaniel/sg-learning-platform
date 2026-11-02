@@ -31,9 +31,9 @@ export default async function TermPage({ params }: { params: Promise<{ termId: s
   const term = TERM_BY_ID.get(termId);
   if (!term) notFound();
   const { id } = await getLearner();
-  const snapshot = getProgressSnapshot(id);
+  const snapshot = await getProgressSnapshot(id);
   const learned = snapshot.learnedTermIds.includes(term.id);
-  const bookmarked = isBookmarked(id, "term", term.id);
+  const bookmarked = await isBookmarked(id, "term", term.id);
   const related = term.relatedTermIds.map((relatedId) => TERM_BY_ID.get(relatedId)).filter(Boolean);
   const lessons = term.lessonIds.map((lessonId) => LESSON_BY_ID.get(lessonId)).filter(Boolean);
   const questions = lessons.flatMap((lesson) => (lesson ? questionsForLesson(lesson.id).slice(0, 3) : []));

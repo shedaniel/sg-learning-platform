@@ -41,7 +41,7 @@ function SummaryRow({
 
 export default async function DashboardPage() {
   const { id } = await getLearner();
-  const snapshot = getProgressSnapshot(id);
+  const snapshot = await getProgressSnapshot(id);
   const areaProgress = getAreaProgress(snapshot);
   const nextLesson = snapshot.nextLessons[0];
   const hasActivity = snapshot.completedLessons > 0 || snapshot.attemptCount > 0;

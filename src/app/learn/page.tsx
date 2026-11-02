@@ -22,7 +22,7 @@ const statusIcon = {
 
 export default async function LearnPage() {
   const { id } = await getLearner();
-  const snapshot = getProgressSnapshot(id);
+  const snapshot = await getProgressSnapshot(id);
   const areaProgress = getAreaProgress(snapshot);
   const coverage = coverageStats();
   const nextLesson = snapshot.nextLessons[0] ?? ALL_LESSONS[0];

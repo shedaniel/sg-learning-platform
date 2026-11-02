@@ -16,7 +16,7 @@ export default async function QuestionPage({ params }: { params: Promise<{ id: s
   const question = QUESTION_BY_ID.get(questionId);
   if (!question) notFound();
   const { id: profileId } = await getLearner();
-  const bookmarked = isBookmarked(profileId, "question", questionId);
+  const bookmarked = await isBookmarked(profileId, "question", questionId);
 
   return (
     <div className="">

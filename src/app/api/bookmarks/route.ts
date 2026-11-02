@@ -13,6 +13,6 @@ export async function POST(request: Request) {
   if (!["question", "term", "lesson"].includes(body.itemType)) {
     return NextResponse.json({ error: "itemType が不正です" }, { status: 400 });
   }
-  const bookmarked = toggleBookmark(profileId, body.itemType, body.itemId);
+  const bookmarked = await toggleBookmark(profileId, body.itemType, body.itemId);
   return NextResponse.json({ bookmarked });
 }

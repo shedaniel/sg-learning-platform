@@ -18,7 +18,7 @@ export default async function AreaPage({ params }: { params: Promise<{ area: str
   const area = AREAS.find((item) => item.id === areaId);
   if (!area) notFound();
   const { id } = await getLearner();
-  const snapshot = getProgressSnapshot(id);
+  const snapshot = await getProgressSnapshot(id);
   const topics = topicsForArea(area.id);
   const completed = area.lessons.filter((lesson) => snapshot.completedLessonIds.includes(lesson.id)).length;
   const percent = area.lessons.length ? Math.round((completed / area.lessons.length) * 100) : 0;

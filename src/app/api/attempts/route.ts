@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "選択肢が不正です" }, { status: 400 });
   }
   const correct = body.selected === question.correctOptionId;
-  recordQuestionAttempt({
+  await recordQuestionAttempt({
     profileId,
     questionId: question.id,
     selected: body.selected,
@@ -35,9 +35,9 @@ export async function POST(request: Request) {
     mockAttemptId: body.mockAttemptId,
   });
   if (!correct) {
-    scheduleReview(profileId, "question", question.id, 0);
+    await scheduleReview(profileId, "question", question.id, 0);
   } else if (body.mode === "review") {
-    scheduleReview(profileId, "question", question.id, 2);
+    await scheduleReview(profileId, "question", question.id, 2);
   }
   return NextResponse.json({ correct, correctOptionId: question.correctOptionId });
 }

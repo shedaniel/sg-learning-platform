@@ -15,12 +15,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "レッスンが見つかりません" }, { status: 404 });
   }
   if (typeof body.completed === "boolean") {
-    setLessonCompleted(profileId, body.lessonId, body.completed);
+    await setLessonCompleted(profileId, body.lessonId, body.completed);
   } else {
-    touchLesson(profileId, body.lessonId);
+    await touchLesson(profileId, body.lessonId);
   }
   if (body.minutes && body.minutes > 0) {
-    recordStudySession({ profileId, minutes: Math.min(240, body.minutes), source: "lesson" });
+    await recordStudySession({ profileId, minutes: Math.min(240, body.minutes), source: "lesson" });
   }
   return NextResponse.json({ ok: true });
 }

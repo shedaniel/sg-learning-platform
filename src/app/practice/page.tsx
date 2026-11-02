@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
 
 export default async function PracticePage() {
   const { id } = await getLearner();
-  const snapshot = getProgressSnapshot(id);
+  const snapshot = await getProgressSnapshot(id);
   const topicOptions = SYLLABUS_TOPICS.map((topic) => {
     const area = AREAS.find((item) => item.id === topic.areaId);
     return {

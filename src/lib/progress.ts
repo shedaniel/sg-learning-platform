@@ -13,7 +13,6 @@ import type { Lesson, Question, SyllabusTopic } from "@/lib/content/types";
 import {
   getAllAttempts,
   getBookmarks,
-  getCompletedLessonIds,
   getDueReviews,
   getLearnedTermIds,
   getLessonProgress,
@@ -87,12 +86,12 @@ export interface ProgressSnapshot {
   weakTopics: TopicProgress[];
   strongTopics: TopicProgress[];
   recentAttempts: RawAttemptRow[];
-  quizHistory: ReturnType<typeof getQuizHistory>;
-  mockHistory: ReturnType<typeof getMockHistory>;
-  dueReviews: ReturnType<typeof getDueReviews>;
+  quizHistory: Awaited<ReturnType<typeof getQuizHistory>>;
+  mockHistory: Awaited<ReturnType<typeof getMockHistory>>;
+  dueReviews: Awaited<ReturnType<typeof getDueReviews>>;
   reviewCounts: { due: number; total: number };
-  bookmarks: ReturnType<typeof getBookmarks>;
-  studyDays: ReturnType<typeof getStudyMinutesByDay>;
+  bookmarks: Awaited<ReturnType<typeof getBookmarks>>;
+  studyDays: Awaited<ReturnType<typeof getStudyMinutesByDay>>;
   lastMockAccuracy: number;
   readiness: { score: number; confidence: "low" | "medium" | "high"; note: string };
   nextLessons: Lesson[];
@@ -188,11 +187,31 @@ export function getQuestionProgress(attempts: RawAttemptRow[]): QuestionProgress
   });
 }
 
-export function getProgressSnapshot(profileId: string): ProgressSnapshot {
-  const attempts = getAllAttempts(profileId);
-  const completedLessonIds = getCompletedLessonIds(profileId);
-  const startedLessonIds = getLessonProgress(profileId).map((row) => row.lessonId);
-  const learnedTermIds = getLearnedTermIds(profileId);
+export async function getProgressSnapshot(profileId: string): Promise<ProgressSnapshot> {
+  // Independent reads run concurrently: against a remote database this is one round-trip of latency, not nine.
+  const [
+    attempts,
+    lessonRows,
+    learnedTermIds,
+    mockHistory,
+    quizHistory,
+    dueReviews,
+    reviewCounts,
+    bookmarks,
+    studyDays,
+  ] = await Promise.all([
+    getAllAttempts(profileId),
+    getLessonProgress(profileId),
+    getLearnedTermIds(profileId),
+    getMockHistory(profileId),
+    getQuizHistory(profileId),
+    getDueReviews(profileId, 20),
+    getReviewCounts(profileId),
+    getBookmarks(profileId),
+    getStudyMinutesByDay(profileId, 14),
+  ]);
+  const startedLessonIds = lessonRows.map((row) => row.lessonId);
+  const completedLessonIds = lessonRows.filter((row) => row.completedAt).map((row) => row.lessonId);
   const topics = computeTopicProgress(attempts, completedLessonIds);
   const byQuestion = aggregateAttempts(attempts);
   const recentAttempts = attempts.slice(-120);
@@ -204,7 +223,6 @@ export function getProgressSnapshot(profileId: string): ProgressSnapshot {
     attempts.filter((attempt) => attempt.correct).length,
     attempts.length,
   );
-  const mockHistory = getMockHistory(profileId);
   const latestMock = mockHistory[0];
   const lastMockAccuracy = latestMock
     ? percent(latestMock.correct, latestMock.total)
@@ -250,8 +268,6 @@ export function getProgressSnapshot(profileId: string): ProgressSnapshot {
     })
     .slice(0, 10);
 
-  const studyDays = getStudyMinutesByDay(profileId, 14);
-
   const coverageRows = topicCoverage();
   const uncoveredTopics = coverageRows.filter((row) => row.status === "missing").length;
 
@@ -273,11 +289,11 @@ export function getProgressSnapshot(profileId: string): ProgressSnapshot {
     weakTopics,
     strongTopics,
     recentAttempts: [...attempts].reverse().slice(0, 12),
-    quizHistory: getQuizHistory(profileId),
+    quizHistory,
     mockHistory,
-    dueReviews: getDueReviews(profileId, 20),
-    reviewCounts: getReviewCounts(profileId),
-    bookmarks: getBookmarks(profileId),
+    dueReviews,
+    reviewCounts,
+    bookmarks,
     studyDays,
     lastMockAccuracy,
     readiness,

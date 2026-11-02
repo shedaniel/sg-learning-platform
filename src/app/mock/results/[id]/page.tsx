@@ -44,7 +44,7 @@ function ResultRing({ value }: { value: number }) {
 export default async function MockResultPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const { id: profileId } = await getLearner();
-  const attempt = getMockAttempt(id, profileId);
+  const attempt = await getMockAttempt(id, profileId);
   if (!attempt) notFound();
   if (!attempt.submittedAt) redirect(`/mock/run/${id}`);
   const result = attempt.result as MockResult | null;

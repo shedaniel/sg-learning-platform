@@ -11,6 +11,6 @@ export async function getProfileId(): Promise<string> {
 
 export async function getLearner() {
   const id = await getProfileId();
-  ensureProfile(id);
+  await ensureProfile(id);
   return { id };
 }

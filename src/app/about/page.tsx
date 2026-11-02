@@ -112,7 +112,7 @@ export default function AboutPage() {
         <section className="card p-5 md:p-6">
           <h2 className="text-sm font-semibold">実装と制約</h2>
           <p className="jp mt-2 text-sm leading-7 text-muted-foreground">
-            Next.js / TypeScript / React / Tailwind CSS / SQLite（node:sqlite）で構成しています。図解はテーマ対応の SVG、
+            Next.js / TypeScript / React / Tailwind CSS / libSQL（SQLite / Turso）で構成しています。図解はテーマ対応の SVG、
             インタラクティブ例は React コンポーネントです。コンテンツは IPA シラバスに基づき独自執筆し、
             検証スクリプトで参照整合性・選択肢・カバレッジを検査しています。
           </p>

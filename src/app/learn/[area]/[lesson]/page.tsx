@@ -46,9 +46,9 @@ export default async function LessonPage({
   const lesson = LESSON_BY_ID.get(lessonId);
   if (!lesson) notFound();
   const { id } = await getLearner();
-  const snapshot = getProgressSnapshot(id);
+  const snapshot = await getProgressSnapshot(id);
   const completed = snapshot.completedLessonIds.includes(lesson.id);
-  const bookmark = isBookmarked(id, "lesson", lesson.id);
+  const bookmark = await isBookmarked(id, "lesson", lesson.id);
   const index = ALL_LESSONS.findIndex((item) => item.id === lesson.id);
   const prev = index > 0 ? ALL_LESSONS[index - 1] : null;
   const next = index >= 0 && index < ALL_LESSONS.length - 1 ? ALL_LESSONS[index + 1] : null;

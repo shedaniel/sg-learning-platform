@@ -18,7 +18,7 @@ export default async function PaperPage({ params }: { params: Promise<{ year: st
   const paper = OFFICIAL_PAPERS.find((item) => String(item.year) === year);
   if (!paper) notFound();
   const { id } = await getLearner();
-  const attempts = getAllAttempts(id);
+  const attempts = await getAllAttempts(id);
   const attempted = new Set(attempts.map((attempt) => attempt.questionId));
   const ids = paper.questions.map((question) => question.id).join(",");
 

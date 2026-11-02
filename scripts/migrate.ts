@@ -1,6 +1,18 @@
-import { createDatabase } from "../src/lib/db";
-import { getDb } from "../src/lib/db";
+import { createDatabase, ensureMigrated, resolveDbConfig } from "../src/lib/db";
 
-const db = process.env.SG_DB_PATH ? createDatabase(process.env.SG_DB_PATH) : getDb();
-const version = db.prepare("PRAGMA user_version").get() as { user_version: number };
-console.log(`database ready: user_version=${version.user_version}`);
+async function main() {
+  const config = resolveDbConfig();
+  const db = createDatabase(config);
+  await ensureMigrated(db);
+  const rows = await db.all<{ version: number; name: string }>(
+    "SELECT version, name FROM schema_migrations ORDER BY version",
+  );
+  const target = config.url.startsWith("file:") ? config.url : config.url.replace(/\/\/[^@]*@/, "//");
+  console.log(`database ready: ${target}`);
+  console.log(`migrations applied: ${rows.map((row) => `${row.version}:${row.name}`).join(", ")}`);
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});
