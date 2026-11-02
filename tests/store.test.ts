@@ -4,7 +4,7 @@ import path from "node:path";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sg-store-"));
-process.env.SG_DB_URL = `file:${path.join(dir, "store.db")}`;
+process.env.SG_DB_URL = process.env.SG_TEST_DB_URL ?? `file:${path.join(dir, "store.db")}`;
 delete process.env.SG_DB_PATH;
 
 type Store = typeof import("@/lib/db/store");
