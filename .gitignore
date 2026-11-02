@@ -11,3 +11,4 @@ playwright-report
 .playwright-mcp
 .vercel
 .env*
+!.env.example
