@@ -1,0 +1,82 @@
+name: Android release
+
+# Every push to main builds the Android app and publishes it as a GitHub release
+# (tag v<version>-<short-sha>, e.g. v0.1.0-a1b2c3d) with the signed APK attached.
+# Bump the base version in android/version.txt. Obtainium can track this repo's releases.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: android-release
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - uses: android-actions/setup-android@v3
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Compute version
+        id: version
+        run: |
+          base="$(tr -d '[:space:]' < android/version.txt)"
+          short="$(git rev-parse --short=7 HEAD)"
+          echo "name=${base}-${short}" >> "$GITHUB_OUTPUT"
+          echo "tag=v${base}-${short}" >> "$GITHUB_OUTPUT"
+
+      - name: Decode signing key
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        run: |
+          test -n "$KEYSTORE_BASE64" || { echo "ANDROID_KEYSTORE_BASE64 secret is missing"; exit 1; }
+          echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/release.jks"
+
+      - name: Build release APK
+        working-directory: android
+        env:
+          SG_KEYSTORE_FILE: ${{ runner.temp }}/release.jks
+          SG_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          SG_KEY_ALIAS: sgstudy
+        run: |
+          ./gradlew --no-daemon assembleRelease \
+            -PsgVersionName="${{ steps.version.outputs.name }}" \
+            -PsgVersionCode="${{ github.run_number }}"
+
+      - name: Name and verify the APK
+        id: apk
+        run: |
+          out="sg-study-${{ steps.version.outputs.name }}.apk"
+          cp android/app/build/outputs/apk/release/app-release.apk "$out"
+          apksigner="$(ls "$ANDROID_HOME"/build-tools/*/apksigner | sort -V | tail -1)"
+          "$apksigner" verify --print-certs "$out"
+          echo "file=$out" >> "$GITHUB_OUTPUT"
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="${{ steps.version.outputs.tag }}"
+          file="${{ steps.apk.outputs.file }}"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release upload "$tag" "$file" --clobber
+          else
+            gh release create "$tag" "$file" \
+              --target "${{ github.sha }}" \
+              --title "SG 学習 ${{ steps.version.outputs.name }}" \
+              --notes "Commit ${{ github.sha }}"$'\n\n'"Install the APK, or add this repo to Obtainium."
+          fi
