@@ -17,7 +17,9 @@
     "db:migrate": "tsx scripts/migrate.ts",
     "db:seed": "tsx scripts/seed.ts",
     "coverage:report": "tsx scripts/coverage-report.ts",
-    "db:import-profile": "tsx scripts/import-profile.ts"
+    "db:import-profile": "tsx scripts/import-profile.ts",
+    "export:diagrams": "tsx scripts/export-diagrams.ts",
+    "export:android": "tsx scripts/export-android-content.ts && tsx scripts/export-diagrams.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

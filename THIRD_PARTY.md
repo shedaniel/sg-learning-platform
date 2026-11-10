@@ -14,4 +14,4 @@
 - **Paper Mono** — © Paper; SIL Open Font License 1.1. Source: https://github.com/paper-design/paper-mono
 - Font files live in `src/coss/ui/fonts/` and are loaded with `next/font/local`.
 
-The application source itself is private/unlicensed unless a separate license is added.
+The application source itself is not licensed for reuse (all rights reserved) unless a separate license is added.
