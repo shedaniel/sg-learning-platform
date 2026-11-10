@@ -26,7 +26,7 @@ Historical archive: 8 paper exams (2016 spring/autumn, 2017 spring/autumn, 2018 
 エリア: 8
 レッスン: 27
 用語: 363
-問題: 331 (科目A 247 / 科目B 84)
+問題: 566 (科目A 400 / 科目B 166)
 公式問題: 60 / 4 年分
 シラバス: 51/51 complete, 0 partial, 0 missing
 ✓ コンテンツ検証に合格しました

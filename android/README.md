@@ -1,7 +1,7 @@
 # SG 学習 — Android app
 
 Native, fully offline Android version of the study platform (Kotlin, Jetpack Compose, Material 3).
-All content (27 lessons, 363 terms, 331 questions, 22 diagrams, past-paper metadata) is bundled in the APK;
+All content (27 lessons, 363 terms, 566 questions, 22 diagrams, past-paper metadata) is bundled in the APK;
 progress is stored on the device in SQLite. No account, no network.
 
 ## Build and install

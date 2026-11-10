@@ -8,7 +8,7 @@ import {
   OFFICIAL_QUESTIONS,
   coverageStats,
 } from "@/content";
-import { SYLLABUS_VERSION } from "@/content/syllabus";
+import { SYLLABUS_TOPICS, SYLLABUS_VERSION } from "@/content/syllabus";
 
 describe("content bank", () => {
   it("contains all areas with lessons", () => {
@@ -20,6 +20,14 @@ describe("content bank", () => {
   it("has enough questions for a 60-question mock", () => {
     expect(ALL_QUESTIONS.filter((q) => q.part === "A").length).toBeGreaterThanOrEqual(48);
     expect(ALL_QUESTIONS.filter((q) => q.part === "B").length).toBeGreaterThanOrEqual(12);
+  });
+
+  it("gives every syllabus topic at least 10 original questions", () => {
+    const originals = ALL_QUESTIONS.filter((q) => q.source.kind === "original");
+    for (const topic of SYLLABUS_TOPICS) {
+      const count = originals.filter((q) => q.topicIds.includes(topic.id)).length;
+      expect(count, topic.id).toBeGreaterThanOrEqual(10);
+    }
   });
 
   it("has complete syllabus coverage", () => {

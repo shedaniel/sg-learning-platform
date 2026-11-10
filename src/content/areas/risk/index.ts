@@ -5,6 +5,7 @@ import { assessmentLesson } from "./lessons/assessment";
 import { responseContinuityLesson } from "./lessons/response-continuity";
 import { terms } from "./terms";
 import { questions } from "./questions";
+import { questionsExtra } from "./questions-extra";
 
 const meta = AREA_META.find((m) => m.id === "risk")!;
 
@@ -18,5 +19,5 @@ export const area: Area = {
   color: meta.color,
   lessons: [fundamentalsLesson, assessmentLesson, responseContinuityLesson],
   terms,
-  questions,
+  questions: [...questions, ...questionsExtra],
 };

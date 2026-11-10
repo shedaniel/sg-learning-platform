@@ -7,6 +7,7 @@ import { orgTerms } from "./terms";
 import { humanQuestions } from "./questions/human";
 import { vendorQuestions } from "./questions/vendor";
 import { auditPhysicalQuestions } from "./questions/audit-physical";
+import { questionsExtra } from "./questions-extra";
 
 const meta = AREA_META.find((m) => m.id === "org")!;
 
@@ -24,5 +25,6 @@ export const area: Area = {
     ...humanQuestions,
     ...vendorQuestions,
     ...auditPhysicalQuestions,
+    ...questionsExtra,
   ],
 };

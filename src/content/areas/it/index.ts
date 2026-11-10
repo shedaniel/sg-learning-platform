@@ -3,6 +3,7 @@ import { AREA_META } from "@/content/syllabus";
 import { IT_LESSONS } from "@/content/areas/it/lessons";
 import { IT_TERMS } from "@/content/areas/it/terms";
 import { IT_QUESTIONS } from "@/content/areas/it/questions";
+import { questionsExtra } from "@/content/areas/it/questions-extra";
 
 const meta = AREA_META.find((m) => m.id === "it")!;
 
@@ -16,5 +17,5 @@ export const area: Area = {
   color: meta.color,
   lessons: IT_LESSONS,
   terms: IT_TERMS,
-  questions: IT_QUESTIONS,
+  questions: [...IT_QUESTIONS, ...questionsExtra],
 };

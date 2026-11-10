@@ -2,7 +2,8 @@ import type { Area } from "@/lib/content/types";
 import { AREA_META } from "@/content/syllabus";
 import { lessons } from "./lessons";
 import { terms } from "./terms";
-import { questions } from "./questions";
+import { questions as baseQuestions } from "./questions";
+import { questionsExtra } from "./questions-extra";
 
 const meta = AREA_META.find((m) => m.id === "ops")!;
 
@@ -16,5 +17,5 @@ export const area: Area = {
   color: meta.color,
   lessons,
   terms,
-  questions,
+  questions: [...baseQuestions, ...questionsExtra],
 };

@@ -7,6 +7,7 @@ import { terms } from "./terms";
 import { policyIsmsQuestions } from "./questions-policy-isms";
 import { governanceOrgQuestions } from "./questions-governance-org";
 import { incidentQuestions } from "./questions-incident";
+import { questionsExtra } from "./questions-extra";
 
 const meta = AREA_META.find((m) => m.id === "management")!;
 
@@ -24,5 +25,6 @@ export const area: Area = {
     ...policyIsmsQuestions,
     ...governanceOrgQuestions,
     ...incidentQuestions,
+    ...questionsExtra,
   ],
 };
